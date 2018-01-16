@@ -1,6 +1,6 @@
 {
   "name": "baset-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -16,6 +16,6 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "baset-core": "^0.0.0"
+    "baset-core": "^0.0.1"
   }
 }
