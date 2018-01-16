@@ -1,9 +1,17 @@
 {
+	"name": "baset",
+	"version": "0.0.0",
+	"bin": {
+		"baset": "./bin/index.js"
+	},
 	"scripts": {
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
 		"test": "lerna run test",
 		"commit": "git-cz"
+	},
+	"dependencies": {
+		"baset-cli": "^0.0.0"
 	},
 	"devDependencies": {
 		"commitizen": "^2.9.6",
@@ -16,6 +24,5 @@
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"
 		}
-	},
-	"dependencies": {}
+	}
 }
