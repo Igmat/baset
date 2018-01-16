@@ -1,4 +1,7 @@
 {
+	"scripts": {
+		"commit": "git-cz"
+	},
 	"devDependencies": {
 		"commitizen": "^2.9.6",
 		"cz-conventional-changelog": "^2.1.0",
