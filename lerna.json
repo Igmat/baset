@@ -8,7 +8,7 @@
   "commands": {
     "publish": {
       "allowBranch": "master",
-      "conventional-commits": true
+      "conventionalCommits": true
     }
   }
 }
