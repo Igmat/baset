@@ -1,0 +1,303 @@
+{
+    "defaultSeverity": "warning",
+    "rules": {
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "indent": [
+            true,
+            "spaces",
+            4
+        ],
+        "one-line": [
+            true,
+            "check-catch",
+            "check-finally",
+            "check-else",
+            "check-open-brace",
+            "check-whitespace"
+        ],
+        "no-var-keyword": true,
+        "quotemark": [
+            true,
+            "single",
+            "jsx-double",
+            "avoid-template",
+            "avoid-escape"
+        ],
+        "semicolon": [
+            true,
+            "always",
+            "ignore-bound-class-methods"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-module",
+            "check-separator",
+            "check-rest-spread",
+            "check-type",
+            "check-typecast",
+            "check-type-operator",
+            "check-preblock"
+        ],
+        "typedef-whitespace": [
+            true,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            },
+            {
+                "call-signature": "onespace",
+                "index-signature": "onespace",
+                "parameter": "onespace",
+                "property-declaration": "onespace",
+                "variable-declaration": "onespace"
+            }
+        ],
+        "no-internal-module": true,
+        "no-trailing-whitespace": true,
+        "no-null-keyword": true,
+        "prefer-const": true,
+        "jsdoc-format": true,
+        "adjacent-overload-signatures": true,
+        "align": [
+            true,
+            "parameters",
+            "arguments",
+            "statements",
+            "members",
+            "elements"
+        ],
+        "array-type": [
+            true,
+            "array"
+        ],
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
+        "arrow-return-shorthand": [
+            true,
+            "multiline"
+        ],
+        "await-promise": true,
+        "ban": false,
+        "ban-types": false,
+        "binary-expression-operand-order": true,
+        "callable-types": true,
+        "completed-docs": false, // TODO: to be changed later
+        "curly": [
+            true,
+            "ignore-same-line"
+        ],
+        "cyclomatic-complexity": [
+            true
+        ],
+        "deprecation": true,
+        "encoding": true,
+        "eofline": true,
+        "file-header": [
+            false
+        ],
+        "forin": true,
+        "import-blacklist": false, // TODO: discuss
+        "import-spacing": true,
+        "interface-name": [
+            true,
+            "always-prefix"
+        ],
+        "interface-over-type-literal": true,
+        "label-position": true,
+        "linebreak-style": [
+            true,
+            "CRLF"
+        ],
+        "match-default-export-name": true,
+        "max-classes-per-file": [
+            true,
+            2
+        ],
+        "max-file-line-count": [
+            true,
+            400
+        ],
+        "max-line-length": [
+            true,
+            140
+        ],
+        "member-access": [
+            true,
+            "no-public"
+        ],
+        "member-ordering": [
+            true,
+            {
+                "order": "instance-sandwich"
+            }
+        ],
+        "new-parens": true,
+        "newline-before-return": true,
+        "no-angle-bracket-type-assertion": true,
+        "no-any": true,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-boolean-literal-compare": true,
+        "no-conditional-assignment": true,
+        "no-consecutive-blank-lines": true,
+        "no-console": true,
+        "no-construct": true,
+        "no-debugger": true,
+        "no-default-export": true,
+        "no-duplicate-imports": true,
+        "no-duplicate-super": true,
+        "no-duplicate-variable": [
+            true,
+            "check-parameters"
+        ],
+        "no-empty": true,
+        "no-empty-interface": true,
+        "no-eval": true,
+        "no-floating-promises": true,
+        "no-for-in-array": true,
+        "no-import-side-effect": false, // TODO: probably we have to restrict it with exceptions for assets and/or shims
+        "no-inferrable-types": true,
+        "no-inferred-empty-object-type": true,
+        "no-invalid-template-strings": true,
+        "no-invalid-this": [
+            true
+        ],
+        "no-irregular-whitespace": true,
+        "no-magic-numbers": [
+            false // TODO: to be changed later
+        ],
+        "no-mergeable-namespace": true,
+        "no-misused-new": true,
+        "no-namespace": [
+            true,
+            "allow-declarations"
+        ],
+        "no-non-null-assertion": true,
+        "no-object-literal-type-assertion": true,
+        "no-parameter-properties": false,
+        "no-parameter-reassignment": true,
+        "no-reference": true,
+        "no-reference-import": true,
+        "no-require-imports": true,
+        "no-shadowed-variable": true,
+        "no-sparse-arrays": true,
+        "no-string-literal": true,
+        "no-string-throw": true,
+        "no-submodule-imports": false, // TODO: probably we have just to whitelist something instead of turning off
+        "no-switch-case-fall-through": true,
+        "no-this-assignment": true,
+        "no-unbound-method": true,
+        "no-unnecessary-callback-wrapper": true,
+        "no-unnecessary-initializer": true,
+        "no-unnecessary-qualifier": true,
+        "no-unnecessary-type-assertion": true,
+        "no-unsafe-any": true,
+        "no-unsafe-finally": true,
+        "no-unused-expression": [
+            true,
+            "allow-fast-null-checks"
+        ],
+        "no-unused-variable": true,
+        "no-use-before-declare": true,
+        "no-var-requires": true,
+        "no-void-expression": [
+            true,
+            "ignore-arrow-function-shorthand"
+        ],
+        "number-literal-format": true,
+        "object-literal-key-quotes": [
+            true,
+            "consistent-as-needed"
+        ],
+        "object-literal-shorthand": true,
+        "object-literal-sort-keys": [
+            true,
+            "ignore-case",
+            "match-declaration-order"
+        ],
+        "one-variable-per-declaration": [
+            true,
+            "ignore-for-loop"
+        ],
+        "only-arrow-functions": [
+            true,
+            "allow-declarations",
+            "allow-named-functions"
+        ],
+        "ordered-imports": true,
+        "prefer-conditional-expression": [
+            true,
+            "check-else-if"
+        ],
+        "prefer-for-of": true,
+        "prefer-function-over-method": true,
+        "prefer-method-signature": true, // TODO: check
+        "prefer-object-spread": true,
+        "prefer-switch": true,
+        "prefer-template": [
+            true,
+            "allow-single-concat"
+        ],
+        "promise-function-async": true,
+        "radix": false, // don't need this rule, since modern platforms use 10 by default
+        "restrict-plus-operands": true,
+        "return-undefined": true,
+        "space-before-function-paren": [
+            true,
+            {
+                "named": "never",
+                "method": "never",
+                "constructor": "never",
+                "anonymous": "always",
+                "asyncArrow": "always"
+            }
+        ],
+        "space-within-parens": [
+            true,
+            0
+        ],
+        "strict-boolean-expressions": [
+            true,
+            "allow-null-union",
+            "allow-undefined-union",
+            "allow-string",
+            "allow-number"
+        ],
+        "strict-type-predicates": true,
+        "switch-default": true,
+        "switch-final-break": [
+            true,
+            "always"
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "always",
+                "singleline": "never"
+            }
+        ],
+        "triple-equals": true,
+        "type-literal-delimiter": true,
+        "typedef": false,
+        "unified-signatures": true,
+        "use-default-type-parameter": true,
+        "use-isnan": true,
+        "variable-name": [
+            true,
+            "check-format",
+            "ban-keywords"
+        ]
+    }
+}
