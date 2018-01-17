@@ -1,6 +1,6 @@
 {
 	"name": "baset",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"bin": {
 		"baset": "./bin/index.js"
 	},
@@ -19,7 +19,7 @@
 		"commit": "git-cz"
 	},
 	"dependencies": {
-		"baset-cli": "^0.1.0"
+		"baset-cli": "^0.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "^9.3.0",
