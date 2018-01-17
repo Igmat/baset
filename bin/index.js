@@ -1,2 +1,3 @@
 #!/usr/bin/env node
-console.log('Hello, world!');
+const { init } = require('baset-cli');
+init();

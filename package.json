@@ -4,6 +4,12 @@
 	"bin": {
 		"baset": "./bin/index.js"
 	},
+	"author": "Ihor Chulinda <ichulinda@gmail.com>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:Igmat/baset.git"
+	},
 	"scripts": {
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
