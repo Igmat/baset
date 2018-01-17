@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-const { init } = require('baset-cli');
-init();
+const { cli } = require('baset-cli');
+cli.argv;

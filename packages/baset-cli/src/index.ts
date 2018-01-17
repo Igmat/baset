@@ -1,10 +1,8 @@
-import { test } from 'baset-core';
-import * as glob from 'glob-promise';
-import * as path from 'path';
+import * as yargs from 'yargs';
 
-export async function init() {
-    const [specs, baselines] = await Promise.all([glob('**/*.spec.js'), glob('**/*.base')]);
-    test(
-        specs.map(spec => path.resolve(spec)),
-        baselines.map(base => path.resolve(base)));
-}
+export const cli = yargs
+    .usage('$0 <command>')
+    .commandDir('./commands')
+    .help('h')
+    .alias('help', 'h')
+    .epilog('Made by Igmat.');

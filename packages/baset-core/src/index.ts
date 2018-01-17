@@ -23,3 +23,14 @@ export function test(specs: string[], baselines: string[]) {
             });
     });
 }
+
+export function accept(files: string[]) {
+    files.forEach(file => {
+        const baseline = fs.readFileSync(file, { encoding: 'utf-8' });
+        const filePath = file.replace(/.tmp$/, '');
+        fs.writeFile(
+            filePath,
+            baseline,
+            err => console.log(err || `Baseline ${filePath} is written.`));
+    });
+}

@@ -13,6 +13,7 @@
 	"scripts": {
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
+		"pretest": "lerna bootstrap",
 		"test": "lerna run test",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz"
@@ -21,6 +22,7 @@
 		"baset-cli": "^0.1.0"
 	},
 	"devDependencies": {
+		"@types/node": "^9.3.0",
 		"commitizen": "^2.9.6",
 		"cz-conventional-changelog": "^2.1.0",
 		"doctoc": "^1.3.0",
