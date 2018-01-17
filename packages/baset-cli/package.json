@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "baset-core": "^0.0.1",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "glob-promise": "^3.3.0"
   }
 }
