@@ -1,6 +1,6 @@
 {
   "name": "baset-cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "baset-core": "^0.0.1",
+    "baset-core": "^0.1.0",
     "glob": "^7.1.2",
     "glob-promise": "^3.3.0"
   }
