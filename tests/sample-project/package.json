@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "baset"
+    "test": "baset",
+    "accept": "baset accept"
   },
   "author": "",
   "license": "MIT",

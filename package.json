@@ -14,7 +14,8 @@
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
 		"pretest": "lerna bootstrap",
-		"test": "lerna run test",
+        "test": "baset -s tests/*.spec.js",
+        "accept": "baset a -b tests/*.base",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz"
 	},

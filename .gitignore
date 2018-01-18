@@ -61,3 +61,4 @@ testem.log
 .DS_Store
 Thumbs.db
 lerna-debug.log
+**/*.base.tmp

@@ -16,7 +16,6 @@ const acceptCommand: CommandModule = {
         },
     },
     handler: async argv => {
-        console.log(1);
         const baselines = await glob(argv.bases + '.tmp');
         accept(baselines.map(base => path.resolve(base)));
     },
