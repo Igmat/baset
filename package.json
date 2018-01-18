@@ -1,6 +1,6 @@
 {
 	"name": "baset",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"bin": {
 		"baset": "./bin/index.js"
 	},
@@ -14,13 +14,13 @@
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
 		"pretest": "lerna bootstrap",
-        "test": "baset -s tests/*.spec.js",
-        "accept": "baset a -b tests/*.base",
+		"test": "baset -s tests/*.spec.js",
+		"accept": "baset a -b tests/*.base",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz"
 	},
 	"dependencies": {
-		"baset-cli": "^0.2.0"
+		"baset-cli": "^0.2.1"
 	},
 	"devDependencies": {
 		"@types/node": "^9.3.0",

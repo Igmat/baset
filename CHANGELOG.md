@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/Igmat/baset/compare/v0.2.0...v0.2.1) (2018-01-18)
+
+
+### Bug Fixes
+
+* **Core:** Removing temp files after accepting new baseline ([cb13be3](https://github.com/Igmat/baset/commit/cb13be3))
+
+
+
+
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/Igmat/baset/compare/v0.2.0...v0.2.1) (2018-01-18)
+
+
+### Bug Fixes
+
+* **Core:** Removing temp files after accepting new baseline ([cb13be3](https://github.com/Igmat/baset/commit/cb13be3))
+
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/Igmat/baset/compare/v0.1.0...v0.2.0) (2018-01-17)
 
