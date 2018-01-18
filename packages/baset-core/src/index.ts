@@ -31,6 +31,9 @@ export function accept(files: string[]) {
         fs.writeFile(
             filePath,
             baseline,
-            err => console.log(err || `Baseline ${filePath} is written.`));
+            err => {
+                console.log(err || `Baseline ${filePath} is written.`);
+                fs.unlinkSync(file);
+            });
     });
 }
