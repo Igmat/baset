@@ -11,9 +11,9 @@
 		"url": "git@github.com:Igmat/baset.git"
 	},
 	"scripts": {
+		"postinstall": "lerna bootstrap --ignore baset && lerna link",
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
-		"pretest": "lerna bootstrap",
 		"test": "baset -s tests/*.spec.js",
 		"accept": "baset a -b tests/*.base",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^9.3.0",
+		"baset": "^0.2.1",
 		"commitizen": "^2.9.6",
 		"cz-conventional-changelog": "^2.1.0",
 		"doctoc": "^1.3.0",

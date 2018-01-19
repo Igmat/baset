@@ -1,21 +1,24 @@
 {
-  "lerna": "2.7.1",
-  "packages": [
-    "./",
-    "./packages/*",
-    "./tests/*"
-  ],
-  "version": "0.2.1",
-  "commands": {
-    "publish": {
-      "allowBranch": "master",
-      "conventionalCommits": true,
-      "ignore": [
-        "*.md"
-      ]
-    },
-    "run": {
-      "ignore": "baset"
+    "lerna": "2.7.1",
+    "packages": [
+        "./",
+        "./packages/*",
+        "./tests/*"
+    ],
+    "version": "0.2.1",
+    "commands": {
+        "publish": {
+            "allowBranch": "master",
+            "conventionalCommits": true,
+            "ignore": [
+                "*.md"
+            ]
+        },
+        "run": {
+            "ignore": "baset"
+        },
+        "bootstrap": {
+            "hoist": true
+        }
     }
-  }
 }
