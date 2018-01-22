@@ -11,8 +11,8 @@
 		"postinstall": "lerna bootstrap",
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
-		"test": "lerna link && node ./packages/baset/bin/index.js -s tests/*.spec.js",
-		"accept": "node ./packages/baset/bin/index.js a -b tests/*.base",
+		"test": "lerna link && node ./packages/baset/bin/index.js",
+		"accept": "node ./packages/baset/bin/index.js a",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz"
 	},
@@ -28,5 +28,9 @@
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"
 		}
+	},
+	"baset": {
+		"specs": "tests/*.spec.js",
+		"bases": "tests/*.base"
 	}
 }
