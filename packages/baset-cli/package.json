@@ -17,7 +17,8 @@
     "@types/node": "^9.3.0",
     "@types/yargs": "^10.0.1",
     "tslint": "^5.9.1",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "baset": "^0.2.1"
   },
   "dependencies": {
     "baset-core": "^0.2.1",

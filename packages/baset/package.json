@@ -1,0 +1,19 @@
+{
+	"name": "baset",
+	"version": "0.2.1",
+	"bin": {
+		"baset": "./bin/index.js"
+	},
+	"author": "Ihor Chulinda <ichulinda@gmail.com>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:Igmat/baset.git"
+	},
+	"dependencies": {
+		"baset-cli": "^0.2.1"
+	},
+	"devDependencies": {
+		"@types/node": "^9.3.0"
+	}
+}

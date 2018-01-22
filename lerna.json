@@ -1,7 +1,6 @@
 {
-    "lerna": "2.7.1",
+    "lerna": "2.8.0",
     "packages": [
-        "./",
         "./packages/*",
         "./tests/*"
     ],
@@ -13,9 +12,6 @@
             "ignore": [
                 "*.md"
             ]
-        },
-        "run": {
-            "ignore": "baset"
         },
         "bootstrap": {
             "hoist": true

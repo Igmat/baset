@@ -1,9 +1,6 @@
 {
-	"name": "baset",
+	"name": "root",
 	"version": "0.2.1",
-	"bin": {
-		"baset": "./bin/index.js"
-	},
 	"author": "Ihor Chulinda <ichulinda@gmail.com>",
 	"license": "MIT",
 	"repository": {
@@ -11,24 +8,19 @@
 		"url": "git@github.com:Igmat/baset.git"
 	},
 	"scripts": {
-		"postinstall": "lerna bootstrap --ignore baset && lerna link",
+		"postinstall": "lerna bootstrap",
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
-		"test": "baset -s tests/*.spec.js",
-		"accept": "baset a -b tests/*.base",
+		"test": "node ./packages/baset/bin/index.js -s tests/*.spec.js",
+		"accept": "node ./packages/baset/bin/index.js a -b tests/*.base",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz"
 	},
-	"dependencies": {
-		"baset-cli": "^0.2.1"
-	},
 	"devDependencies": {
-		"@types/node": "^9.3.0",
-		"baset": "^0.2.1",
 		"commitizen": "^2.9.6",
 		"cz-conventional-changelog": "^2.1.0",
 		"doctoc": "^1.3.0",
-		"lerna": "^2.7.1",
+		"lerna": "^2.8.0",
 		"tslint": "^5.9.1",
 		"typescript": "^2.6.2"
 	},
