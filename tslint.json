@@ -118,7 +118,7 @@
         "label-position": true,
         "linebreak-style": [
             true,
-            "CRLF"
+            "LF"
         ],
         "match-default-export-name": true,
         "max-classes-per-file": [
