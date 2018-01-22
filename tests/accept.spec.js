@@ -6,11 +6,15 @@ const acceptProccess = spawnSync('npm', ['run', 'accept'], { cwd: path.resolve(_
 
 module.exports = {
     test: {
-        stdout: testProccess.stdout,
-        stderr: testProccess.stderr,
+        stdout: testProccess.stdout.split('\n')
+            .filter((line) => !line.startsWith('>')), // we don't need to check npm tasks output (like `> baset` or `> path/to/node.exe index.js`)
+        stderr: testProccess.stderr.split('\n')
+            .filter((line) => !line.search('`--scripts-prepend-node-path`')), // we don't need to check npm warn about node version used in script
     },
     accept: {
-        stdout: acceptProccess.stdout,
-        stderr: acceptProccess.stderr,
+        stdout: acceptProccess.stdout.split('\n')
+            .filter((line) => !line.startsWith('>')), // we don't need to check npm tasks output (like `> baset` or `> path/to/node.exe index.js`)
+        stderr: acceptProccess.stderr.split('\n')
+            .filter((line) => !line.search('`--scripts-prepend-node-path`')), // we don't need to check npm warn about node version used in script
     }
 }

@@ -1,1 +1,21 @@
-{"test":{"stdout":"\n> sample-project@0.2.0 test C:\\Users\\ichulinda\\Documents\\Projects\\igmat\\baset\\tests\\sample-project\n> baset\n\nTemp baseline for C:\\Users\\ichulinda\\Documents\\Projects\\igmat\\baset\\tests\\sample-project\\index.spec.js is written.\nTest passed\n","stderr":"npm WARN lifecycle The node binary used for scripts is C:\\Program Files (x86)\\Nodist\\bin\\node.exe but npm is using C:\\Program Files (x86)\\Nodist\\v-x64\\8.4.0\\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.\n"},"accept":{"stdout":"\n> sample-project@0.2.0 accept C:\\Users\\ichulinda\\Documents\\Projects\\igmat\\baset\\tests\\sample-project\n> baset accept\n\nBaseline C:\\Users\\ichulinda\\Documents\\Projects\\igmat\\baset\\tests\\sample-project\\index.base is written.\n","stderr":"npm WARN lifecycle The node binary used for scripts is C:\\Program Files (x86)\\Nodist\\bin\\node.exe but npm is using C:\\Program Files (x86)\\Nodist\\v-x64\\8.4.0\\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.\n"}}
+{
+    "test": {
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.js is written.",
+            "Test passed",
+            ""
+        ],
+        "stderr": []
+    },
+    "accept": {
+        "stdout": [
+            "",
+            "",
+            "Baseline index.base is written.",
+            ""
+        ],
+        "stderr": []
+    }
+}
