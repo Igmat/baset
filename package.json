@@ -32,5 +32,8 @@
 	"baset": {
 		"specs": "tests/*.spec.js",
 		"bases": "tests/*.base"
+	},
+	"dependencies": {
+		"cross-spawn": "^5.1.0"
 	}
 }
