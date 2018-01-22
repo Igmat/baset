@@ -1,0 +1,35 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+
+# fix lineendings in Windows
+init:
+  - git config --global core.autocrlf input
+  - git config --system core.longpaths true
+
+# what combinations to test
+environment:
+  matrix:
+    - nodejs_version: 6
+    - nodejs_version: 8
+    - nodejs_version: 9
+
+# get the latest stable version of Node 0.STABLE.latest
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - ps: npm install
+  - set CI=true
+  - set AppVeyor=true
+
+build:
+  verbosity: minimal
+
+build_script:
+  - node --version
+  - npm --version
+  - ps: npm run build
+
+test_script:
+  - node --version
+  - npm --version
+  - ps: npm test
