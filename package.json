@@ -11,7 +11,7 @@
 		"postinstall": "lerna bootstrap",
 		"build": "lerna run build",
 		"watch": "lerna run watch --parallel",
-		"test": "node ./packages/baset/bin/index.js -s tests/*.spec.js",
+		"test": "lerna link && node ./packages/baset/bin/index.js -s tests/*.spec.js",
 		"accept": "node ./packages/baset/bin/index.js a -b tests/*.base",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz"

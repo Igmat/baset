@@ -1,6 +1,5 @@
 import { accept } from 'baset-core';
 import * as glob from 'glob-promise';
-import * as path from 'path';
 import { CommandModule } from 'yargs';
 
 const acceptCommand: CommandModule = {
@@ -17,7 +16,7 @@ const acceptCommand: CommandModule = {
     },
     handler: async argv => {
         const baselines = await glob(argv.bases + '.tmp');
-        accept(baselines.map(base => path.resolve(base)));
+        accept(baselines);
     },
 };
 export = acceptCommand;

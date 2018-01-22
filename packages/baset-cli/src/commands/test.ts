@@ -1,6 +1,5 @@
 import { test } from 'baset-core';
 import * as glob from 'glob-promise';
-import * as path from 'path';
 import { CommandModule } from 'yargs';
 
 const testCommand: CommandModule = {
@@ -23,9 +22,7 @@ const testCommand: CommandModule = {
     },
     handler: async argv => {
         const [specs, baselines] = await Promise.all([glob(argv.specs), glob(argv.bases)]);
-        test(
-            specs.map(spec => path.resolve(spec)),
-            baselines.map(base => path.resolve(base)));
+        test(specs, baselines);
     },
 };
 export = testCommand;
