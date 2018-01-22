@@ -1,6 +1,6 @@
 {
   "name": "sample-project",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -11,6 +11,6 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "baset": "^0.2.1"
+    "baset": "^0.2.2"
   }
 }

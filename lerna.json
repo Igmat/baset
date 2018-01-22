@@ -1,20 +1,20 @@
 {
-    "lerna": "2.8.0",
-    "packages": [
-        "./packages/*",
-        "./tests/*"
-    ],
-    "version": "0.2.1",
-    "commands": {
-        "publish": {
-            "allowBranch": "master",
-            "conventionalCommits": true,
-            "ignore": [
-                "*.md"
-            ]
-        },
-        "bootstrap": {
-            "hoist": true
-        }
+  "lerna": "2.8.0",
+  "packages": [
+    "./packages/*",
+    "./tests/*"
+  ],
+  "version": "0.2.2",
+  "commands": {
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "ignore": [
+        "*.md"
+      ]
+    },
+    "bootstrap": {
+      "hoist": true
     }
+  }
 }
