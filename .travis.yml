@@ -4,7 +4,15 @@ node_js:
   - "9"
   - "8"
   - "6"
-before_script:
-  - npm run build
-script:
-  - npm test
+before_script: npm run build
+script: npm test
+
+jobs:
+  include:
+    - stage: release
+      if: branch = master
+      node_js: "8"
+      script: npm run build
+      deploy:
+        provider: script
+        script: npm run release
