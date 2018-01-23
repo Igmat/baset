@@ -15,4 +15,6 @@ jobs:
       script: npm run build
       deploy:
         provider: script
+        skip_cleanup: true
+        before_script: ./scripts/authenticate.sh
         script: npm run release
