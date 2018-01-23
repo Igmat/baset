@@ -4,6 +4,8 @@
         2000000,
         "abccba",
         "1abc",
-        "abc1"
+        "abc1",
+        "function call1",
+        "async value1"
     ]
 }
