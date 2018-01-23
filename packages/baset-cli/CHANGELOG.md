@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/Igmat/baset/compare/v0.2.2...v0.3.0) (2018-01-23)
+
+
+### Bug Fixes
+
+* **CLI:** Non-zero exit code for fail and more informative message ([1aaff03](https://github.com/Igmat/baset/commit/1aaff03)), closes [#2](https://github.com/Igmat/baset/issues/2)
+
+
+### Features
+
+* **CLI:** Supporting config files and package.json section ([3eb8017](https://github.com/Igmat/baset/commit/3eb8017)), closes [#4](https://github.com/Igmat/baset/issues/4)
+
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/Igmat/baset/compare/v0.2.1...v0.2.2) (2018-01-22)
 
