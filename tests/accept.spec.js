@@ -1,4 +1,4 @@
-const { spawnSync } = require('child_process');
+const { sync: spawnSync } = require('cross-spawn');
 const path = require('path');
 
 const testProccess = spawnSync('npm', ['test'], { cwd: path.resolve(__dirname, './sample-project'), encoding: 'ascii' });

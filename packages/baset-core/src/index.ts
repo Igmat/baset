@@ -2,28 +2,38 @@ import * as fs from 'fs';
 import * as beautify from 'json-beautify';
 import * as path from 'path';
 
-export function test(specs: string[], baselines: string[]) {
+export function test(specs: string[], baselines: string[]): Promise<string>[] {
     const files = specs.map(name => ({
         name,
         output: beautify(require(path.resolve(name)), undefined, 4, 20),
     }));
-    files.forEach(file => {
+
+    return files.map(file => new Promise((resolve, reject) => {
         const baselinePath = path.resolve(file.name.replace(/.spec.js$/, '.base'));
         const baseline = fs.existsSync(baselinePath)
-            ? fs.readFileSync(baselinePath, { encoding: 'utf-8'})
+            ? fs.readFileSync(baselinePath, { encoding: 'utf-8' })
             : false;
         fs.writeFile(
             path.resolve(file.name.replace(/.spec.js$/, '.base.tmp')),
             file.output,
             err => {
-                if (err) return console.log(err);
+                if (err) {
+                    console.log(err);
+
+                    return reject(err);
+                }
                 console.log(`Temp baseline for ${file.name} is written.`);
-                if (!baseline) return;
-                console.log((baseline === file.output)
-                    ? 'Test passed'
-                    : 'Test failed');
+                if (baseline === file.output) {
+                    resolve(`Test for ${file.name} is passed`);
+                } else {
+                    reject({
+                        name: file.name,
+                        expected: baseline || '',
+                        actual: file.output,
+                    });
+                }
             });
-    });
+    }));
 }
 
 export function accept(files: string[]) {
