@@ -13,8 +13,9 @@ jobs:
       if: branch = master
       node_js: "8"
       script: echo "Build is finished."
+      script: ./scripts/authenticate.sh
+      script: echo "Git and NPM are authenticated."
       deploy:
         provider: script
         skip_cleanup: true
-        before_script: ./scripts/authenticate.sh
         script: npm run release
