@@ -8,17 +8,14 @@ node_js:
 jobs:
   include:
     - stage: test
-      script:
-      - npm run build
-      - npm test
+      before_script: npm run build
+      script: npm test
     - stage: release
       if: branch = master
       node_js: "8"
-      script:
-      - npm run build
-      - echo "Build is finished."
-      - sh ./scripts/authenticate.sh
-      - echo "Git and NPM are authenticated."
+      before_script: npm run build
+      script: ./scripts/authenticate.sh
+      after_script: echo "Git and NPM are authenticated."
       deploy:
         provider: script
         skip_cleanup: true
