@@ -1,21 +1,23 @@
 dist: trusty
 language: node_js
-node_js:
-  - "9"
-  - "8"
-  - "6"
 
 jobs:
   include:
+    - stage: test
+      node_js:
+      - "9"
+      - "8"
+      - "6"
     - script: npm run build
-    - script: npm test
+      script: npm test
     - stage: release
       if: branch = master
       node_js: "8"
-    - script: echo "Build is finished."
-    - script: sh ./scripts/authenticate.sh
-    - script: echo "Git and NPM are authenticated."
-    - deploy:
+    - script: npm run build
+      script: echo "Build is finished."
+      script: sh ./scripts/authenticate.sh
+      script: echo "Git and NPM are authenticated."
+      deploy:
         provider: script
         skip_cleanup: true
         script: npm run release
