@@ -8,8 +8,8 @@ setup_git() {
 }
 
 setup_npm() {
-    touch ../.npmrc.ci
-    mv ../.npmrc.ci ../.npmrc
+    touch .npmrc.ci
+    mv .npmrc.ci .npmrc
 }
 
 setup_git
