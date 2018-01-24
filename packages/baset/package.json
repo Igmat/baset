@@ -1,6 +1,6 @@
 {
 	"name": "baset",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"bin": {
 		"baset": "./bin/index.js"
 	},
@@ -11,7 +11,7 @@
 		"url": "git@github.com:Igmat/baset.git"
 	},
 	"dependencies": {
-		"baset-cli": "^0.3.0"
+		"baset-cli": "^0.4.0"
 	},
 	"devDependencies": {
 		"@types/node": "^9.3.0"
