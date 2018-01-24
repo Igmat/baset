@@ -10,6 +10,7 @@
 - [Developing](#developing)
   - [Initializing](#initializing)
   - [Building](#building)
+  - [Testing](#testing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -63,3 +64,10 @@ or for watching:
 ```
 npm run watch
 ```
+
+### Testing
+To test project run:
+```
+npm test
+```
+watching tests will be added later.

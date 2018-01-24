@@ -15,6 +15,7 @@
 		"accept": "node ./packages/baset/bin/index.js a",
 		"doctoc": "doctoc README.md CONTRIBUTING.md",
 		"commit": "git-cz",
+		"prerelease": "npm run doctoc",
 		"release": "lerna publish --yes"
 	},
 	"devDependencies": {
