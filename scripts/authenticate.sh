@@ -8,8 +8,7 @@ setup_git() {
 }
 
 setup_npm() {
-    touch .npmrc.ci
-    mv .npmrc.ci .npmrc
+    echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
 }
 
 setup_git
