@@ -1,3 +1,13 @@
+![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
+
+
+[![npm badge][npm-badge-png]][package-url]
+
+[npm-badge-png]: https://nodei.co/npm/baset.png?mini=true
+[package-url]: https://npmjs.com/package/baset
+
 # BaseT
 > Tool for testing using baseline strategy.
 
