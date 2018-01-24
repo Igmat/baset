@@ -1,3 +1,6 @@
+const path = require('path');
 const fs = require('fs');
 
-fs.writeFileSync('./README.md', fs.readFileSync('./../../README.md'));
+const rootReadme = path.resolve(__dirname, './../../../README.md');
+const currentReadme = path.resolve(__dirname, './../README.md');
+fs.writeFileSync(currentReadme, fs.readFileSync(rootReadme));
