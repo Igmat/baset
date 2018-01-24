@@ -1,5 +1,6 @@
 !/bin/**/*
 !/dist/**/*
 /src/
+/scripts/
 tsconfig.json
 tslint.json

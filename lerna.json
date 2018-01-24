@@ -10,7 +10,8 @@
       "allowBranch": "master",
       "conventionalCommits": true,
       "ignore": [
-        "*.md"
+        "*.md",
+        "LICENSE"
       ]
     },
     "bootstrap": {
