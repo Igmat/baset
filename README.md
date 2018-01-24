@@ -90,19 +90,21 @@ From command line:
 ```
 baset <command> [options]
 ```
-Commands:  
+Commands:
+
 |  Name  |                             Description                              | Aliases |
 | ------ | -------------------------------------------------------------------- | ------- |
 | test   | **Default.** Creating temp baseline and comparing it to existing one | t       |
 | accept | Accepting new baseline                                               | a       |
 
-Options:  
- |   Option    |           Description           |  Type   |  Default value   |
- | ----------- | ------------------------------- | ------- | ---------------- |
- | --version   | Show version number             | boolean |                  |
- | --specs, -s | Glob pattern for spec files     | string  | `"**/*.spec.js"` |
- | --bases, -b | Glob pattern for baseline files | string  | `"**/*.base"`    |
- | --help, -h  | Show help                       | boolean |                  |
+Options:
+
+|   Option    |           Description           |  Type   |  Default value   |
+| ----------- | ------------------------------- | ------- | ---------------- |
+| --version   | Show version number             | boolean |                  |
+| --specs, -s | Glob pattern for spec files     | string  | `"**/*.spec.js"` |
+| --bases, -b | Glob pattern for baseline files | string  | `"**/*.base"`    |
+| --help, -h  | Show help                       | boolean |                  |
 
 In your `package.json`:
 ```JSON
