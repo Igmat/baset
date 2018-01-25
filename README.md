@@ -1,4 +1,6 @@
 # BaseT
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Igmat/baset.svg)](https://greenkeeper.io/)
 > Tool for testing using baseline strategy.
 
 > **WARNING:** it's early beta, so documentation may have mistakes, if you face any problems feel free to create [issues](https://github.com/Igmat/baset/issues).
