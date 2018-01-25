@@ -1,7 +1,7 @@
-![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Igmat/baset.svg)](https://greenkeeper.io/)
 [![Travis CI](https://travis-ci.org/Igmat/baset.svg?branch=master)](https://travis-ci.org/Igmat/baset)
 [![Build status](https://ci.appveyor.com/api/projects/status/xpalrob91ur08xtt?svg=true)](https://ci.appveyor.com/project/Igmat/baset)
 
