@@ -1,6 +1,16 @@
-# BaseT
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Igmat/baset.svg)](https://greenkeeper.io/)
+[![Travis CI](https://travis-ci.org/Igmat/baset.svg?branch=master)](https://travis-ci.org/Igmat/baset)
+[![Build status](https://ci.appveyor.com/api/projects/status/xpalrob91ur08xtt?svg=true)](https://ci.appveyor.com/project/Igmat/baset)
+
+[![npm badge][npm-badge-png]][package-url]
+
+[npm-badge-png]: https://nodei.co/npm/baset.png?mini=true
+[package-url]: https://npmjs.com/package/baset
+
+# BaseT
 > Tool for testing using baseline strategy.
 
 > **WARNING:** it's early beta, so documentation may have mistakes, if you face any problems feel free to create [issues](https://github.com/Igmat/baset/issues).
