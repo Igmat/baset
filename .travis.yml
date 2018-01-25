@@ -5,8 +5,10 @@ node_js:
   - "9"
   - "8"
   - "6"
-before_script: npm run build
+before_install: yarn global add greenkeeper-lockfile@1
+before_script: npm run build && greenkeeper-lockfile-update
 script: npm test
+after_script: greenkeeper-lockfile-upload
 
 jobs:
   include:
