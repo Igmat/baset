@@ -60,7 +60,7 @@ export class Tester {
     // tslint:disable-next-line:no-any
     private initPlugins = (plugins: IDictionary<string[]>, pluginsOptions: IDictionary<any>) =>
         Object.keys(plugins).map(key => {
-            const chain = plugins[key].map(plugin => new (require(path.resolve(plugin)))(pluginsOptions[plugin]));
+            const chain = plugins[key].map(plugin => new (require(path.resolve(plugin)).default)(pluginsOptions[plugin]));
 
             return {
                 pattern: new RegExp(key),
