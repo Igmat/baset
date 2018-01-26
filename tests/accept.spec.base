@@ -13,7 +13,7 @@
         "stdout": [
             "",
             "",
-            "Baseline index.base is written.",
+            "Baseline index.spec.base is written.",
             ""
         ],
         "stderr": []

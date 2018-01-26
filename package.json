@@ -38,7 +38,10 @@
     },
     "baset": {
         "specs": "tests/*.spec.js",
-        "bases": "tests/*.base"
+        "bases": "tests/*.base",
+        "plugins": {
+            ".spec.js$": "./packages/baset-plugin-export"
+        }
     },
     "dependencies": {}
 }
