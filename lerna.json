@@ -11,7 +11,8 @@
       "conventionalCommits": true,
       "ignore": [
         "*.md",
-        "LICENSE"
+        "LICENSE",
+        "*.spec.*"
       ]
     },
     "bootstrap": {
