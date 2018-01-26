@@ -20,7 +20,7 @@ export default class TypeScriptReader {
 
         const registerOptions: Options = (typeof config === 'string')
             ? { project: path.resolve(config) }
-            : { compilerOptions: config };
+            : { compilerOptions: config.compilerOptions };
 
         register(registerOptions);
         // TODO: investigate do we need https://www.npmjs.com/package/tsconfig-paths
