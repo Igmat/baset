@@ -1,6 +1,6 @@
 {
  "name": "baset",
- "version": "0.4.1",
+ "version": "0.5.0",
  "description": "Tool for testing using baseline strategy.",
  "keywords": [
   "baset",
@@ -24,13 +24,13 @@
   "prepublish": "node ./scripts/prepublish.js"
  },
  "dependencies": {
-  "baset-cli": "^0.4.1",
-  "baset-plugin-export": "^0.4.1"
+  "baset-cli": "^0.5.0",
+  "baset-plugin-export": "^0.5.0"
  },
  "devDependencies": {
   "@types/node": "^9.3.0"
  },
  "yargs": {
-     "dot-notation": false
+  "dot-notation": false
  }
 }

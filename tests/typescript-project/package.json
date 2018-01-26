@@ -1,6 +1,6 @@
 {
     "name": "typescript-project",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -11,9 +11,9 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "typescript": "^2.6.2",
-        "baset": "^0.4.1",
-        "baset-plugin-export": "^0.4.1",
-        "baset-plugin-ts": "^0.4.1"
+        "baset": "^0.5.0",
+        "baset-plugin-export": "^0.5.0",
+        "baset-plugin-ts": "^0.5.0",
+        "typescript": "^2.6.2"
     }
 }
