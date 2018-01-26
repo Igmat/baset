@@ -1,16 +1,13 @@
 import { sync } from 'find-up';
-import * as fs from 'fs';
 import * as path from 'path';
-import { CompilerOptions, transpileModule } from 'typescript';
-import { isPrimitive, promisify } from 'util';
-
-const readFile = promisify(fs.readFile);
+import { Options, register } from 'ts-node';
+import { CompilerOptions } from 'typescript';
+import { isPrimitive } from 'util';
 
 export interface ITypeScriptReaderOptions {
     config: string | { compilerOptions: CompilerOptions };
 }
 export default class TypeScriptReader {
-    private compilerOptions: CompilerOptions;
     constructor(private options?: ITypeScriptReaderOptions) {
         const config = (!options)
             ? (() => {
@@ -21,18 +18,17 @@ export default class TypeScriptReader {
             })()
             : options.config;
 
-        this.compilerOptions = (typeof config === 'string')
-            ? require(path.resolve(config))
-            : config;
+        const registerOptions: Options = (typeof config === 'string')
+            ? { project: path.resolve(config) }
+            : { compilerOptions: config };
+
+        register(registerOptions);
+        // TODO: investigate do we need https://www.npmjs.com/package/tsconfig-paths
     }
 
     read = async (filePath: string, spec: string | Promise<string>) => {
         if (typeof spec !== 'string' || spec.length) throw new Error('TypeScript plugin have to be first in plugins chain');
-        const src = await readFile(filePath, { encoding: 'utf8' });
 
-        return transpileModule(src, {
-            compilerOptions: this.compilerOptions,
-            fileName: filePath,
-        }).outputText;
+        return filePath;
     }
 }

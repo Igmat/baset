@@ -32,7 +32,8 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "typescript": "^2.6.2",
-    "find-up": "^2.1.0"
+    "find-up": "^2.1.0",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2"
   }
 }

@@ -15,9 +15,17 @@ export default class ExportReader {
         const specValue = (typeof spec === 'string')
             ? spec
             : await spec;
-        if (!specValue.length) {
+        if (!specValue.length || specValue === filePath) {
             result = require(path.resolve(filePath));
         } else {
+            // FIXME:
+            // this part of code never used for now, because doesn't handle
+            // working with transpiled spec that imports something that
+            // also has to be transpiled before execution
+            // usefull links for further research
+            // https://nodejs.org/api/modules.html#modules_require_extensions
+            // https://nodejs.org/api/vm.html
+            // https://github.com/patriksimek/vm2
             const tmpFilePath = path.resolve(`${filePath}.${Date.now()}.js`);
             await writeFile(tmpFilePath, specValue);
             result = require(path.resolve(tmpFilePath));
