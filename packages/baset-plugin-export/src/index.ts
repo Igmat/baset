@@ -1,8 +1,12 @@
+import * as fs from 'fs';
 import * as beautify from 'json-beautify';
 import * as path from 'path';
-import { isPrimitive } from 'util';
+import { isPrimitive, promisify } from 'util';
 
-export = class ExportReader {
+const writeFile = promisify(fs.writeFile);
+const unlink = promisify(fs.unlink);
+
+export default class ExportReader {
     constructor(private options: {}) {
     }
 
@@ -14,10 +18,10 @@ export = class ExportReader {
         if (!specValue.length) {
             result = require(path.resolve(filePath));
         } else {
-            // tslint:disable-next-line:no-eval
-            eval(specValue + ';global.basetExportReaderResult = module.exports;');
-            result = (global as any).basetExportReaderResult;
-            delete (global as any).basetExportReaderResult;
+            const tmpFilePath = path.resolve(`${filePath}.${Date.now()}.js`);
+            await writeFile(tmpFilePath, specValue);
+            result = require(path.resolve(tmpFilePath));
+            await unlink(tmpFilePath);
         }
 
         return beautify(await this.calculateValues(result), undefined, 4, 20);
@@ -34,4 +38,4 @@ export = class ExportReader {
             .map(async key => ({ [key]: await this.calculateValues(obj[key]) }))))
             .reduce((result, prop) => ({ ...result, ...prop }), {});
     }
-};
+}
