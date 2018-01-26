@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "baset": "^0.4.1"
+    "baset": "^0.4.1",
+    "baset-plugin-export": "^0.4.1"
   }
 }

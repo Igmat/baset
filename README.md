@@ -26,6 +26,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
+- [Plugins](#plugins)
 - [Roadmap](#roadmap)
 - [Changelog](#changelog)
 - [How to Contribute](#how-to-contribute)
@@ -60,9 +61,9 @@ module.exports = {
     // any number of additional values
 }
 ```
-Running `baset` for this test will produce file `yourModule.base.tmp`. It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.) - just take a look at them and if you think they are correct run `baset accept` and `yourModule.base` will be generated.  
+Running `baset` for this test will produce file `yourModule.spec.base.tmp`. It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.) - just take a look at them and if you think they are correct run `baset accept` and `yourModule.spec.base` will be generated.  
 From this point you have tests for `yourModule` that describe its behavior.  
-All further test runs will compare generated `yourModule.base.tmp` with `yourModule.base` and fail if they are different.
+All further test runs will compare generated `yourModule.spec.base.tmp` with `yourModule.spec.base` and fail if they are different.
 
 ## Why I have to use it?
 You haven't, but if you:
@@ -111,12 +112,14 @@ Commands:
 
 Options:
 
-|   Option    |           Description           |  Type   |  Default value   |
-| ----------- | ------------------------------- | ------- | ---------------- |
-| --version   | Show version number             | boolean |                  |
-| --specs, -s | Glob pattern for spec files     | string  | `"**/*.spec.js"` |
-| --bases, -b | Glob pattern for baseline files | string  | `"**/*.base"`    |
-| --help, -h  | Show help                       | boolean |                  |
+|    Option     |           Description           |  Type   |          Default value           |
+| ------------- | ------------------------------- | ------- | -------------------------------- |
+| --version     | Show version number             | boolean |                                  |
+| --specs, -s   | Glob pattern for spec files     | string  | `"**/*.spec.js"`                 |
+| --bases, -b   | Glob pattern for baseline files | string  | `"**/*.base"`                    |
+| --help, -h    | Show help                       | boolean |                                  |
+| --plugins, -p | Plugins used for your tests     | string  | `".spec.js$:baset-plugin-export` |
+| --options, -o | Options for plugins             | TBD     | `{}`                             |
 
 In your `package.json`:
 ```JSON
@@ -127,7 +130,17 @@ In your `package.json`:
     },
     "baset": {
         "specs": "**/*.spec.js",
-        "bases": "**/*.base"
+        "bases": "**/*.base",
+        "plugins": {
+            ".spec.js$": ["baset-plugin-module-name", "baset-plugin-export"]
+        },
+        "options": {
+            "baset-plugin-module-name": {
+                // List of options for baset plugin.
+                // All available should be listed at
+                // plugins README.md file.
+            }
+        }
     }
 }
 ```
@@ -135,12 +148,27 @@ In `.basetrc` or `.basetrc.json`:
 ```JSON
 {
     "specs": "**/*.spec.js",
-    "bases": "**/*.base"
+    "bases": "**/*.base",
+    "plugins": {
+        ".spec.js$": ["baset-plugin-module-name", "baset-plugin-export"]
+    },
+    "options": {
+        "baset-plugin-module-name": {
+            // List of options for baset plugin.
+            // All available should be listed at
+            // plugins README.md file.
+        }
+    }
 }
 ```
 
 ## Examples
 Our [tests folder](./tests) contains projects used for end-to-end tests of `baset` package (using `baset` itself, of course), so you can use them as references for integrating baset into your workflow.
+
+## Plugins
+There are only 2 plugins right now:  
+1. [`baset-plugin-export`](./packages/baset-plugin-export) - default plugin that used for creating baseline from exported values of spec
+2. [`baset-plugin-ts`](./packages/baset-plugin-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
 
 ## Roadmap
 Unfortunately, not yet ready, but you may find our nearest goals at [our board](https://github.com/Igmat/baset/projects/1)

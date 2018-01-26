@@ -1,5 +1,6 @@
-{
-    "test": {
+[
+    {
+        "project": "sample-project",
         "stdout": [
             "",
             "",
@@ -9,13 +10,15 @@
         ],
         "stderr": []
     },
-    "accept": {
+    {
+        "project": "typescript-project",
         "stdout": [
             "",
             "",
-            "Baseline index.base is written.",
+            "Temp baseline for index.spec.ts is written.",
+            "Test for index.spec.ts is passed",
             ""
         ],
         "stderr": []
     }
-}
+]

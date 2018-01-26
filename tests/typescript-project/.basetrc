@@ -1,0 +1,8 @@
+{
+    "specs": "**/*.spec.ts",
+    "bases": "**/*.base",
+    "plugins": {
+        ".spec.js$": "baset-plugin-export",
+        ".spec.ts$": ["baset-plugin-ts", "baset-plugin-export"]
+    }
+}

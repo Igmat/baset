@@ -13,6 +13,7 @@
         "watch": "lerna run watch --parallel",
         "test": "lerna link && node ./packages/baset/bin/index.js",
         "accept": "node ./packages/baset/bin/index.js a",
+        "help": "node ./packages/baset/bin/index.js --help",
         "doctoc": "doctoc README.md CONTRIBUTING.md",
         "commit": "git-cz",
         "prerelease": "npm run doctoc",
@@ -38,7 +39,10 @@
     },
     "baset": {
         "specs": "tests/*.spec.js",
-        "bases": "tests/*.base"
+        "bases": "tests/*.base",
+        "plugins": {
+            ".spec.js$": "./packages/baset-plugin-export"
+        }
     },
     "dependencies": {}
 }
