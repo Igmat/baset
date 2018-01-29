@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { isPrimitive, promisify } from 'util';
-import { NodeVM } from 'vm2';
+import { CompilerFunction, NodeVM } from 'vm2';
 
 const writeFile = promisify(fs.writeFile);
 const readFile = promisify(fs.readFile);
@@ -12,13 +12,17 @@ function defaultJsCompiler(code: string, filename: string) {
     return code;
 }
 
-export interface IPluginConstructor {
+export abstract class AbstractPlugin {
+    abstract read: (filePath: string, result: string | Promise<string>) => Promise<string> | string;
+    constructor(
+        public compilers: IDictionary<CompilerFunction>,
+        public context: NodeVM,
+        // tslint:disable-next-line:no-any
+        public pluginsOptions: any) { }
+}
+type IPluginConstructor =
     // tslint:disable-next-line:no-any
-    new(compilers: { [index: string]: (code: string, filename: string) => string }, context: NodeVM, pluginsOptions: any): IPlugin;
-}
-export interface IPlugin {
-    read(filePath: string, result: string | Promise<string>): Promise<string> | string;
-}
+    new (compilers: IDictionary<CompilerFunction>, context: NodeVM, pluginsOptions: any) => AbstractPlugin;
 
 export interface IDictionary<T> {
     [index: string]: T;

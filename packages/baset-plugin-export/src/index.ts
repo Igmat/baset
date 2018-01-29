@@ -1,15 +1,14 @@
+import { AbstractPlugin } from 'baset-core';
 import * as fs from 'fs';
 import * as beautify from 'json-beautify';
 import * as path from 'path';
 import { isPrimitive, promisify } from 'util';
+import { NodeVM } from 'vm2';
 
 const writeFile = promisify(fs.writeFile);
 const unlink = promisify(fs.unlink);
 
-export default class ExportReader {
-    constructor(private options: {}) {
-    }
-
+export default class ExportReader extends AbstractPlugin {
     read = async (filePath: string, spec: string | Promise<string>) => {
         let result;
         const specValue = (typeof spec === 'string')
