@@ -17,6 +17,8 @@
             "",
             "Temp baseline for index.spec.ts is written.",
             "Test for index.spec.ts is passed",
+            "Temp baseline for pathImport.spec.ts is written.",
+            "Test for pathImport.spec.ts is passed",
             ""
         ],
         "stderr": []

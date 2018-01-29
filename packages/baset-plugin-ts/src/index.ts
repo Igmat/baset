@@ -1,6 +1,7 @@
 import { sync } from 'find-up';
 import * as path from 'path';
 import { Options, register } from 'ts-node';
+import { register as registerPaths } from 'tsconfig-paths';
 import { CompilerOptions } from 'typescript';
 import { isPrimitive } from 'util';
 
@@ -23,6 +24,7 @@ export default class TypeScriptReader {
             : { compilerOptions: config.compilerOptions };
 
         register(registerOptions);
+        registerPaths(registerOptions.compilerOptions);
         // TODO: investigate do we need https://www.npmjs.com/package/tsconfig-paths
     }
 
