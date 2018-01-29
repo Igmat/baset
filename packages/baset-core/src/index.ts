@@ -65,11 +65,11 @@ export class Tester {
     private testSpec = async (name: string) => {
         const reader = this.readers.find(({ pattern }) => pattern.test(name));
         if (!reader) throw new Error(`No reader defined for ${name}!`);
-        const output = await reader.read(name);
+        const output = (await reader.read(name)).replace(/\r?\n|\r/g, '\n').trim();
         const ext = path.extname(name);
         const baselinePath = path.resolve(name.replace(new RegExp(`${ext}$`), '.base'));
         const baselineValue = await isExists(baselinePath)
-            ? await readFile(baselinePath, { encoding: 'utf-8' })
+            ? (await readFile(baselinePath, { encoding: 'utf-8' })).replace(/\r?\n|\r/g, '\n').trim()
             : false;
         await writeFile(path.resolve(`${baselinePath}.tmp`), output);
 

@@ -1,6 +1,6 @@
 {
   "name": "baset-plugin-ts",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "TypeScript plugin for BaseT project.",
   "keywords": [
     "baset-plugin-ts",
@@ -26,7 +26,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^9.3.0",
-    "baset": "^0.5.0",
+    "baset": "^0.5.1",
     "doctoc": "^1.3.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2"
@@ -35,6 +35,7 @@
     "find-up": "^2.1.0",
     "ts-node": "^4.1.0",
     "typescript": "^2.6.2",
-    "baset-core": "^0.5.0"
+    "baset-core": "^0.5.0",
+    "tsconfig-paths": "^3.1.1"
   }
 }
