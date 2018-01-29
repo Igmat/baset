@@ -31,6 +31,6 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "json-beautify": "^1.0.1"
+    "vm2": "^3.5.2"
   }
 }

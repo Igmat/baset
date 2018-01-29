@@ -1,11 +1,24 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { isPrimitive, promisify } from 'util';
+import { NodeVM } from 'vm2';
 
 const writeFile = promisify(fs.writeFile);
 const readFile = promisify(fs.readFile);
 const isExists = promisify(fs.exists);
 const unlink = promisify(fs.unlink);
+
+function defaultJsCompiler(code: string, filename: string) {
+    return code;
+}
+
+export interface IPluginConstructor {
+    // tslint:disable-next-line:no-any
+    new(compilers: { [index: string]: (code: string, filename: string) => string }, context: NodeVM, pluginsOptions: any): IPlugin;
+}
+export interface IPlugin {
+    read(filePath: string, result: string | Promise<string>): Promise<string> | string;
+}
 
 export interface IDictionary<T> {
     [index: string]: T;
@@ -14,12 +27,28 @@ export interface IDictionary<T> {
 export class Tester {
     private readers: {
         pattern: RegExp;
-        read(filePath: string): Promise<string>;
+        read(filePath: string): Promise<string> | string;
     }[];
+    private compilers: {
+        [index: string]: (code: string, filename: string) => string;
+    } = {
+            '.js': defaultJsCompiler,
+            '.json': defaultJsCompiler,
+            '.node': defaultJsCompiler,
+        };
+    private context: NodeVM;
 
     // tslint:disable-next-line:no-any
     constructor(readers: IDictionary<string[]>, pluginsOptions: IDictionary<any>) {
         this.readers = this.initPlugins(readers, pluginsOptions);
+        this.context = new NodeVM({
+            require: {
+                builtin: ['*'],
+                external: true,
+                context: 'sandbox',
+            },
+            compiler: this.compile,
+        });
     }
 
     test(specs: string[], baselines: string[]) {
@@ -60,11 +89,22 @@ export class Tester {
     // tslint:disable-next-line:no-any
     private initPlugins = (plugins: IDictionary<string[]>, pluginsOptions: IDictionary<any>) =>
         Object.keys(plugins).map(key => {
-            const chain = plugins[key].map(plugin => new (require(path.resolve(plugin)).default)(pluginsOptions[plugin]));
+            const chain = plugins[key].map(plugin => {
+                const Plugin: IPluginConstructor = require(path.resolve(plugin)).default;
+
+                return new Plugin(this.compilers, this.context, pluginsOptions[plugin]);
+            });
 
             return {
                 pattern: new RegExp(key),
-                read: (filePath: string) => chain.reduce((result, plugin) => plugin.read(filePath, result), ''),
+                read: (filePath: string) => chain.reduce<string | Promise<string>>((result, plugin) => plugin.read(filePath, result), ''),
             };
         })
+
+    private compile = (code: string, filePath: string) => {
+        const compiler = this.compilers[path.extname(filePath)];
+        if (!compiler) throw new Error(`There is no compiler for "${path.extname(filePath)}" filetype`);
+
+        return compiler(code, filePath);
+    }
 }
