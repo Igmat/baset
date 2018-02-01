@@ -458,7 +458,11 @@ const Contextify = {
 		return global[name] = Contextify.value(value);
 	},
 	readonly: function(value, mock) {
-		return Contextify.value(value, null, FROZEN_TRAPS, null, mock);
+        // return Contextify.value(value, null, FROZEN_TRAPS, null, mock);
+        // TODO: find a way to return this safe mechanism back
+        // or remove such stuff at all and use only mocking and controlling
+        // abilities of vm
+        return value;
 	},
 	protected: function(value, mock) {
 		return Contextify.value(value, null, null, {protected: true}, mock);
