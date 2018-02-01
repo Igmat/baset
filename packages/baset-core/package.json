@@ -31,6 +31,6 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "vm2": "^3.5.2"
+    "baset-vm": "^0.5.1"
   }
 }
