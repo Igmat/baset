@@ -1,4 +1,4 @@
-import { IDictionary, Tester } from 'baset-core';
+import { Tester } from 'baset-core';
 import * as glob from 'glob-promise';
 import { CommandModule } from 'yargs';
 import { IGlobalArgs } from '../options';

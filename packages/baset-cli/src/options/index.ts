@@ -1,10 +1,10 @@
-import { IDictionary } from 'baset-core';
+import { utils } from 'baset-core';
 import { Options } from 'yargs';
 
 export interface IGlobalArgs {
-    plugins: IDictionary<string[]>;
+    plugins: utils.IDictionary<string[]>;
     // tslint:disable-next-line:no-any
-    options: IDictionary<any>;
+    options: utils.IDictionary<any>;
 }
 
 function resolveBasetPlugins(name: string) {
@@ -13,7 +13,7 @@ function resolveBasetPlugins(name: string) {
         : name;
 }
 
-export const options: IDictionary<Options> = {
+export const options: utils.IDictionary<Options> = {
     plugins: {
         alias: 'p',
         describe: 'Plugins used for your tests',
