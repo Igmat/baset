@@ -1,0 +1,18 @@
+{
+    "name": "baset-vm",
+    "version": "0.5.1",
+    "description": "",
+    "keywords": [
+    ],
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+    },
+    "engines": {
+        "node": ">=6.0"
+    },
+    "scripts": {
+    },
+    "types": "index.d.ts"
+}
