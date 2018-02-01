@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "find-up": "^2.1.0",
-    "ts-node": "^4.1.0",
     "typescript": "^2.6.2",
     "baset-core": "^0.5.0",
     "tsconfig-paths": "^3.1.1"
