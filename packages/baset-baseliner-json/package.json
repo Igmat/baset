@@ -1,9 +1,10 @@
 {
-  "name": "baset-plugin-export",
+  "name": "baset-baseliner-json",
   "version": "0.5.1",
-  "description": "Export plugin for BaseT project.",
+  "description": "JSON baseliner plugin for BaseT project.",
   "keywords": [
-    "baset-plugin-export",
+    "baset-baseliner-json",
+    "baset-default-baseliner",
     "baseline",
     "unit-test",
     "test",

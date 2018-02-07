@@ -12,7 +12,6 @@ export default class TypeScriptReader extends AbstractReader {
     private exts = ['.ts'];
     private config: { compilerOptions: CompilerOptions };
     private absoluteBaseUrl: string;
-    // tslint:disable-next-line:no-any
     constructor(public pluginsOptions: ITypeScriptReaderOptions) {
         super(pluginsOptions);
         const config = (!pluginsOptions)
@@ -29,9 +28,10 @@ export default class TypeScriptReader extends AbstractReader {
             : config;
 
         this.absoluteBaseUrl = path.resolve(this.config.compilerOptions.baseUrl || '');
-        if (this.config.compilerOptions.jsx) this.exts.push('.tsx');
-        if (this.config.compilerOptions.allowJs) this.exts.push('.js');
-        if (this.config.compilerOptions.allowJs && this.config.compilerOptions.jsx) this.exts.push('.jsx');
+        const { jsx, allowJs } = this.config.compilerOptions;
+        if (jsx) this.exts.push('.tsx');
+        if (allowJs) this.exts.push('.js');
+        if (allowJs && jsx) this.exts.push('.jsx');
     }
 
     read = async (filePath: string, spec: Promise<string | string[]>) => {

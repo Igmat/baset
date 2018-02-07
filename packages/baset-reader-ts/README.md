@@ -16,7 +16,7 @@ npm install --save-dev baset-plugin-ts
 ```
 and adding next line to `baset.plugins` section in your `package.json` or `plugins` section in your `.basetrc`/`.basetrc.json`:
 ```JSON
-".spec.ts$": ["baset-plugin-ts", "baset-plugin-export"]
+".spec.ts$": ["baset-reader-ts", "baset-baseliner-json"]
 ```
 You may also specify additional options for this plugin under `baset.options` section in your `package.json` or `options` section in your `.basetrc`/`.basetrc.json`:
 ```JSON

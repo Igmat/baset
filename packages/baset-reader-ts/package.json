@@ -1,8 +1,9 @@
 {
-  "name": "baset-plugin-ts",
+  "name": "baset-reader-ts",
   "version": "0.5.1",
-  "description": "TypeScript plugin for BaseT project.",
+  "description": "TypeScript reader plugin for BaseT project.",
   "keywords": [
+    "baset-reader-ts",
     "baset-plugin-ts",
     "typescript",
     "baseline",

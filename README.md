@@ -118,7 +118,7 @@ Options:
 | --specs, -s   | Glob pattern for spec files     | string  | `"**/*.spec.js"`                 |
 | --bases, -b   | Glob pattern for baseline files | string  | `"**/*.base"`                    |
 | --help, -h    | Show help                       | boolean |                                  |
-| --plugins, -p | Plugins used for your tests     | string  | `".spec.js$:baset-plugin-export` |
+| --plugins, -p | Plugins used for your tests     | string  | `".spec.js$:baset-baseliner-json` |
 | --options, -o | Options for plugins             | TBD     | `{}`                             |
 
 In your `package.json`:
@@ -132,7 +132,7 @@ In your `package.json`:
         "specs": "**/*.spec.js",
         "bases": "**/*.base",
         "plugins": {
-            ".spec.js$": ["baset-plugin-module-name", "baset-plugin-export"]
+            ".spec.js$": ["baset-plugin-module-name", "baset-baseliner-json"]
         },
         "options": {
             "baset-plugin-module-name": {
@@ -150,7 +150,7 @@ In `.basetrc` or `.basetrc.json`:
     "specs": "**/*.spec.js",
     "bases": "**/*.base",
     "plugins": {
-        ".spec.js$": ["baset-plugin-module-name", "baset-plugin-export"]
+        ".spec.js$": ["baset-plugin-module-name", "baset-baseliner-json"]
     },
     "options": {
         "baset-plugin-module-name": {
@@ -167,8 +167,8 @@ Our [tests folder](./tests) contains projects used for end-to-end tests of `base
 
 ## Plugins
 There are only 2 plugins right now:  
-1. [`baset-plugin-export`](./packages/baset-plugin-export) - default plugin that used for creating baseline from exported values of spec
-2. [`baset-plugin-ts`](./packages/baset-plugin-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
+1. [`baset-baseliner-json`](./packages/baset-baseliner-json) - default plugin that used for creating baseline from exported values of spec
+2. [`baset-reader-ts`](./packages/baset-reader-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
 
 ## Roadmap
 Unfortunately, not yet ready, but you may find our nearest goals at [our board](https://github.com/Igmat/baset/projects/1)
