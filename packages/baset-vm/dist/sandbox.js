@@ -358,6 +358,7 @@ return ((vm, host) => {
 		env: {},
 		pid: host.process.pid,
 		features: Contextify.readonly(host.process.features),
+        uptime: host.process.uptime,
 		nextTick(callback) { return host.process.nextTick(() => callback.call(null)); },
 		hrtime() { return host.process.hrtime(); },
         cwd() {return processCwd || host.process.cwd(); },
@@ -397,7 +398,7 @@ return ((vm, host) => {
 			}
 
 			return host.process.umask();
-		}
+        },
 	};
 
 	if (vm.options.console === 'inherit') {
