@@ -12,7 +12,7 @@
 ## Installation and usage
 Run:
 ```
-npm install --save-dev baset-plugin-ts
+npm install --save-dev baset-reader-ts
 ```
 and adding next line to `baset.plugins` section in your `package.json` or `plugins` section in your `.basetrc`/`.basetrc.json`:
 ```JSON
