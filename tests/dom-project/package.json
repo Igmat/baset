@@ -1,0 +1,18 @@
+{
+  "name": "dom-project",
+  "version": "0.5.1",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "baset",
+    "accept": "baset accept"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "baset": "^0.5.1",
+    "baset-baseliner-json": "^0.5.1",
+    "baset-env-browser": "^0.5.1"
+  }
+}

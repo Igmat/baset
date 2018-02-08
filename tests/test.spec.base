@@ -22,5 +22,16 @@
             ""
         ],
         "stderr": []
+    },
+    {
+        "project": "dom-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.js is written.",
+            "Test for index.spec.js is passed",
+            ""
+        ],
+        "stderr": []
     }
 ]
