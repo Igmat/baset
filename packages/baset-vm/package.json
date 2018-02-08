@@ -1,6 +1,6 @@
 {
     "name": "baset-vm",
-    "version": "0.5.1",
+    "version": "0.6.0",
     "description": "VM package for BaseT project.",
     "keywords": [
         "baset-vm",
@@ -19,8 +19,6 @@
         "url": "git@github.com:Igmat/baset.git"
     },
     "main": "index.js",
-    "dependencies": {},
-    "devDependencies": {},
     "engines": {
         "node": ">=6.0"
     },

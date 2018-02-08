@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/Igmat/baset/compare/v0.5.1...v0.6.0) (2018-02-08)
+
+
+### Bug Fixes
+
+* **solution:** correct dependecies versions ([f272f03](https://github.com/Igmat/baset/commit/f272f03))
+
+
+### Features
+
+* **core:** compiler and context arguments for plugins ([b2e4a67](https://github.com/Igmat/baset/commit/b2e4a67))
+* **core:** inital support for different envs ([73ee117](https://github.com/Igmat/baset/commit/73ee117))
+
+
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/Igmat/baset/compare/v0.5.0...v0.5.1) (2018-01-29)
 
