@@ -169,6 +169,7 @@ Our [tests folder](./tests) contains projects used for end-to-end tests of `base
 There are only 2 plugins right now:  
 1. [`baset-baseliner-json`](./packages/baset-baseliner-json) - default plugin that used for creating baseline from exported values of spec
 2. [`baset-reader-ts`](./packages/baset-reader-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
+3. [`baset-env-browser`](./packages/baset-env-browser) - simple plugin that enables browser API in specs and sources using [jsdom](https://github.com/jsdom/jsdom) package.
 
 ## Roadmap
 Unfortunately, not yet ready, but you may find our nearest goals at [our board](https://github.com/Igmat/baset/projects/1)
