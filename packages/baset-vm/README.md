@@ -1,3 +1,10 @@
+# BaseT VM
+> VM for [BaseT](https://github.com/Igmat/baset) project.
+
+> **DISCLAIMER**: it's a fork of [vm2](https://github.com/patriksimek/vm2) package for internal use in baset with some functionality that is missing in original project. It has **WEAKENED SECURITY** and lack of up-to-date tests/docs. **Don\'t use it as vm2 replacement!**
+
+> If, for some reason, you're interested in `vm2` replacement (as I was). Create an issue in this repo - and I'll do my best to make this package `production-ready`.
+
 # vm2 [![NPM Version][npm-image]][npm-url] [![NPM Downloads][downloads-image]][downloads-url] [![Package Quality][quality-image]][quality-url] [![Travis CI][travis-image]][travis-url]
 
 vm2 is a sandbox that can run untrusted code with whitelisted Node's built-in modules. Securely!
