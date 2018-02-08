@@ -3,7 +3,7 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Igmat/baset.svg)](https://greenkeeper.io/)
 [![Travis CI](https://travis-ci.org/Igmat/baset.svg?branch=master)](https://travis-ci.org/Igmat/baset)
-[![Build status](https://ci.appveyor.com/api/projects/status/xpalrob91ur08xtt?svg=true)](https://ci.appveyor.com/project/Igmat/baset)
+[![Build status](https://ci.appveyor.com/api/projects/status/xpalrob91ur08xtt/branch/master?svg=true)](https://ci.appveyor.com/project/Igmat/baset/branch/master)
 
 [![npm badge][npm-badge-png]][package-url]
 
