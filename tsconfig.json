@@ -4,7 +4,6 @@
         "module": "commonjs",
         "sourceMap": true,
         "declaration": true,
-        "outDir": "dist",
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -12,17 +11,9 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "moduleResolution": "node",
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "node_modules/*",
-                "src/types/*"
-            ]
-        },
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
-    },
-    "include": [
-        "src/**/*"
-    ]
+        "emitDecoratorMetadata": true,
+        "pretty": true,
+        "esModuleInterop": true
+    }
 }

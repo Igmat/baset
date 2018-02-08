@@ -4,9 +4,11 @@ const path = require('path');
 const results = [
     'sample-project',
     'typescript-project',
+    'dom-project',
 ].map(project => {
-    const testProccess = spawnSync('npm', ['test'], { cwd: path.resolve(__dirname, `./${project}`), encoding: 'ascii' });
-    const acceptProccess = spawnSync('npm', ['run', 'accept'], { cwd: path.resolve(__dirname, `./${project}`), encoding: 'ascii' });
+    const cwd = path.resolve(__dirname, `./${project}`);
+    const testProccess = spawnSync('npm', ['test'], { cwd, encoding: 'utf8' });
+    const acceptProccess = spawnSync('npm', ['run', 'accept'], { cwd, encoding: 'utf8' });
     return {
         project,
         test: {

@@ -1,5 +1,5 @@
 import { sync } from 'find-up';
-import * as fs from 'fs';
+import fs from 'fs';
 import * as yargs from 'yargs';
 import { options } from './options';
 const configPath = sync(['.basetrc', '.basetrc.json']);

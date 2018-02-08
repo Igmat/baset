@@ -45,5 +45,27 @@
             ],
             "stderr": []
         }
+    },
+    {
+        "project": "dom-project",
+        "test": {
+            "stdout": [
+                "",
+                "",
+                "Temp baseline for index.spec.js is written.",
+                "Test for index.spec.js is passed",
+                ""
+            ],
+            "stderr": []
+        },
+        "accept": {
+            "stdout": [
+                "",
+                "",
+                "Baseline index.spec.base is written.",
+                ""
+            ],
+            "stderr": []
+        }
     }
 ]

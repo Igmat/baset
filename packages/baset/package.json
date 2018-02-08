@@ -1,36 +1,36 @@
 {
- "name": "baset",
- "version": "0.5.1",
- "description": "Tool for testing using baseline strategy.",
- "keywords": [
-  "baset",
-  "cli",
-  "baseline",
-  "unit-test",
-  "test",
-  "testing",
-  "e2e-test"
- ],
- "bin": {
-  "baset": "./bin/index.js"
- },
- "author": "Ihor Chulinda <ichulinda@gmail.com>",
- "license": "MIT",
- "repository": {
-  "type": "git",
-  "url": "git@github.com:Igmat/baset.git"
- },
- "scripts": {
-  "prepublish": "node ./scripts/prepublish.js"
- },
- "dependencies": {
-  "baset-cli": "^0.5.1",
-  "baset-plugin-export": "^0.5.1"
- },
- "devDependencies": {
-  "@types/node": "^9.3.0"
- },
- "yargs": {
-  "dot-notation": false
- }
+    "name": "baset",
+    "version": "0.5.1",
+    "description": "Tool for testing using baseline strategy.",
+    "keywords": [
+        "baset",
+        "cli",
+        "baseline",
+        "unit-test",
+        "test",
+        "testing",
+        "e2e-test"
+    ],
+    "author": "Ihor Chulinda <ichulinda@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:Igmat/baset.git"
+    },
+    "bin": {
+        "baset": "./bin/index.js"
+    },
+    "scripts": {
+        "prepublish": "node ./scripts/prepublish.js"
+    },
+    "dependencies": {
+        "baset-cli": "^0.5.1",
+        "baset-baseliner-json": "^0.5.1"
+    },
+    "devDependencies": {
+        "@types/node": "^9.3.0"
+    },
+    "yargs": {
+        "dot-notation": false
+    }
 }

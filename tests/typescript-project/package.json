@@ -12,8 +12,8 @@
     "license": "MIT",
     "devDependencies": {
         "baset": "^0.5.1",
-        "baset-plugin-export": "^0.5.1",
-        "baset-plugin-ts": "^0.5.1",
-        "typescript": "^2.6.2"
+        "baset-baseliner-json": "^0.5.1",
+        "baset-reader-ts": "^0.5.1",
+        "typescript": "^2.7.1"
     }
 }

@@ -1,0 +1,29 @@
+{
+    "name": "baset-vm",
+    "version": "0.5.1",
+    "description": "VM package for BaseT project.",
+    "keywords": [
+        "baset-vm",
+        "vm",
+        "vm2",
+        "baseline",
+        "unit-test",
+        "test",
+        "testing",
+        "e2e-test"
+    ],
+    "author": "Ihor Chulinda <ichulinda@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:Igmat/baset.git"
+    },
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {},
+    "engines": {
+        "node": ">=6.0"
+    },
+    "scripts": {},
+    "types": "index.d.ts"
+}

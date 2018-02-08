@@ -1,0 +1,11 @@
+{
+    "values": [
+        4,
+        4000000,
+        "abcNaN",
+        null,
+        "abc3",
+        "function call3",
+        "async value3"
+    ]
+}

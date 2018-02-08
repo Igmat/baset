@@ -1,23 +1,23 @@
-import { IDictionary } from 'baset-core';
+import { utils } from 'baset-core';
 import { Options } from 'yargs';
 
 export interface IGlobalArgs {
-    plugins: IDictionary<string[]>;
+    plugins: utils.IDictionary<string[]>;
     // tslint:disable-next-line:no-any
-    options: IDictionary<any>;
+    options: utils.IDictionary<any>;
 }
 
 function resolveBasetPlugins(name: string) {
-    return name.startsWith('baset-plugin')
+    return name.startsWith('baset')
         ? `./node_modules/${name}`
         : name;
 }
 
-export const options: IDictionary<Options> = {
+export const options: utils.IDictionary<Options> = {
     plugins: {
         alias: 'p',
         describe: 'Plugins used for your tests',
-        default: { '.spec.js$': 'baset-plugin-export' },
+        default: { '.spec.js$': 'baset-baseliner-json' },
         coerce: (plugins: string[] | { [index: string]: string[] | string }) =>
             (plugins instanceof Array)
                 // if plugins is Array, then we get this arg from cli

@@ -1,0 +1,7 @@
+{
+    "specs": "**/*.spec.js",
+    "bases": "**/*.base",
+    "plugins": {
+        ".spec.js$": ["baset-env-browser", "baset-baseliner-json"]
+    }
+}

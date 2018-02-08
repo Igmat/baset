@@ -2,7 +2,7 @@
     "specs": "**/*.spec.ts",
     "bases": "**/*.base",
     "plugins": {
-        ".spec.js$": "baset-plugin-export",
-        ".spec.ts$": ["baset-plugin-ts", "baset-plugin-export"]
+        ".spec.js$": "baset-baseliner-json",
+        ".spec.ts$": ["baset-reader-ts", "baset-baseliner-json"]
     }
 }

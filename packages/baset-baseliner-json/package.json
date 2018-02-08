@@ -1,21 +1,22 @@
 {
-    "name": "baset-core",
+    "name": "baset-baseliner-json",
     "version": "0.5.1",
-    "description": "Core library for BaseT project.",
-    "keywords": [
-        "baset-core",
-        "baseline",
-        "unit-test",
-        "test",
-        "testing",
-        "e2e-test"
-    ],
+    "description": "JSON baseliner plugin for BaseT project.",
     "author": "Ihor Chulinda <ichulinda@gmail.com>",
     "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git@github.com:Igmat/baset.git"
     },
+    "keywords": [
+        "baset-baseliner-json",
+        "baset-default-baseliner",
+        "baseline",
+        "unit-test",
+        "test",
+        "testing",
+        "e2e-test"
+    ],
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
@@ -35,6 +36,7 @@
         "typescript": "^2.7.1"
     },
     "dependencies": {
-        "baset-vm": "^0.5.1"
+        "json-beautify": "^1.0.1",
+        "baset-core": "^0.5.1"
     }
 }

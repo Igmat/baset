@@ -1,9 +1,10 @@
 {
-    "name": "baset-core",
+    "name": "baset-env-browser",
     "version": "0.5.1",
-    "description": "Core library for BaseT project.",
+    "description": "Browser environment for BaseT project.",
     "keywords": [
-        "baset-core",
+        "baset-env-browser",
+        "jsdom",
         "baseline",
         "unit-test",
         "test",
@@ -29,12 +30,14 @@
     },
     "devDependencies": {
         "@types/node": "^9.3.0",
+        "@types/jsdom": "^11.0.4",
         "baset": "^0.5.1",
         "doctoc": "^1.3.0",
         "tslint": "^5.9.1",
         "typescript": "^2.7.1"
     },
     "dependencies": {
-        "baset-vm": "^0.5.1"
+        "jsdom": "^11.6.2",
+        "baset-core": "^0.5.1"
     }
 }
