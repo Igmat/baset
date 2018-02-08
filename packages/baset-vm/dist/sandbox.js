@@ -347,6 +347,7 @@ return ((vm, host) => {
 		return null;
 	};
 
+    let processCwd;
 	global.process = {
 		argv: [],
 		title: host.process.title,
@@ -359,7 +360,7 @@ return ((vm, host) => {
 		features: Contextify.readonly(host.process.features),
 		nextTick(callback) { return host.process.nextTick(() => callback.call(null)); },
 		hrtime() { return host.process.hrtime(); },
-		cwd() { return host.process.cwd(); },
+        cwd() {return processCwd || host.process.cwd(); },
 		on(name, handler) {
 			if (name !== 'beforeExit' && name !== 'exit') {
 				throw new Error(`Access denied to listen for '${name}' event.`);
@@ -367,7 +368,10 @@ return ((vm, host) => {
 
 			host.process.on(name, Decontextify.value(handler));
 			return this;
-		},
+        },
+        chdir(directory) {
+            processCwd = directory;
+        },
 
 		once(name, handler) {
 			if (name !== 'beforeExit' && name !== 'exit') {
