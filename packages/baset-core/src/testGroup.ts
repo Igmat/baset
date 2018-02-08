@@ -1,6 +1,6 @@
 import { CompilerFunction, NodeVM, ResolverFunction } from 'baset-vm';
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 import { isPrimitive } from 'util';
 import { AbstractBaseliner, IBaselinerConstructor } from './abstractBaseliner';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';

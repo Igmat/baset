@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import { isPrimitive } from 'util';
 import { TestGroup } from './testGroup';
 import { IDictionary, isExists, readFile, unlink, writeFile } from './utils';

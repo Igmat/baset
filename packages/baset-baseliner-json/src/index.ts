@@ -1,5 +1,5 @@
 import { AbstractBaseliner } from 'baset-core';
-import * as beautify from 'json-beautify';
+import beautify from 'json-beautify';
 
 export default class ExportReader extends AbstractBaseliner {
     create = async (result: Promise<any>[]) => {
