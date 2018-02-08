@@ -1,20 +1,23 @@
-import { CompilerFunction, NodeVM, ResolverFunction } from 'baset-vm';
+import { CompilerFunction, NodeVM, NodeVMOptions, ResolverFunction } from 'baset-vm';
 import fs from 'fs';
 import path from 'path';
 import { isPrimitive } from 'util';
 import { AbstractBaseliner, IBaselinerConstructor } from './abstractBaseliner';
+import { AbstractEnvironmet } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
 import { IDictionary, readFile } from './utils';
 
 export class TestGroup {
     private baseliner: AbstractBaseliner;
+    // private environemt: AbstractEnvironmet;
     private pattern: RegExp;
     private readerChain: AbstractReader[];
     constructor(
         pattern: string,
         readerNames: string[],
         baselinerName: string,
-        pluginsOptions: IDictionary<any>) {
+        pluginsOptions: IDictionary<any>,
+        private environment?: string) {
         this.pattern = new RegExp(pattern);
 
         this.readerChain = readerNames.map(readerName => {
@@ -37,6 +40,9 @@ export class TestGroup {
                 builtin: ['*'],
                 context: 'sandbox',
                 external: true,
+                import: this.environment
+                    ? [this.environment]
+                    : undefined,
             },
             compiler: compiler.compile,
             sourceExtensions: compiler.extensions,

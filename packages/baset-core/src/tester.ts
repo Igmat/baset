@@ -48,5 +48,12 @@ export class Tester {
 
     // tslint:disable-next-line:no-any
     private initPlugins = (plugins: IDictionary<string[]>, pluginsOptions: IDictionary<any>) =>
-        Object.keys(plugins).map(key => new TestGroup(key, plugins[key].slice(0, -1), plugins[key].slice(-1)[0], pluginsOptions))
+        Object.keys(plugins).map(key => {
+            const firstModule = plugins[key].slice(0, 1)[0];
+            const envModule = firstModule.includes('-env-') && firstModule;
+            const baseliner = plugins[key].slice(-1)[0];
+            const readers = plugins[key].slice(Number(!!envModule), -1);
+
+            return new TestGroup(key, readers, baseliner, pluginsOptions, envModule || undefined);
+        })
 }
