@@ -53,6 +53,7 @@ export class TestGroup {
 
         return this.baseliner.create(testsResults);
     }
+    // tslint:disable-next-line:no-any
     private calculateValues = async (obj: any): Promise<any> => {
         if (isPrimitive(obj)) return obj;
         else if (obj instanceof Promise) return obj;

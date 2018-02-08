@@ -6,8 +6,8 @@ const results = [
     'typescript-project',
 ].map(project => {
     const cwd = path.resolve(__dirname, `./${project}`);
-    const testProccess = spawnSync('npm', ['test'], { cwd, encoding: 'ascii' });
-    const acceptProccess = spawnSync('npm', ['run', 'accept'], { cwd, encoding: 'ascii' });
+    const testProccess = spawnSync('npm', ['test'], { cwd, encoding: 'utf8' });
+    const acceptProccess = spawnSync('npm', ['run', 'accept'], { cwd, encoding: 'utf8' });
     return {
         project,
         test: {
