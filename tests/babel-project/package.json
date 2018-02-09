@@ -1,6 +1,6 @@
 {
     "name": "babel-project",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -15,12 +15,12 @@
         "react-dom": "16.2.0"
     },
     "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-react": "^6.24.1",
         "baset": "^0.6.0",
         "baset-baseliner-json": "^0.6.0",
-        "baset-reader-babel": "^0.6.0",
-        "babel-cli": "^6.26.0",
-        "babel-preset-react": "^6.24.1",
-        "babel-preset-es2015": "^6.24.1",
-        "baset-env-browser": "^0.6.0"
+        "baset-env-browser": "^0.6.0",
+        "baset-reader-babel": "^0.7.0"
     }
 }
