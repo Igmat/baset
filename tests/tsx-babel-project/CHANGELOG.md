@@ -9,12 +9,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-**Note:** Version bump only for package dom-project
-
-<a name="0.6.0"></a>
-# [0.6.0](https://github.com/Igmat/baset/compare/v0.5.1...v0.6.0) (2018-02-08)
-
-
-
-
-**Note:** Version bump only for package dom-project
+**Note:** Version bump only for package tsx-babel-project
