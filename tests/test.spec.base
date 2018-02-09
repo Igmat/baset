@@ -44,5 +44,16 @@
             ""
         ],
         "stderr": []
+    },
+    {
+        "project": "tsx-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.tsx is written.",
+            "Test for index.spec.tsx is passed",
+            ""
+        ],
+        "stderr": []
     }
 ]

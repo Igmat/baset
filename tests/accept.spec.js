@@ -6,6 +6,7 @@ const results = [
     'typescript-project',
     'dom-project',
     'babel-project',
+    'tsx-project',
 ].map(project => {
     const cwd = path.resolve(__dirname, `./${project}`);
     const testProccess = spawnSync('npm', ['test'], { cwd, encoding: 'utf8' });
