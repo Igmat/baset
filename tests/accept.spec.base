@@ -111,5 +111,27 @@
             ],
             "stderr": []
         }
+    },
+    {
+        "project": "tsx-babel-project",
+        "test": {
+            "stdout": [
+                "",
+                "",
+                "Temp baseline for index.spec.tsx is written.",
+                "Test for index.spec.tsx is passed",
+                ""
+            ],
+            "stderr": []
+        },
+        "accept": {
+            "stdout": [
+                "",
+                "",
+                "Baseline index.spec.base is written.",
+                ""
+            ],
+            "stderr": []
+        }
     }
 ]
