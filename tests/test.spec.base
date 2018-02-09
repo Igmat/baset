@@ -33,5 +33,16 @@
             ""
         ],
         "stderr": []
+    },
+    {
+        "project": "babel-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.jsx is written.",
+            "Test for index.spec.jsx is passed",
+            ""
+        ],
+        "stderr": []
     }
 ]
