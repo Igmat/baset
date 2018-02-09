@@ -74,7 +74,7 @@ export class TestGroup {
     private getCompiler = () => {
         const hooks = this.getHooks();
         const resolvers = this.getResolvers();
-        this.readerChain.forEach(reader => reader.registerHook(hooks.addHook, resolvers.addResolver));
+        this.readerChain.reverse().forEach(reader => reader.registerHook(hooks.addHook, resolvers.addResolver));
 
         return {
             compile: (code: string, filename: string) =>
@@ -95,7 +95,7 @@ export class TestGroup {
                 const exts = options && options.exts || ['.js'];
                 const matcher = options && options.matcher || defaultMatcher;
                 exts.forEach(ext => {
-                    const oldCompiler = compileFns[ext] || defaultCompile;
+                    const oldCompiler = compileFns[ext] || compileFns['.js'];
                     compileFns[ext] = (code: string, filename: string) =>
                         matcher(filename)
                             ? oldCompiler(hook(code, filename), filename)
