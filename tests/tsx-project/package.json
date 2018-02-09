@@ -1,0 +1,26 @@
+{
+    "name": "tsx-project",
+    "version": "0.7.0",
+    "private": true,
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "baset",
+        "accept": "baset accept"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "react": "16.2.0",
+        "react-dom": "16.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^16.0.36",
+        "@types/react-dom": "^16.0.3",
+        "baset": "^0.6.0",
+        "baset-baseliner-json": "^0.6.0",
+        "baset-env-browser": "^0.6.0",
+        "baset-reader-ts": "^0.7.0",
+        "typescript": "^2.7.1"
+    }
+}
