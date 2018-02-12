@@ -28,8 +28,10 @@ return ((vm, host) => {
 
 			module.exports = JSON_PARSE(code);
 		},
-		[".node"](module, filename) {
-			if (vm.options.require.context === 'sandbox') throw new VMError('Native modules can be required only with context set to \'host\'.');
+        [".node"](module, filename) {
+            // we need to skip this check in order to work with `canvas-prebuilt` package
+            // FIXME: find better workaround
+            // if (vm.options.require.context === 'sandbox') throw new VMError('Native modules can be required only with context set to \'host\'.');
 
 			try {
 				module.exports = Contextify.readonly(host.require(filename));
@@ -177,7 +179,7 @@ return ((vm, host) => {
 	 */
 
 	const _prepareRequire = function(current_dirname) {
-		const _require = function(modulename) {
+        const _require = function (modulename) {
 			if (vm.options.nesting && modulename === 'vm2') return {VM: Contextify.readonly(host.VM), NodeVM: Contextify.readonly(host.NodeVM)};
 			if (!vm.options.require) throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
 			if (modulename == null) throw new VMError("Module '' not found.", "ENOTFOUND");

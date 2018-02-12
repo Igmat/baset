@@ -1,0 +1,7 @@
+{
+    "specs": "**/*.spec.ts",
+    "bases": "**/*.base",
+    "plugins": {
+        ".spec.ts$": ["baset-env-browser", "baset-reader-ts", "baset-baseliner-json"]
+    }
+}

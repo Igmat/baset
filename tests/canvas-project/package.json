@@ -1,5 +1,5 @@
 {
-    "name": "tsx-project",
+    "name": "canvas-project",
     "version": "0.7.1",
     "private": true,
     "description": "",
@@ -11,12 +11,10 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "react": "16.2.0",
-        "react-dom": "16.2.0"
+        "pixi.js": "^4.7.0"
     },
     "devDependencies": {
-        "@types/react": "^16.0.36",
-        "@types/react-dom": "^16.0.3",
+        "@types/pixi.js": "^4.7.0",
         "baset": "^0.7.1",
         "baset-baseliner-json": "^0.7.1",
         "baset-env-browser": "^0.7.1",

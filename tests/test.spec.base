@@ -66,5 +66,16 @@
             ""
         ],
         "stderr": []
+    },
+    {
+        "project": "canvas-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.ts is written.",
+            "Test for index.spec.ts is passed",
+            ""
+        ],
+        "stderr": []
     }
 ]
