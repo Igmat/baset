@@ -1,6 +1,6 @@
 {
   "name": "sample-project",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -11,7 +11,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "baset": "^0.7.1",
-    "baset-baseliner-json": "^0.7.1"
+    "baset": "^0.7.2",
+    "baset-baseliner-json": "^0.7.2"
   }
 }
