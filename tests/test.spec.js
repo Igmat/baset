@@ -8,6 +8,7 @@ const results = [
     'babel-project',
     'tsx-project',
     'tsx-babel-project',
+    'canvas-project',
 ].map(project => {
     const cwd = path.resolve(__dirname, `./${project}`);
     const testProccess = spawnSync('npm', ['test'], { cwd, encoding: 'utf8' });
