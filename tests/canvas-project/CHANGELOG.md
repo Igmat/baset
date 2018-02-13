@@ -9,12 +9,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-**Note:** Version bump only for package tsx-project
-
-<a name="0.7.1"></a>
-## [0.7.1](https://github.com/Igmat/baset/compare/v0.7.0...v0.7.1) (2018-02-09)
-
-
-
-
-**Note:** Version bump only for package tsx-project
+**Note:** Version bump only for package canvas-project
