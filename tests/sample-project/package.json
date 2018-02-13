@@ -10,6 +10,9 @@
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "asn1.js": "^5.0.0"
+  },
   "devDependencies": {
     "baset": "^0.7.1",
     "baset-baseliner-json": "^0.7.1"
