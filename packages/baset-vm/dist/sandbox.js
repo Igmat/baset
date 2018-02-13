@@ -98,7 +98,13 @@ return ((vm, host) => {
 		// load as file
 		for (var i = 0; i < vm.options.sourceExtensions.length; i++) {
 			var ext = vm.options.sourceExtensions[i];
-			if (fs.existsSync(`${path}${ext}`)) return `${path}${ext}`;
+			if (fs.existsSync(`${path}${ext}`)) {
+                const stat = fs.statSync(`${path}${ext}`);
+                // some directories could be named like `asn1.js`, so we have to check it here
+				if (stat && !stat.isDirectory()) {
+					return `${path}${ext}`
+				}
+			};
 		}
 		if (fs.existsSync(`${path}.node`)) return `${path}.node`;
 		if (fs.existsSync(`${path}.json`)) return `${path}.json`;
@@ -218,7 +224,7 @@ return ((vm, host) => {
 			if (!vm.options.require.external) throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
 
 			if (/^(\.|\.\/|\.\.\/)/.exec(modulename)) {
-				// Module is relative file, e.g. ./script.js or ../script.js
+                // Module is relative file, e.g. ./script.js or ../script.js
 
 				if (!current_dirname) throw new VMError("You must specify script path to load relative modules.", "ENOPATH");
 
