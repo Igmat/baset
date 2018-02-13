@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.3"></a>
+## [0.7.3](https://github.com/Igmat/baset/compare/v0.7.2...v0.7.3) (2018-02-13)
+
+
+### Bug Fixes
+
+* **vm:** check if path found like file is directory ([950bd57](https://github.com/Igmat/baset/commit/950bd57))
+
+
+
+
 <a name="0.7.2"></a>
 ## [0.7.2](https://github.com/Igmat/baset/compare/v0.7.1...v0.7.2) (2018-02-12)
 
