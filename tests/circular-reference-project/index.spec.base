@@ -1,0 +1,11 @@
+{
+    "sampleObj": {
+        "a": {
+            "deepCircularReference": exports.sampleObj
+        },
+        "circularReference": exports.sampleObj,
+        "b": {
+            "a": exports.sampleObj.a
+        }
+    }
+}

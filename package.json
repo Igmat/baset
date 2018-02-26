@@ -23,6 +23,7 @@
     "devDependencies": {
         "@commitlint/cli": "^6.0.2",
         "@commitlint/config-conventional": "^6.0.2",
+        "@types/cross-spawn": "^6.0.0",
         "commitizen": "^2.9.6",
         "cross-spawn": "^6.0.3",
         "cz-conventional-changelog": "^2.1.0",
@@ -38,10 +39,13 @@
         }
     },
     "baset": {
-        "specs": "tests/*.spec.js",
+        "specs": "tests/*.spec.ts",
         "bases": "tests/*.base",
         "plugins": {
-            ".spec.js$": "./packages/baset-baseliner-json"
+            ".spec.ts$": [
+                "./packages/baset-reader-ts",
+                "./packages/baset-baseliner-json"
+            ]
         }
     },
     "dependencies": {}

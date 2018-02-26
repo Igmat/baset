@@ -1,0 +1,1 @@
+export { sampleObj } from './index';

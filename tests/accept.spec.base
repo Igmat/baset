@@ -1,12 +1,12 @@
 [
     {
-        "project": "sample-project",
+        "project": "babel-project",
         "test": {
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.js is written.",
-                "Test for index.spec.js is passed",
+                "Temp baseline for index.spec.jsx is written.",
+                "Test for index.spec.jsx is passed",
                 ""
             ],
             "stderr": []
@@ -22,15 +22,13 @@
         }
     },
     {
-        "project": "typescript-project",
+        "project": "canvas-project",
         "test": {
             "stdout": [
                 "",
                 "",
                 "Temp baseline for index.spec.ts is written.",
                 "Test for index.spec.ts is passed",
-                "Temp baseline for pathImport.spec.ts is written.",
-                "Test for pathImport.spec.ts is passed",
                 ""
             ],
             "stderr": []
@@ -40,7 +38,28 @@
                 "",
                 "",
                 "Baseline index.spec.base is written.",
-                "Baseline pathImport.spec.base is written.",
+                ""
+            ],
+            "stderr": []
+        }
+    },
+    {
+        "project": "circular-reference-project",
+        "test": {
+            "stdout": [
+                "",
+                "",
+                "Temp baseline for index.spec.ts is written.",
+                "Test for index.spec.ts is passed",
+                ""
+            ],
+            "stderr": []
+        },
+        "accept": {
+            "stdout": [
+                "",
+                "",
+                "Baseline index.spec.base is written.",
                 ""
             ],
             "stderr": []
@@ -69,35 +88,13 @@
         }
     },
     {
-        "project": "babel-project",
+        "project": "sample-project",
         "test": {
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.jsx is written.",
-                "Test for index.spec.jsx is passed",
-                ""
-            ],
-            "stderr": []
-        },
-        "accept": {
-            "stdout": [
-                "",
-                "",
-                "Baseline index.spec.base is written.",
-                ""
-            ],
-            "stderr": []
-        }
-    },
-    {
-        "project": "tsx-project",
-        "test": {
-            "stdout": [
-                "",
-                "",
-                "Temp baseline for index.spec.tsx is written.",
-                "Test for index.spec.tsx is passed",
+                "Temp baseline for index.spec.js is written.",
+                "Test for index.spec.js is passed",
                 ""
             ],
             "stderr": []
@@ -135,13 +132,13 @@
         }
     },
     {
-        "project": "canvas-project",
+        "project": "tsx-project",
         "test": {
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.ts is written.",
-                "Test for index.spec.ts is passed",
+                "Temp baseline for index.spec.tsx is written.",
+                "Test for index.spec.tsx is passed",
                 ""
             ],
             "stderr": []
@@ -151,6 +148,31 @@
                 "",
                 "",
                 "Baseline index.spec.base is written.",
+                ""
+            ],
+            "stderr": []
+        }
+    },
+    {
+        "project": "typescript-project",
+        "test": {
+            "stdout": [
+                "",
+                "",
+                "Temp baseline for index.spec.ts is written.",
+                "Test for index.spec.ts is passed",
+                "Temp baseline for pathImport.spec.ts is written.",
+                "Test for pathImport.spec.ts is passed",
+                ""
+            ],
+            "stderr": []
+        },
+        "accept": {
+            "stdout": [
+                "",
+                "",
+                "Baseline index.spec.base is written.",
+                "Baseline pathImport.spec.base is written.",
                 ""
             ],
             "stderr": []
