@@ -1,24 +1,33 @@
 [
     {
-        "project": "sample-project",
+        "project": "babel-project",
         "stdout": [
             "",
             "",
-            "Temp baseline for index.spec.js is written.",
-            "Test for index.spec.js is passed",
+            "Temp baseline for index.spec.jsx is written.",
+            "Test for index.spec.jsx is passed",
             ""
         ],
         "stderr": []
     },
     {
-        "project": "typescript-project",
+        "project": "canvas-project",
         "stdout": [
             "",
             "",
             "Temp baseline for index.spec.ts is written.",
             "Test for index.spec.ts is passed",
-            "Temp baseline for pathImport.spec.ts is written.",
-            "Test for pathImport.spec.ts is passed",
+            ""
+        ],
+        "stderr": []
+    },
+    {
+        "project": "circular-reference-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.ts is written.",
+            "Test for index.spec.ts is passed",
             ""
         ],
         "stderr": []
@@ -35,23 +44,12 @@
         "stderr": []
     },
     {
-        "project": "babel-project",
+        "project": "sample-project",
         "stdout": [
             "",
             "",
-            "Temp baseline for index.spec.jsx is written.",
-            "Test for index.spec.jsx is passed",
-            ""
-        ],
-        "stderr": []
-    },
-    {
-        "project": "tsx-project",
-        "stdout": [
-            "",
-            "",
-            "Temp baseline for index.spec.tsx is written.",
-            "Test for index.spec.tsx is passed",
+            "Temp baseline for index.spec.js is written.",
+            "Test for index.spec.js is passed",
             ""
         ],
         "stderr": []
@@ -68,12 +66,25 @@
         "stderr": []
     },
     {
-        "project": "canvas-project",
+        "project": "tsx-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.tsx is written.",
+            "Test for index.spec.tsx is passed",
+            ""
+        ],
+        "stderr": []
+    },
+    {
+        "project": "typescript-project",
         "stdout": [
             "",
             "",
             "Temp baseline for index.spec.ts is written.",
             "Test for index.spec.ts is passed",
+            "Temp baseline for pathImport.spec.ts is written.",
+            "Test for pathImport.spec.ts is passed",
             ""
         ],
         "stderr": []

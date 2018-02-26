@@ -1,0 +1,19 @@
+{
+    "name": "circular-reference-project",
+    "version": "0.7.3",
+    "private": true,
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "baset",
+        "accept": "baset accept"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "baset": "^0.7.3",
+        "baset-baseliner-json": "^0.7.3",
+        "baset-reader-ts": "^0.7.3",
+        "typescript": "next"
+    }
+}

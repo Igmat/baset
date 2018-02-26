@@ -5,7 +5,7 @@
         "abccba",
         "1abc",
         "abc1",
-        "function call1",
+        "() => sampleFn('function call', 1)",
         "async value1"
     ]
 }
