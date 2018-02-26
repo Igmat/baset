@@ -7,9 +7,12 @@ import { AbstractEnvironmet } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
 import { IDictionary, readFile } from './utils';
 
+export const circularReference = Symbol('circularReference');
+
 export class TestGroup {
     private baseliner: AbstractBaseliner;
     // private environemt: AbstractEnvironmet;
+    private references = new WeakMap<object, string>();
     private pattern: RegExp;
     private readerChain: AbstractReader[];
     constructor(
@@ -55,21 +58,27 @@ export class TestGroup {
             ? compiledSrc
             : [compiledSrc];
         const testsExports = tests.map((test, index) => context.run(test, `${resolvedPath}.${index}.js`));
-        const testsResults = testsExports.map(this.calculateValues);
+        const testsResults = testsExports.map((value, index) => this.calculateValues(value, `exports[${index}]`));
 
         return this.baseliner.create(testsResults);
     }
     // tslint:disable-next-line:no-any
-    private calculateValues = async (obj: any): Promise<any> => {
+    private calculateValues = async (obj: any, name = 'exports'): Promise<any> => {
         if (isPrimitive(obj)) return obj;
+        if (this.references.has(obj)) return this.createSelfReference(obj);
+        this.references.set(obj, name);
         if (obj instanceof Promise) return obj;
         if (obj instanceof Function) return obj.toString().split('\n')[0];
-        if (obj instanceof Array) return await Promise.all(obj.map(this.calculateValues));
+        if (Array.isArray(obj)) return await Promise.all(obj.map((value, key) => this.calculateValues(value, `${name}[${key}]`)));
 
         return (await Promise.all(Object.keys(obj)
-            .map(async key => ({ [key]: await this.calculateValues(obj[key]) }))))
+            .map(async key => ({ [key]: await this.calculateValues(obj[key], `${name}.${key}`) }))))
             .reduce((result, prop) => ({ ...result, ...prop }), {});
     }
+
+    private createSelfReference = (obj: any) => ({
+        [circularReference]: this.references.get(obj),
+    })
 
     private getCompiler = () => {
         const hooks = this.getHooks();
