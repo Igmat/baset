@@ -3,9 +3,9 @@
         4,
         4000000,
         "abcNaN",
-        null,
+        Infinity,
         "abc3",
-        "function call3",
+        "() => sampleFn('function call', 1)",
         "async value3"
     ]
 }

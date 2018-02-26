@@ -62,9 +62,9 @@ export class TestGroup {
     // tslint:disable-next-line:no-any
     private calculateValues = async (obj: any): Promise<any> => {
         if (isPrimitive(obj)) return obj;
-        else if (obj instanceof Promise) return obj;
-        else if (obj instanceof Function) return obj();
-        else if (obj instanceof Array) return await Promise.all(obj.map(this.calculateValues));
+        if (obj instanceof Promise) return obj;
+        if (obj instanceof Function) return obj.toString().split('\n')[0];
+        if (obj instanceof Array) return await Promise.all(obj.map(this.calculateValues));
 
         return (await Promise.all(Object.keys(obj)
             .map(async key => ({ [key]: await this.calculateValues(obj[key]) }))))
