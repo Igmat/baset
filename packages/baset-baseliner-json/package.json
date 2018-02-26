@@ -36,7 +36,6 @@
         "typescript": "next"
     },
     "dependencies": {
-        "baset-core": "^0.7.3",
-        "json-beautify": "^1.0.1"
+        "baset-core": "^0.7.3"
     }
 }
