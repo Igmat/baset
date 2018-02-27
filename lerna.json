@@ -16,7 +16,8 @@
       ]
     },
     "bootstrap": {
-      "hoist": true
+      "hoist": true,
+      "nohoist": "@types/*"
     }
   }
 }
