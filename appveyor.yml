@@ -16,7 +16,7 @@ environment:
 
 # get the latest stable version of Node 0.STABLE.latest
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: Install-Product node $env:nodejs_version x64
   - cmd: npm install
   - set CI=true
   - set AppVeyor=true
