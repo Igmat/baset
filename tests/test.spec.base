@@ -88,5 +88,16 @@
             ""
         ],
         "stderr": []
+    },
+    {
+        "project": "umd-like-dep-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.ts is written.",
+            "Test for index.spec.ts is passed",
+            ""
+        ],
+        "stderr": []
     }
 ]
