@@ -1,5 +1,3 @@
-function sampleFn(a, b) {
+export function sampleFn(a: any, b: any) {
     return a + b + b + a;
 }
-
-module.exports.sampleFn = sampleFn;
