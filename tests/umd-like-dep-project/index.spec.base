@@ -1,0 +1,11 @@
+{
+    "values": [
+        4,
+        4000000,
+        "abccbacbaabc",
+        "1abcabc1",
+        "abc11abc",
+        "() => index_1.sampleFn('function call', 1)",
+        "async value11async value"
+    ]
+}
