@@ -1,6 +1,6 @@
 {
     "name": "tsx-babel-project",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -22,7 +22,7 @@
         "babel-preset-react": "^6.24.1",
         "baset": "^0.7.4",
         "baset-baseliner-json": "^0.7.4",
-        "baset-env-browser": "^0.7.4",
+        "baset-env-browser": "^0.7.5",
         "baset-reader-babel": "^0.7.4",
         "baset-reader-ts": "^0.7.4",
         "typescript": "next"
