@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.4"></a>
+## [0.7.4](https://github.com/Igmat/baset/compare/v0.7.3...v0.7.4) (2018-02-26)
+
+
+### Bug Fixes
+
+* **baseliner-json:** reflect circular dependencies in baseline ([7ea8f00](https://github.com/Igmat/baset/commit/7ea8f00)), closes [#43](https://github.com/Igmat/baset/issues/43)
+
+
+
+
 <a name="0.7.3"></a>
 ## [0.7.3](https://github.com/Igmat/baset/compare/v0.7.2...v0.7.3) (2018-02-13)
 

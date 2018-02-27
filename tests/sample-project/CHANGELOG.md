@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.4"></a>
+## [0.7.4](https://github.com/Igmat/baset/compare/v0.7.3...v0.7.4) (2018-02-26)
+
+
+### Bug Fixes
+
+* **core:** don't execute functions in export ([8a06736](https://github.com/Igmat/baset/commit/8a06736)), closes [#44](https://github.com/Igmat/baset/issues/44)
+
+
+
+
 <a name="0.7.3"></a>
 ## [0.7.3](https://github.com/Igmat/baset/compare/v0.7.2...v0.7.3) (2018-02-13)
 
