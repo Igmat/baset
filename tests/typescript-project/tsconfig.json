@@ -11,8 +11,13 @@
         "noImplicitThis": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        "importHelpers": true,
         "moduleResolution": "node",
         "baseUrl": ".",
+        "lib": [
+            "dom",
+            "es7"
+        ],
         "paths": {
             "*": [
                 "node_modules/*",
@@ -22,5 +27,9 @@
         },
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
-    }
+    },
+    "include": [
+        "lib/**/*",
+        "/*.ts"
+    ]
 }

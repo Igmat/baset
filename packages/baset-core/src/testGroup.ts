@@ -9,27 +9,39 @@ import { IDictionary, readFile } from './utils';
 
 export const circularReference = Symbol('circularReference');
 
+export interface ITestGroupOptions {
+    baseliner: string;
+    environment?: string;
+    readers: string[];
+    resolvers: string[];
+    imports: string[];
+}
+
 export class TestGroup {
     private baseliner: AbstractBaseliner;
     // private environemt: AbstractEnvironmet;
     private references = new WeakMap<object, string>();
     private pattern: RegExp;
     private readerChain: AbstractReader[];
+    private allImports: string[];
     constructor(
-        pattern: string,
-        readerNames: string[],
-        baselinerName: string,
-        pluginsOptions: IDictionary<any>,
-        private environment?: string) {
+        pattern: string | RegExp,
+        private options: ITestGroupOptions,
+        private pluginsOptions: IDictionary<any>) {
         this.pattern = new RegExp(pattern);
 
-        this.readerChain = readerNames.map(readerName => {
+        const baseliner: IBaselinerConstructor = require(path.resolve(options.baseliner)).default;
+        this.baseliner = new baseliner(pluginsOptions[options.baseliner]);
+
+        this.readerChain = options.readers.map(readerName => {
             const reader: IReaderConstructor = require(path.resolve(readerName)).default;
 
             return new reader(pluginsOptions[readerName]);
         });
-        const baseliner: IBaselinerConstructor = require(path.resolve(baselinerName)).default;
-        this.baseliner = new baseliner(pluginsOptions[baselinerName]);
+        this.allImports = [
+            options.environment,
+            ...options.imports,
+        ].filter((importName): importName is string  => !!importName);
     }
 
     match = (filePath: string) =>
@@ -43,9 +55,7 @@ export class TestGroup {
                 builtin: ['*'],
                 context: 'sandbox',
                 external: true,
-                import: this.environment
-                    ? [this.environment]
-                    : undefined,
+                import: this.allImports,
             },
             compiler: compiler.compile,
             sourceExtensions: compiler.extensions,

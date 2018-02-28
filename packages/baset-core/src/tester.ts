@@ -1,14 +1,15 @@
 import path from 'path';
 import { isPrimitive } from 'util';
-import { TestGroup } from './testGroup';
+import { ITestGroupOptions, TestGroup } from './testGroup';
 import { IDictionary, isExists, readFile, unlink, writeFile } from './utils';
 
 export class Tester {
     private testGroups: TestGroup[];
 
     // tslint:disable-next-line:no-any
-    constructor(plugins: IDictionary<string[]>, pluginsOptions: IDictionary<any>) {
-        this.testGroups = this.initPlugins(plugins, pluginsOptions);
+    constructor(plugins: IDictionary<ITestGroupOptions>, pluginsOptions: IDictionary<any>) {
+        this.testGroups = Object.keys(plugins)
+            .map(key => new TestGroup(key, plugins[key], pluginsOptions));
     }
 
     test(specs: string[], baselines: string[]) {
@@ -45,15 +46,4 @@ export class Tester {
 
         return filePath;
     }
-
-    // tslint:disable-next-line:no-any
-    private initPlugins = (plugins: IDictionary<string[]>, pluginsOptions: IDictionary<any>) =>
-        Object.keys(plugins).map(key => {
-            const firstModule = plugins[key].slice(0, 1)[0];
-            const envModule = firstModule.includes('-env-') && firstModule;
-            const baseliner = plugins[key].slice(-1)[0];
-            const readers = plugins[key].slice(Number(!!envModule), -1);
-
-            return new TestGroup(key, readers, baseliner, pluginsOptions, envModule || undefined);
-        })
 }
