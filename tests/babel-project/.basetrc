@@ -2,6 +2,11 @@
     "specs": "**/*.spec.jsx",
     "bases": "**/*.base",
     "plugins": {
-        ".spec.jsx$": ["baset-env-browser", "baset-reader-babel", "baset-baseliner-json"]
+        ".spec.jsx?$": {
+            "environment": "baset-env-browser",
+            "readers": ["baset-reader-babel"],
+            "resolvers": "baset-resolver-react",
+            "baseliner": "baset-baseliner-json"
+        }
     }
 }

@@ -21,6 +21,7 @@
         "baset": "^0.8.0",
         "baset-baseliner-json": "^0.8.0",
         "baset-env-browser": "^0.8.0",
+        "baset-resolver-react": "^0.8.0",
         "baset-reader-babel": "^0.8.0"
     }
 }
