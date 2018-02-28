@@ -23,6 +23,7 @@ export class TestGroup {
     private references = new WeakMap<object, string>();
     private pattern: RegExp;
     private readerChain: AbstractReader[];
+    private allImports: string[];
     constructor(
         pattern: string | RegExp,
         private options: ITestGroupOptions,
@@ -37,8 +38,10 @@ export class TestGroup {
 
             return new reader(pluginsOptions[readerName]);
         });
-        const baseliner: IBaselinerConstructor = require(path.resolve(baselinerName)).default;
-        this.baseliner = new baseliner(pluginsOptions[baselinerName]);
+        this.allImports = [
+            options.environment,
+            ...options.imports,
+        ].filter((importName): importName is string  => !!importName);
     }
 
     match = (filePath: string) =>
@@ -52,9 +55,7 @@ export class TestGroup {
                 builtin: ['*'],
                 context: 'sandbox',
                 external: true,
-                import: this.environment
-                    ? [this.environment]
-                    : undefined,
+                import: this.allImports,
             },
             compiler: compiler.compile,
             sourceExtensions: compiler.extensions,
