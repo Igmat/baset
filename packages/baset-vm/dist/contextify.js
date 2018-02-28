@@ -123,7 +123,13 @@ const Decontextify = {
 				if (key === 'isVMProxy') return true;
 				if (mock && host.Object.prototype.hasOwnProperty.call(mock, key)) return mock[key];
 				if (key === 'constructor') return host.Object;
-				if (key === '__proto__') return host.Object.prototype;
+                if (key === '__proto__') return host.Object.prototype;
+
+                // TODO: check if it breaks contextifying
+				const config = host.Object.getOwnPropertyDescriptor(object, key);
+				if (config && config.configurable === false && config.writable === false) {
+					return object[key];
+				}
 
 				try {
 					return Decontextify.value(object[key], null, deepTraps, flags);
