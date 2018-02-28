@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/Igmat/baset/compare/v0.7.5...v0.8.0) (2018-02-28)
+
+
+### Features
+
+* **core:** adding option to use global imports e.g. polyfills ([8871185](https://github.com/Igmat/baset/commit/8871185)), closes [#41](https://github.com/Igmat/baset/issues/41)
+
+
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](https://github.com/Igmat/baset/compare/v0.7.4...v0.7.5) (2018-02-27)
 

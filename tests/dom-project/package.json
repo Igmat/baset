@@ -1,6 +1,6 @@
 {
   "name": "dom-project",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -11,8 +11,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "baset": "^0.7.4",
-    "baset-baseliner-json": "^0.7.4",
-    "baset-env-browser": "^0.7.5"
+    "baset": "^0.8.0",
+    "baset-baseliner-json": "^0.8.0",
+    "baset-env-browser": "^0.8.0"
   }
 }
