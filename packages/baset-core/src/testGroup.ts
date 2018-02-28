@@ -5,6 +5,7 @@ import { isPrimitive } from 'util';
 import { AbstractBaseliner, IBaselinerConstructor } from './abstractBaseliner';
 import { AbstractEnvironmet } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
+import { AbstractResolver, IResolverConstructor } from './abstractResolver';
 import { IDictionary, readFile } from './utils';
 
 export const circularReference = Symbol('circularReference');
@@ -23,7 +24,9 @@ export class TestGroup {
     private references = new WeakMap<object, string>();
     private pattern: RegExp;
     private readerChain: AbstractReader[];
+    private resolvers: AbstractResolver[];
     private allImports: string[];
+    private indexOfResolver: (obj: any) => Promise<number>;
     constructor(
         pattern: string | RegExp,
         private options: ITestGroupOptions,
@@ -38,10 +41,26 @@ export class TestGroup {
 
             return new reader(pluginsOptions[readerName]);
         });
+
+        this.resolvers = options.resolvers.map(resolverName => {
+            const resolver: IResolverConstructor = require(path.resolve(resolverName)).default;
+
+            return new resolver(pluginsOptions[resolverName]);
+        });
+
+        const resolveMatchers = this.resolvers
+            .map((resolver, index) =>
+                async (toMatch: any) => resolver.match(toMatch));
+        this.indexOfResolver = async (obj: any) =>
+            (await Promise.all(
+                resolveMatchers
+                    .map(matcher => matcher(obj))))
+                .indexOf(true);
+
         this.allImports = [
             options.environment,
             ...options.imports,
-        ].filter((importName): importName is string  => !!importName);
+        ].filter((importName): importName is string => !!importName);
     }
 
     match = (filePath: string) =>
@@ -74,10 +93,12 @@ export class TestGroup {
     }
     // tslint:disable-next-line:no-any
     private calculateValues = async (obj: any, name = 'exports'): Promise<any> => {
+        const resolverIndex = await this.indexOfResolver(obj);
+        if (resolverIndex !== -1) return this.resolvers[resolverIndex].resolve(obj);
         if (isPrimitive(obj)) return obj;
         if (this.references.has(obj)) return this.createSelfReference(obj);
         this.references.set(obj, name);
-        if (obj instanceof Promise) return obj;
+        if (obj instanceof Promise) return this.calculateValues(await obj, name);
         if (obj instanceof Function) return obj.toString().split('\n')[0];
         if (Array.isArray(obj)) return await Promise.all(obj.map((value, key) => this.calculateValues(value, `${name}[${key}]`)));
 
