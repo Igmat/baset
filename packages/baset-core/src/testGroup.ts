@@ -9,6 +9,14 @@ import { IDictionary, readFile } from './utils';
 
 export const circularReference = Symbol('circularReference');
 
+export interface ITestGroupOptions {
+    baseliner: string;
+    environment?: string;
+    readers: string[];
+    resolvers: string[];
+    imports: string[];
+}
+
 export class TestGroup {
     private baseliner: AbstractBaseliner;
     // private environemt: AbstractEnvironmet;
@@ -16,14 +24,15 @@ export class TestGroup {
     private pattern: RegExp;
     private readerChain: AbstractReader[];
     constructor(
-        pattern: string,
-        readerNames: string[],
-        baselinerName: string,
-        pluginsOptions: IDictionary<any>,
-        private environment?: string) {
+        pattern: string | RegExp,
+        private options: ITestGroupOptions,
+        private pluginsOptions: IDictionary<any>) {
         this.pattern = new RegExp(pattern);
 
-        this.readerChain = readerNames.map(readerName => {
+        const baseliner: IBaselinerConstructor = require(path.resolve(options.baseliner)).default;
+        this.baseliner = new baseliner(pluginsOptions[options.baseliner]);
+
+        this.readerChain = options.readers.map(readerName => {
             const reader: IReaderConstructor = require(path.resolve(readerName)).default;
 
             return new reader(pluginsOptions[readerName]);
