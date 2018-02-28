@@ -25,6 +25,9 @@
 - [Why I have to use it?](#why-i-have-to-use-it)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Plugins configuration](#plugins-configuration)
+    - [Using configuration file (same for `package.json`)](#using-configuration-file-same-for-packagejson)
+    - [Using CLI](#using-cli)
 - [Examples](#examples)
 - [Plugins](#plugins)
 - [Roadmap](#roadmap)
@@ -112,14 +115,14 @@ Commands:
 
 Options:
 
-|    Option     |           Description           |  Type   |          Default value           |
-| ------------- | ------------------------------- | ------- | -------------------------------- |
-| --version     | Show version number             | boolean |                                  |
-| --specs, -s   | Glob pattern for spec files     | string  | `"**/*.spec.js"`                 |
-| --bases, -b   | Glob pattern for baseline files | string  | `"**/*.base"`                    |
-| --help, -h    | Show help                       | boolean |                                  |
-| --plugins, -p | Plugins used for your tests     | string  | `".spec.js$:baset-baseliner-json` |
-| --options, -o | Options for plugins             | TBD     | `{}`                             |
+|    Option     |           Description           |                       Type                        |           Default value           |     |
+| ------------- | ------------------------------- | ------------------------------------------------- | --------------------------------- | --- |
+| --version     | Show version number             | boolean                                           |                                   |     |
+| --specs, -s   | Glob pattern for spec files     | string                                            | `"**/*.spec.js"`                  |     |
+| --bases, -b   | Glob pattern for baseline files | string                                            | `"**/*.base"`                     |     |
+| --help, -h    | Show help                       | boolean                                           |                                   |     |
+| --plugins, -p | Plugins used for your tests     | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |     |
+| --options, -o | Options for plugins             | TBD                                               | `{}`                              |     |
 
 In your `package.json`:
 ```JSON
@@ -162,11 +165,49 @@ In `.basetrc` or `.basetrc.json`:
 }
 ```
 
+### Plugins configuration
+The most important configuration option is `plugins`. You may configure it via command line or via configuration file or even using `baset` section in `package.json`.
+
+#### Using configuration file (same for `package.json`)
+```JSON
+{
+    "plugins": {
+        "${pattern}": "${options}"
+    }
+}
+```
+`${pattern}` - is regular expression for filename of your test files, so you may define different plugin options for different file types (e.g. using `baset-reader-ts` for `.ts` files and `baset-reader-babel` for `.js` files).  
+`${options}` - is `string` or `string[]` or `object` with following fields:
+
+|   Field     |                                                                         Description                                                                          |        Type         |    Default value     |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | -------------------- |
+| baseliner   | name or path to module, that is responsible for generating baseline                                                                                          | string **Required** | baset-baseliner-json |
+| environment | name or path to module, that mimics desired environment (e.g. browser)                                                                                       | string              | undefined            |
+| readers     | name or path to module(s), that reads and transpiles specs and source code (e.g. babel, typescript)                                                          | string[] \| string  | undefined            |
+| resolvers   | name or path to module(s), that is able to resolve specific values (e.g. [react](https://reactjs.org/) components or [pixi](http://www.pixijs.com/) sprites) | string[] \| string  | undefined            |
+| imports     | name or path to module(s), that should be imported in test context (e.g. polyfills or [reflect-metadata](https://github.com/rbuckton/reflect-metadata))      | string[] \| string  | undefined            |
+
+If `${options}` is `string`, then it used as `baseliner` name or path.  
+If `${options}` is `string[]`, then it has to follow next agreement for its content:
+```
+["-env-pluginOrPath", ..."importPaths", ..."-reader-pluginsOrPaths",  ..."-resolver-pluginsOrPaths", "-baseliner-pluginOrPath"]
+```
+Where everything except `baseliner` is optional and `...` means that several entities are allowed.
+> **NOTE:** grouping of entities is based on their names, so all plugins _MUST_ contain substring `-(env|reader|resolver|baseliner)-`, except imports (last ones don't have any naming requirements).
+
+#### Using CLI
+Just type following command in your favorite terminal:
+```
+baset -p ${pattern}:${options}
+```
+`${pattern}` - is regular expression for filename of your test files (same as in previous paragraph).  
+`${options}` - is `string[]`, where values are separated by `:` sign. This array has exactly same semantic as using `string[]` in configuration file.
+
 ## Examples
 Our [tests folder](./tests) contains projects used for end-to-end tests of `baset` package (using `baset` itself, of course), so you can use them as references for integrating baset into your workflow.
 
 ## Plugins
-There are only 2 plugins right now:  
+There are only few plugins right now:  
 1. [`baset-baseliner-json`](./packages/baset-baseliner-json) - default plugin that used for creating baseline from exported values of spec
 2. [`baset-reader-ts`](./packages/baset-reader-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
 3. [`baset-reader-babel`](./packages/baset-reader-babel) - simple plugin that allows to write specs using [Babel](https://babeljs.io/)
