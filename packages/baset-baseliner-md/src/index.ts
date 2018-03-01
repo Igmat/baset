@@ -5,19 +5,28 @@ interface IImageProperty {
     name: string;
     src: string;
 }
+function isEmptyJsonSting(json: string) {
+    return !json || json === '[]' || json === '{}';
+}
+
 const imageTemplate = (image: IImageProperty) => `
 \`${image.name}:\`
+
 ![${image.name}](${image.src})
 `;
-const mdTemplate = (json: string, images: IImageProperty[]) => `
+const jsonTemplate = (json: string) => `
 JSON values:
 \`\`\`JSON
 ${json}
 \`\`\`
+`;
+const mdTemplate = (json: string, images: IImageProperty[]) => `
+${!isEmptyJsonSting(json) ? jsonTemplate(json) : ''}
 ${images.map(imageTemplate)}
 `;
 
-export default class ExportReader extends AbstractBaseliner {
+export default class MDBaseliner extends AbstractBaseliner {
+    readonly ext = '.base.md';
     private jsonBaseliner: JSONBaseliner;
     constructor(options: any) {
         super(options);
@@ -44,11 +53,7 @@ export default class ExportReader extends AbstractBaseliner {
         }
         if (obj[dataTypes.image]) {
             const result = {
-                name: (typeof key === 'string')
-                    ? `${path}.${key}`
-                    : (typeof key === 'number')
-                        ? `${path}[${key}]`
-                        : `${path}`,
+                name: path,
                 src: obj.value,
             };
             if (key !== undefined) delete parent[key];
