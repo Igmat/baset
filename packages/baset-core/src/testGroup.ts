@@ -26,7 +26,7 @@ export class TestGroup {
     private readerChain: AbstractReader[];
     private resolvers: AbstractResolver[];
     private allImports: string[];
-    private indexOfResolver: (obj: any) => Promise<number>;
+    private indexOfResolver: (obj: any, context: NodeVM, sandbox: IDictionary<any>) => Promise<number>;
     constructor(
         pattern: string | RegExp,
         private options: ITestGroupOptions,
@@ -50,11 +50,11 @@ export class TestGroup {
 
         const resolveMatchers = this.resolvers
             .map((resolver, index) =>
-                async (toMatch: any) => resolver.match(toMatch));
-        this.indexOfResolver = async (obj: any) =>
+                async (toMatch: any, context: NodeVM, sandbox: IDictionary<any>) => resolver.match(toMatch, context, sandbox));
+        this.indexOfResolver = async (obj: any, context: NodeVM, sandbox: IDictionary<any>) =>
             (await Promise.all(
                 resolveMatchers
-                    .map(matcher => matcher(obj))))
+                    .map(matcher => matcher(obj, context, sandbox))))
                 .indexOf(true);
 
         this.allImports = [
@@ -69,6 +69,7 @@ export class TestGroup {
     read = async (filePath: string) => {
         const resolvedPath = path.resolve(filePath);
         const compiler = this.getCompiler();
+        const sandbox: IDictionary<any> = {};
         const context = new NodeVM({
             require: {
                 builtin: ['*'],
@@ -76,6 +77,7 @@ export class TestGroup {
                 external: true,
                 import: this.allImports,
             },
+            sandbox: { basetSandbox: sandbox },
             compiler: compiler.compile,
             sourceExtensions: compiler.extensions,
             resolveFilename: compiler.resolveFilename,
@@ -87,23 +89,27 @@ export class TestGroup {
             ? compiledSrc
             : [compiledSrc];
         const testsExports = tests.map((test, index) => context.run(test, `${resolvedPath}.${index}.js`));
-        const testsResults = testsExports.map((value, index) => this.calculateValues(value, `exports[${index}]`));
+        const testsResults = testsExports.map((value, index) => this.calculateValues(value, context, sandbox, `exports[${index}]`));
 
         return this.baseliner.create(testsResults);
     }
     // tslint:disable-next-line:no-any
-    private calculateValues = async (obj: any, name = 'exports'): Promise<any> => {
-        const resolverIndex = await this.indexOfResolver(obj);
-        if (resolverIndex !== -1) return this.resolvers[resolverIndex].resolve(obj);
+    private calculateValues = async (obj: any, context: NodeVM, sandbox: IDictionary<any>, name = 'exports'): Promise<any> => {
+        const resolverIndex = await this.indexOfResolver(obj, context, sandbox);
+        if (resolverIndex !== -1) return this.resolvers[resolverIndex].resolve(obj, context, sandbox);
         if (isPrimitive(obj)) return obj;
         if (this.references.has(obj)) return this.createSelfReference(obj);
         this.references.set(obj, name);
-        if (obj instanceof Promise) return this.calculateValues(await obj, name);
+        if (obj instanceof Promise) return this.calculateValues(await obj, context, sandbox, name);
         if (obj instanceof Function) return obj.toString().split('\n')[0];
-        if (Array.isArray(obj)) return await Promise.all(obj.map((value, key) => this.calculateValues(value, `${name}[${key}]`)));
+        if (Array.isArray(obj)) {
+            return await Promise.all(
+                obj.map((value, key) =>
+                    this.calculateValues(value, context, sandbox, `${name}[${key}]`)));
+        }
 
         return (await Promise.all(Object.keys(obj)
-            .map(async key => ({ [key]: await this.calculateValues(obj[key], `${name}.${key}`) }))))
+            .map(async key => ({ [key]: await this.calculateValues(obj[key], context, sandbox, `${name}.${key}`) }))))
             .reduce((result, prop) => ({ ...result, ...prop }), {});
     }
 
