@@ -1,4 +1,4 @@
-import { AbstractResolver, utils } from 'baset-core';
+import { AbstractResolver, dataTypes, utils } from 'baset-core';
 import { NodeVM } from 'baset-vm';
 import fs from 'fs';
 import path from 'path';
@@ -17,6 +17,9 @@ export default class PixiResolver extends AbstractResolver {
     resolve = async (obj: any, context: NodeVM, sandbox: utils.IDictionary<any>) => {
         sandbox.basetResolverPixi__ObjectToRender = obj;
 
-        return await context.run(await renderInContextScript, 'PixiResolver.js').renderedResult;
+        return {
+            value: await context.run(await renderInContextScript, 'PixiResolver.js').renderedResult,
+            [dataTypes.image]: 'base64',
+        };
     }
 }
