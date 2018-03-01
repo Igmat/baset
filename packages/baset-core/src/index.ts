@@ -1,3 +1,4 @@
+import * as dataTypes from './dataTypes';
 import * as utils from './utils';
 
 export { AbstractBaseliner } from './abstractBaseliner';
@@ -6,4 +7,7 @@ export { AbstractResolver } from './abstractResolver';
 export { AbstractEnvironmet } from './abstractEnvironment';
 export { circularReference, ITestGroupOptions } from './testGroup';
 export { Tester } from './tester';
-export { utils };
+export {
+    utils,
+    dataTypes,
+};
