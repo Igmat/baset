@@ -2,6 +2,11 @@
     "specs": "**/*.spec.ts",
     "bases": "**/*.base",
     "plugins": {
-        ".spec.ts$": ["baset-env-browser", "baset-reader-ts", "baset-baseliner-json"]
+        ".spec.ts$": {
+            "environment": "baset-env-browser",
+            "readers": "baset-reader-ts",
+            "resolvers": "baset-resolver-pixi",
+            "baseliner": "baset-baseliner-json"
+        }
     }
 }
