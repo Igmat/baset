@@ -1,7 +1,7 @@
 import path from 'path';
 import { isPrimitive } from 'util';
 import { ITestGroupOptions, TestGroup } from './testGroup';
-import { IDictionary, isExists, readFile, unlink, writeFile } from './utils';
+import { pathToTmp, IDictionary, isExists, readFile, unlink, writeFile, tmpToPath } from './utils';
 
 export class Tester {
     private testGroups: TestGroup[];
@@ -22,13 +22,12 @@ export class Tester {
     private testSpec = async (name: string) => {
         const reader = this.testGroups.find(group => group.match(name));
         if (!reader) throw new Error(`No reader defined for ${name}!`);
-        const output = (await reader.read(name)).replace(/\r?\n|\r/g, '\n').trim();
-        const ext = path.extname(name);
-        const baselinePath = path.resolve(name.replace(new RegExp(`${ext}$`), '.base'));
-        const baselineValue = await isExists(baselinePath)
-            ? (await readFile(baselinePath, { encoding: 'utf-8' })).replace(/\r?\n|\r/g, '\n').trim()
+        const baseline = await reader.read(name);
+        const output = this.normalizeEndings(baseline.output);
+        const baselineValue = await isExists(baseline.path)
+            ? this.normalizeEndings(await readFile(baseline.path, { encoding: 'utf-8' }))
             : false;
-        await writeFile(path.resolve(`${baselinePath}.tmp`), output);
+        await writeFile(pathToTmp(baseline.path), output);
 
         return {
             name,
@@ -40,10 +39,13 @@ export class Tester {
 
     private acceptBase = async (name: string) => {
         const baseline = await readFile(path.resolve(name), { encoding: 'utf-8' });
-        const filePath = name.replace(/.tmp$/, '');
+        const filePath = tmpToPath(name);
         await writeFile(path.resolve(filePath), baseline);
         await unlink(path.resolve(name));
 
         return filePath;
     }
+
+    private normalizeEndings = (value: string) =>
+        value.replace(/\r?\n|\r/g, '\n').trim();
 }

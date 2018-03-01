@@ -91,7 +91,13 @@ export class TestGroup {
         const testsExports = tests.map((test, index) => context.run(test, `${resolvedPath}.${index}.js`));
         const testsResults = testsExports.map((value, index) => this.calculateValues(value, context, sandbox, `exports[${index}]`));
 
-        return this.baseliner.create(testsResults);
+        const ext = path.extname(filePath);
+        const baselinePath = path.resolve(filePath.replace(new RegExp(`${ext}$`), this.baseliner.ext));
+
+        return {
+            path: baselinePath,
+            output: await this.baseliner.create(testsResults),
+        };
     }
     // tslint:disable-next-line:no-any
     private calculateValues = async (obj: any, context: NodeVM, sandbox: IDictionary<any>, name = 'exports'): Promise<any> => {
