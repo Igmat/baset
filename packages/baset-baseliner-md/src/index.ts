@@ -1,7 +1,9 @@
 import JSONBaseliner from 'baset-baseliner-json';
 import { AbstractBaseliner, circularReference, dataTypes } from 'baset-core';
+import htmlBeautify from 'html-beautify';
 import { isPrimitive } from 'util';
-interface IImageProperty {
+interface IKnownType {
+    type: typeof dataTypes.image | typeof dataTypes.html;
     name: string;
     src: string;
 }
@@ -9,24 +11,34 @@ function isEmptyJsonSting(json: string) {
     return !json || json === '[]' || json === '{}';
 }
 
-const imageTemplate = (image: IImageProperty) => `
-\`${image.name}:\`
-
+const knownTypeTemplates = {
+    [dataTypes.image]: (image: IKnownType) => `
 ![${image.name}](${image.src})
+`,
+    [dataTypes.html]: (html: IKnownType) => `
+\`\`\`HTML
+${htmlBeautify(html.src)}
+\`\`\`
+`,
+};
+const renderKnown = (property: IKnownType) => `
+\`${property.name}:\`
+${knownTypeTemplates[property.type](property)}
 `;
-const jsonTemplate = (json: string) => `
+const renderJson = (json: string) => `
 JSON values:
 \`\`\`JSON
 ${json}
 \`\`\`
 `;
-const mdTemplate = (json: string, images: IImageProperty[]) => `
-${!isEmptyJsonSting(json) ? jsonTemplate(json) : ''}
-${images.map(imageTemplate)}
+
+const mdTemplate = (json: string, known: IKnownType[]) => `
+${!isEmptyJsonSting(json) ? renderJson(json) : ''}
+${known.map(renderKnown)}
 `;
 
 export default class MDBaseliner extends AbstractBaseliner {
-    readonly ext = '.base.md';
+    readonly ext = '.md';
     private jsonBaseliner: JSONBaseliner;
     constructor(options: any) {
         super(options);
@@ -34,25 +46,31 @@ export default class MDBaseliner extends AbstractBaseliner {
     }
     create = async (result: Promise<any>[]) => {
         const results = await Promise.all(result);
-        const images = results.length === 1
-            ? this.cutImages(results[0], 'exports')
-            : this.cutImages(results, 'exports');
+        const known = results.length === 1
+            ? this.cutKnownTypes(results[0], 'exports')
+            : this.cutKnownTypes(results, 'exports');
 
-        return mdTemplate(await this.jsonBaseliner.create(results), images);
+        return mdTemplate(await this.jsonBaseliner.create(results), known);
     }
 
-    private cutImages = (parent: any, path: string, key?: string | number): IImageProperty[] => {
+    private cutKnownTypes = (parent: any, path: string, key?: string | number): IKnownType[] => {
         const obj = (key !== undefined)
             ? parent[key]
             : parent;
         if (isPrimitive(obj)) return [];
         if (Array.isArray(obj)) {
-            return ([] as IImageProperty[]).concat(
+            return ([] as IKnownType[]).concat(
                 ...obj.map((value, index) =>
-                    this.cutImages(obj, `${path}[${index}]`, index)));
+                    this.cutKnownTypes(obj, `${path}[${index}]`, index)));
         }
-        if (obj[dataTypes.image]) {
-            const result = {
+        const type = obj[dataTypes.image]
+            ? dataTypes.image
+            : obj[dataTypes.html]
+                ? dataTypes.html
+                : false;
+        if (type) {
+            const result: IKnownType = {
+                type,
                 name: path,
                 src: obj.value,
             };
@@ -61,7 +79,7 @@ export default class MDBaseliner extends AbstractBaseliner {
             return [result];
         }
 
-        return ([] as IImageProperty[]).concat(...Object.keys(obj)
-            .map(index => this.cutImages(obj, `${path}.${index}`, index)));
+        return ([] as IKnownType[]).concat(...Object.keys(obj)
+            .map(index => this.cutKnownTypes(obj, `${path}.${index}`, index)));
     }
 }

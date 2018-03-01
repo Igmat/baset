@@ -39,6 +39,7 @@
     },
     "dependencies": {
         "baset-core": "^0.8.0",
-        "baset-baseliner-json": "^0.8.0"
+        "baset-baseliner-json": "^0.8.0",
+        "html-beautify": "^1.0.4"
     }
 }
