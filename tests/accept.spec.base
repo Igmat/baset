@@ -27,8 +27,12 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.ts is written.",
-                "Test for index.spec.ts is passed",
+                "PixiJS 4.7.0 - Canvas - http://www.pixijs.com/",
+                "PixiJS 4.7.0 - Canvas - http://www.pixijs.com/",
+                "Temp baseline for graphics.spec.ts is written.",
+                "Test for graphics.spec.ts is passed",
+                "Temp baseline for sprite.spec.ts is written.",
+                "Test for sprite.spec.ts is passed",
                 ""
             ],
             "stderr": []
@@ -37,7 +41,8 @@
             "stdout": [
                 "",
                 "",
-                "Baseline index.spec.base is written.",
+                "Baseline graphics.spec.base is written.",
+                "Baseline sprite.spec.base is written.",
                 ""
             ],
             "stderr": []
