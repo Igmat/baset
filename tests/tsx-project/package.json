@@ -18,7 +18,7 @@
         "@types/react": "^16.0.38",
         "@types/react-dom": "^16.0.4",
         "baset": "^0.8.0",
-        "baset-baseliner-json": "^0.8.0",
+        "baset-baseliner-md": "^0.8.0",
         "baset-env-browser": "^0.8.0",
         "baset-reader-ts": "^0.8.0",
         "baset-resolver-react": "^0.8.0",
