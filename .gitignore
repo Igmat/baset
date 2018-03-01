@@ -63,5 +63,5 @@ Thumbs.db
 lerna-debug.log
 
 # tmp baseline
-**/*.base.tmp
-**/*.base.tmp.md
+**/*.spec.tmp.md
+**/*.spec.tmp.base
