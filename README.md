@@ -7,7 +7,7 @@
 
 [![npm badge][npm-badge-png]][package-url]
 
-[npm-badge-png]: https://nodei.co/npm/baset.png?mini=true
+[npm-badge-png]: https://nodei.co/npm/baset.png?downloads=true&downloadRank=true&stars=true
 [package-url]: https://npmjs.com/package/baset
 
 # BaseT
