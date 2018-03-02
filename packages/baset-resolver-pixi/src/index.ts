@@ -22,9 +22,9 @@ export default class PixiResolver extends AbstractResolver {
         const value = new Promise(async (resolve, reject) => {
             // here we got base64 string from canvas object
             const base64String: string = await context.run(await renderInContextScript, 'PixiResolver.js').renderedResult;
-            // but it's plaform dependent and base64 string differs on win and *nix
+            // but it's platform dependent and base64 string differs on win and *nix
             // so we'll use JS implementation of png coder/decoder to ensure that
-            // result is simillar in all platforms
+            // result is similar in all platforms
             const imgBuffer = new Buffer(base64String.replace(base64prefix, ''), 'base64');
             const png = new PNG();
             const bufferChunks: any[] = [];
