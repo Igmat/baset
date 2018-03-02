@@ -2,8 +2,8 @@ dist: trusty
 sudo: true
 language: node_js
 node_js:
-  - "9"
-  - "8"
+  - "9 x64"
+  - "8 x64"
 # - "6"
 before_install: yarn global add greenkeeper-lockfile@1
 before_script: npm run build && greenkeeper-lockfile-update
@@ -14,7 +14,7 @@ jobs:
   include:
     - stage: release
       if: branch = master
-      node_js: "8"
+      node_js: "8 x64"
       script: sh ./scripts/authenticate.sh
       deploy:
         provider: script
