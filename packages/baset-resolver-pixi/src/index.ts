@@ -26,7 +26,7 @@ export default class PixiResolver extends AbstractResolver {
             // so we'll use JS implementation of png coder/decoder to ensure that
             // result is similar in all platforms
             const imgBuffer = new Buffer(base64String.replace(base64prefix, ''), 'base64');
-            const png = new PNG();
+            const png = new PNG({ colorType: 6 as any });
             const bufferChunks: any[] = [];
             const dest = new Writable({
                 write(chunk, encoding, done)  {
