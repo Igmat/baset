@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/Igmat/baset/compare/v0.8.0...v0.9.0) (2018-03-03)
+
+
+### Bug Fixes
+
+* **baseliner-md:** less strict image match - skips AA pixels ([cfe9550](https://github.com/Igmat/baset/commit/cfe9550))
+* **core:** adding context and sandbox object to resolvers ([a56d1b1](https://github.com/Igmat/baset/commit/a56d1b1))
+* **core:** moving responsibility for comparison to baseliners ([4f6c260](https://github.com/Igmat/baset/commit/4f6c260))
+* **core:** selecting baseline ext by baseliner ([b68a4b9](https://github.com/Igmat/baset/commit/b68a4b9))
+* **core:** shared data-types for resolver/baseliner interaction ([48816d5](https://github.com/Igmat/baset/commit/48816d5))
+* **env-browser:** better support for external resources ([c354f44](https://github.com/Igmat/baset/commit/c354f44))
+* **resolver-pixi:** explicit colorType set ([28722bc](https://github.com/Igmat/baset/commit/28722bc))
+* **resolver-pixi:** save images in rgb without a-channel ([dfe511d](https://github.com/Igmat/baset/commit/dfe511d))
+* **resolver-pixi:** use of pngjs for correct base64 strings ([1ed4e34](https://github.com/Igmat/baset/commit/1ed4e34))
+* **resolver-pixi:** using data-type for resolver pixi images ([4f8a270](https://github.com/Igmat/baset/commit/4f8a270))
+* **resolver-react:** using html data type for beautified baseline ([36369eb](https://github.com/Igmat/baset/commit/36369eb))
+* **vm:** more correct proxy for sandboxed object ([b31a8de](https://github.com/Igmat/baset/commit/b31a8de))
+
+
+### Features
+
+* **baseliner-md:** add comparison for json, html and images in md ([832f3c9](https://github.com/Igmat/baset/commit/832f3c9))
+* **baseliner-md:** initial implementation of md baseliner ([61bac7f](https://github.com/Igmat/baset/commit/61bac7f))
+* **baseliner-md:** using code block for html data type ([a12595f](https://github.com/Igmat/baset/commit/a12595f))
+* **core:** adding data type for html resolving ([8689b29](https://github.com/Igmat/baset/commit/8689b29))
+* **core:** api for resolvers that may work with different value types ([f8ddd23](https://github.com/Igmat/baset/commit/f8ddd23))
+* **resolver-pixi:** initial implementation for pixi resolver ([dd82794](https://github.com/Igmat/baset/commit/dd82794))
+* **resolver-react:** initial implementation for react resolver ([43aea7a](https://github.com/Igmat/baset/commit/43aea7a))
+
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/Igmat/baset/compare/v0.7.5...v0.8.0) (2018-02-28)
 

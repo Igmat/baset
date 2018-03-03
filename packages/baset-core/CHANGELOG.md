@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/Igmat/baset/compare/v0.8.0...v0.9.0) (2018-03-03)
+
+
+### Bug Fixes
+
+* **core:** adding context and sandbox object to resolvers ([a56d1b1](https://github.com/Igmat/baset/commit/a56d1b1))
+* **core:** moving responsibility for comparison to baseliners ([4f6c260](https://github.com/Igmat/baset/commit/4f6c260))
+* **core:** selecting baseline ext by baseliner ([b68a4b9](https://github.com/Igmat/baset/commit/b68a4b9))
+* **core:** shared data-types for resolver/baseliner interaction ([48816d5](https://github.com/Igmat/baset/commit/48816d5))
+
+
+### Features
+
+* **core:** adding data type for html resolving ([8689b29](https://github.com/Igmat/baset/commit/8689b29))
+* **core:** api for resolvers that may work with different value types ([f8ddd23](https://github.com/Igmat/baset/commit/f8ddd23))
+
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/Igmat/baset/compare/v0.7.5...v0.8.0) (2018-02-28)
 
