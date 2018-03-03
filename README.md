@@ -7,7 +7,7 @@
 
 [![npm badge][npm-badge-png]][package-url]
 
-[npm-badge-png]: https://nodei.co/npm/baset.png?mini=true
+[npm-badge-png]: https://nodei.co/npm/baset.png?downloads=true&downloadRank=true&stars=true
 [package-url]: https://npmjs.com/package/baset
 
 # BaseT
@@ -209,9 +209,12 @@ Our [tests folder](./tests) contains projects used for end-to-end tests of `base
 ## Plugins
 There are only few plugins right now:  
 1. [`baset-baseliner-json`](./packages/baset-baseliner-json) - default plugin that used for creating baseline from exported values of spec
-2. [`baset-reader-ts`](./packages/baset-reader-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
-3. [`baset-reader-babel`](./packages/baset-reader-babel) - simple plugin that allows to write specs using [Babel](https://babeljs.io/)
-4. [`baset-env-browser`](./packages/baset-env-browser) - simple plugin that enables browser API in specs and sources using [jsdom](https://github.com/jsdom/jsdom) package.
+2. [`baset-baseliner-md`](./packages/baset-baseliner-md) - plugin that used for creating baselines in Markdown format
+3. [`baset-env-browser`](./packages/baset-env-browser) - simple plugin that enables browser API in specs and sources using [jsdom](https://github.com/jsdom/jsdom) package.
+4. [`baset-reader-ts`](./packages/baset-reader-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
+5. [`baset-reader-babel`](./packages/baset-reader-babel) - simple plugin that allows to write specs using [Babel](https://babeljs.io/)
+6. [`baset-resolver-react`](./packages/baset-resolver-react) - simple plugin that resolves [react](https://reactjs.org/) components as `html`
+7. [`baset-resolver-pixi`](./packages/baset-resolver-pixi) - simple plugin that resolver [pixi](http://www.pixijs.com/) DisplayObject as `base64` encoded image
 
 ## Roadmap
 Unfortunately, not yet ready, but you may find our nearest goals at [our board](https://github.com/Igmat/baset/projects/1)

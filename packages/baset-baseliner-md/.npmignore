@@ -1,0 +1,5 @@
+!/bin/**/*
+!/dist/**/*
+/src/
+tsconfig.json
+tslint.json

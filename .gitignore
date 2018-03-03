@@ -61,4 +61,7 @@ testem.log
 .DS_Store
 Thumbs.db
 lerna-debug.log
-**/*.base.tmp
+
+# tmp baseline
+**/*.spec.tmp.md
+**/*.spec.tmp.base

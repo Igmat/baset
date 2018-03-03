@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom/server';
 import { jsxFn } from './index';
 
-export const value = ReactDOM.renderToString(
+export const value = (
     <div>
         {jsxFn('s', 's')}
         {jsxFn('abc', 'cba')}

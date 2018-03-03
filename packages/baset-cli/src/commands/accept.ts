@@ -1,4 +1,4 @@
-import { Tester } from 'baset-core';
+import { Tester, utils } from 'baset-core';
 import glob from 'glob-promise';
 import { CommandModule } from 'yargs';
 import { IGlobalArgs } from '../options';
@@ -20,7 +20,7 @@ const acceptCommand: CommandModule = {
         },
     },
     handler: async (argv: IAcceptArgs) => {
-        const baselines = await glob(argv.bases + '.tmp');
+        const baselines = await glob(utils.pathToTmp(argv.bases));
         const tester = new Tester(argv.plugins, argv.options);
         const results = await Promise.all(tester.accept(baselines));
         results.forEach(result => console.log(`Baseline ${result} is written.`));

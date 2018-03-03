@@ -1,7 +1,12 @@
 {
     "specs": "**/*.spec.ts?(x)",
-    "bases": "**/*.base",
+    "bases": "**/*.spec.md",
     "plugins": {
-        ".spec.tsx?$": ["baset-env-browser", "baset-reader-ts", "baset-reader-babel", "baset-baseliner-json"]
+        ".spec.tsx?$": {
+            "environment": "baset-env-browser",
+            "readers": ["baset-reader-ts", "baset-reader-babel"],
+            "resolvers": "baset-resolver-react",
+            "baseliner": "baset-baseliner-md"
+        }
     }
 }

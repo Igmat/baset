@@ -16,9 +16,10 @@
     "devDependencies": {
         "@types/pixi.js": "^4.7.0",
         "baset": "^0.8.0",
-        "baset-baseliner-json": "^0.8.0",
+        "baset-baseliner-md": "^0.8.0",
         "baset-env-browser": "^0.8.0",
         "baset-reader-ts": "^0.8.0",
+        "baset-resolver-pixi": "^0.8.0",
         "typescript": "next"
     }
 }

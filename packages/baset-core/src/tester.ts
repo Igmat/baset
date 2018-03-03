@@ -1,7 +1,7 @@
 import path from 'path';
 import { isPrimitive } from 'util';
 import { ITestGroupOptions, TestGroup } from './testGroup';
-import { IDictionary, isExists, readFile, unlink, writeFile } from './utils';
+import { IDictionary, isExists, pathToTmp, readFile, tmpToPath, unlink, writeFile } from './utils';
 
 export class Tester {
     private testGroups: TestGroup[];
@@ -22,25 +22,20 @@ export class Tester {
     private testSpec = async (name: string) => {
         const reader = this.testGroups.find(group => group.match(name));
         if (!reader) throw new Error(`No reader defined for ${name}!`);
-        const output = (await reader.read(name)).replace(/\r?\n|\r/g, '\n').trim();
-        const ext = path.extname(name);
-        const baselinePath = path.resolve(name.replace(new RegExp(`${ext}$`), '.base'));
-        const baselineValue = await isExists(baselinePath)
-            ? (await readFile(baselinePath, { encoding: 'utf-8' })).replace(/\r?\n|\r/g, '\n').trim()
-            : false;
-        await writeFile(path.resolve(`${baselinePath}.tmp`), output);
+        const testResult = await reader.test(name);
+        await writeFile(pathToTmp(testResult.path), testResult.output.actual);
 
         return {
             name,
-            isPassed: baselineValue === output,
-            expected: baselineValue || '',
-            actual: output,
+            isPassed: testResult.output.isEqual,
+            expected: testResult.output.expected || '',
+            actual: testResult.output.actual,
         };
     }
 
     private acceptBase = async (name: string) => {
         const baseline = await readFile(path.resolve(name), { encoding: 'utf-8' });
-        const filePath = name.replace(/.tmp$/, '');
+        const filePath = tmpToPath(name);
         await writeFile(path.resolve(filePath), baseline);
         await unlink(path.resolve(name));
 
