@@ -32,6 +32,8 @@
     },
     "devDependencies": {
         "@types/node": "^9.3.0",
+        "@types/pixelmatch": "^4.0.0",
+        "@types/pngjs": "^3.3.0",
         "baset": "^0.8.0",
         "doctoc": "^1.3.0",
         "tslint": "^5.9.1",
@@ -40,6 +42,9 @@
     "dependencies": {
         "baset-core": "^0.8.0",
         "baset-baseliner-json": "^0.8.0",
-        "html-beautify": "^1.0.4"
+        "html-beautify": "^1.0.4",
+        "pixelmatch": "^4.0.2",
+        "pngjs": "^3.3.2",
+        "markdown": "^0.5.0"
     }
 }
