@@ -19,3 +19,7 @@ export function pathToTmp(value: string) {
 export function tmpToPath(value: string) {
     return value.replace(/.tmp./, '.');
 }
+
+export function normalizeEndings(value: string) {
+    return value.replace(/\r?\n|\r/g, '\n').trim();
+}

@@ -6,7 +6,7 @@ import { AbstractBaseliner, IBaselinerConstructor } from './abstractBaseliner';
 import { AbstractEnvironmet } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
 import { AbstractResolver, IResolverConstructor } from './abstractResolver';
-import { IDictionary, readFile } from './utils';
+import { IDictionary, isExists, readFile } from './utils';
 
 export const circularReference = Symbol('circularReference');
 
@@ -66,7 +66,7 @@ export class TestGroup {
     match = (filePath: string) =>
         this.pattern.test(filePath);
 
-    read = async (filePath: string) => {
+    test = async (filePath: string) => {
         const resolvedPath = path.resolve(filePath);
         const compiler = this.getCompiler();
         const sandbox: IDictionary<any> = {};
@@ -93,10 +93,13 @@ export class TestGroup {
 
         const ext = path.extname(filePath);
         const baselinePath = path.resolve(filePath.replace(new RegExp(`${ext}$`), this.baseliner.ext));
+        const baselineValue = await isExists(baselinePath)
+            ? readFile(baselinePath, { encoding: 'utf-8' })
+            : new Promise<string>(resolve => resolve(''));
 
         return {
             path: baselinePath,
-            output: await this.baseliner.create(testsResults),
+            output: await this.baseliner.compare(testsResults, baselineValue),
         };
     }
     // tslint:disable-next-line:no-any

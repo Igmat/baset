@@ -1,7 +1,7 @@
 import path from 'path';
 import { isPrimitive } from 'util';
 import { ITestGroupOptions, TestGroup } from './testGroup';
-import { pathToTmp, IDictionary, isExists, readFile, unlink, writeFile, tmpToPath } from './utils';
+import { IDictionary, isExists, pathToTmp, readFile, tmpToPath, unlink, writeFile } from './utils';
 
 export class Tester {
     private testGroups: TestGroup[];
@@ -22,18 +22,14 @@ export class Tester {
     private testSpec = async (name: string) => {
         const reader = this.testGroups.find(group => group.match(name));
         if (!reader) throw new Error(`No reader defined for ${name}!`);
-        const baseline = await reader.read(name);
-        const output = this.normalizeEndings(baseline.output);
-        const baselineValue = await isExists(baseline.path)
-            ? this.normalizeEndings(await readFile(baseline.path, { encoding: 'utf-8' }))
-            : false;
-        await writeFile(pathToTmp(baseline.path), output);
+        const testResult = await reader.test(name);
+        await writeFile(pathToTmp(testResult.path), testResult.output.actual);
 
         return {
             name,
-            isPassed: baselineValue === output,
-            expected: baselineValue || '',
-            actual: output,
+            isPassed: testResult.output.isEqual,
+            expected: testResult.output.expected || '',
+            actual: testResult.output.actual,
         };
     }
 
@@ -45,7 +41,4 @@ export class Tester {
 
         return filePath;
     }
-
-    private normalizeEndings = (value: string) =>
-        value.replace(/\r?\n|\r/g, '\n').trim();
 }
