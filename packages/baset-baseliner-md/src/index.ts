@@ -164,7 +164,6 @@ async function compareImages(a: string, b: string) {
     if (imageA.width !== imageB.width || imageA.height !== imageB.height) return false;
 
     return pixelmatch(imageA.data, imageB.data, null, imageA.width, imageA.height, {
-        includeAA: true,
         threshold: 0,
     }) === 0;
 }
