@@ -78,6 +78,7 @@ export default class MDBaseliner extends AbstractBaseliner {
         };
     }
     private parse = (baseline: string) => {
+        if (!baseline.trim()) return { json: '', knownEntities: [] };
         const mdTree = markdown.parse(baseline);
         const paraNodes: any[] = mdTree.slice(1);
         const json: string = (paraNodes[0][1] === 'JSON values:\n')
