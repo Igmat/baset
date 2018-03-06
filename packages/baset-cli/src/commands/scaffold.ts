@@ -41,8 +41,8 @@ const scaffoldCommand: CommandModule = {
         const specs = await glob(argv.specs);
         complementArray(specs, files);
         const scaffolder = new Scaffolder();
-        const results = scaffolder.scaffold(files);
-        console.log(JSON.stringify(await Promise.all(results), undefined, 4));
+        const results = await Promise.all(scaffolder.scaffold(files));
+        results.forEach(result => result && console.log(`Spec "${result}" is scaffolded`));
     },
 };
 export = scaffoldCommand;
