@@ -35,6 +35,7 @@
         "typescript": "next"
     },
     "dependencies": {
-        "baset-vm": "^0.9.0"
+        "baset-vm": "^0.9.0",
+        "typescript": "next"
     }
 }

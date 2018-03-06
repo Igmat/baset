@@ -7,6 +7,7 @@ export { AbstractResolver } from './abstractResolver';
 export { AbstractEnvironmet } from './abstractEnvironment';
 export { circularReference, ITestGroupOptions } from './testGroup';
 export { Tester } from './tester';
+export { Scaffolder } from './scaffolder';
 export {
     utils,
     dataTypes,
