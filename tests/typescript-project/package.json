@@ -6,7 +6,8 @@
     "main": "index.js",
     "scripts": {
         "test": "baset",
-        "accept": "baset accept"
+        "accept": "baset accept",
+        "scaffold": "baset scaffold"
     },
     "author": "",
     "license": "MIT",

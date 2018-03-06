@@ -1,5 +1,6 @@
 {
     "specs": "**/*.spec.ts",
+    "files": "**/*.ts",
     "bases": "**/*.base",
     "plugins": {
         ".spec.js$": "baset-baseliner-json",
