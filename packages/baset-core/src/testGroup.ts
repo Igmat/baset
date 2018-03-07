@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { isPrimitive } from 'util';
 import { AbstractBaseliner, IBaselinerConstructor } from './abstractBaseliner';
-import { AbstractEnvironmet } from './abstractEnvironment';
+import { AbstractEnvironment, IEnvironmentConstructor } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
 import { AbstractResolver, IResolverConstructor } from './abstractResolver';
 import { IDictionary, isExists, readFile } from './utils';
@@ -20,12 +20,11 @@ export interface ITestGroupOptions {
 
 export class TestGroup {
     private baseliner: AbstractBaseliner;
-    // private environemt: AbstractEnvironmet;
+    private environment?: AbstractEnvironment;
     private references = new WeakMap<object, string>();
     private pattern: RegExp;
     private readerChain: AbstractReader[];
     private resolvers: AbstractResolver[];
-    private allImports: string[];
     private indexOfResolver: (obj: any, context: NodeVM, sandbox: IDictionary<any>) => Promise<number>;
     constructor(
         pattern: string | RegExp,
@@ -48,6 +47,12 @@ export class TestGroup {
             return new resolver(pluginsOptions[resolverName]);
         });
 
+        if (options.environment) {
+            const environment: IEnvironmentConstructor = require(path.resolve(options.environment)).default;
+
+            this.environment = new environment(pluginsOptions[options.environment] || pluginsOptions[path.basename(options.environment)]);
+        }
+
         const resolveMatchers = this.resolvers
             .map((resolver, index) =>
                 async (toMatch: any, context: NodeVM, sandbox: IDictionary<any>) => resolver.match(toMatch, context, sandbox));
@@ -56,11 +61,6 @@ export class TestGroup {
                 resolveMatchers
                     .map(matcher => matcher(obj, context, sandbox))))
                 .indexOf(true);
-
-        this.allImports = [
-            options.environment,
-            ...options.imports,
-        ].filter((importName): importName is string => !!importName);
     }
 
     match = (filePath: string) =>
@@ -70,12 +70,17 @@ export class TestGroup {
         const resolvedPath = path.resolve(filePath);
         const compiler = this.getCompiler();
         const sandbox: IDictionary<any> = {};
+        const envImport = this.environment && this.environment.getContextImport(sandbox);
+        const imports = [
+            envImport,
+            ...this.options.imports,
+        ].filter((importName): importName is string => !!importName);
         const context = new NodeVM({
             require: {
                 builtin: ['*'],
                 context: 'sandbox',
                 external: true,
-                import: this.allImports,
+                import: imports,
             },
             sandbox: { basetSandbox: sandbox },
             compiler: compiler.compile,
@@ -97,9 +102,12 @@ export class TestGroup {
             ? readFile(baselinePath, { encoding: 'utf-8' })
             : new Promise<string>(resolve => resolve(''));
 
+        const output = await this.baseliner.compare(testsResults, baselineValue);
+        this.environment && this.environment.dispose();
+
         return {
             path: baselinePath,
-            output: await this.baseliner.compare(testsResults, baselineValue),
+            output,
         };
     }
     // tslint:disable-next-line:no-any
