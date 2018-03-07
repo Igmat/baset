@@ -1,7 +1,7 @@
 import { AbstractEnvironment, utils } from 'baset-core';
 import express from 'express';
-import path from 'path';
 import { Server } from 'http';
+import path from 'path';
 
 export interface IBrowserEnvOptions {
     staticFolder?: string;

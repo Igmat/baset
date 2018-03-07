@@ -103,7 +103,9 @@ export class TestGroup {
             : new Promise<string>(resolve => resolve(''));
 
         const output = await this.baseliner.compare(testsResults, baselineValue);
-        this.environment && this.environment.dispose();
+        // FIXME: find out why next disposal happens before result are calculated
+        // after test proccess termination server is stopped, so it's not an issue now
+        // this.environment && this.environment.dispose();
 
         return {
             path: baselinePath,
