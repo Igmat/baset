@@ -8,5 +8,10 @@
             "resolvers": "baset-resolver-pixi",
             "baseliner": "baset-baseliner-md"
         }
+    },
+    "options": {
+        "baset-env-browser": {
+            "serverPort": 3000
+        }
     }
 }
