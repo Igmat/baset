@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/Igmat/baset/compare/v0.9.1...v0.10.0) (2018-03-07)
+
+
+### Bug Fixes
+
+* **core:** don't dispose env because it happens to early ([ef3b5fa](https://github.com/Igmat/baset/commit/ef3b5fa))
+
+
+### Features
+
+* **core:** abstract environment api ([f37f42f](https://github.com/Igmat/baset/commit/f37f42f))
+
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/Igmat/baset/compare/v0.8.0...v0.9.0) (2018-03-03)
 

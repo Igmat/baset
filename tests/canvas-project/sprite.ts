@@ -3,15 +3,15 @@ interface IResourceDictionary {
     [index: string]: PIXI.loaders.Resource;
 }
 
-const mainLoader = new PIXI.loaders.Loader();
-mainLoader.add('baset', './assets/abstract-baset.jpg');
-const assets = new Promise<IResourceDictionary>(resolve =>
-    mainLoader.load((loader: PIXI.loaders.Loader, resource: IResourceDictionary) =>
-        resolve(resource)));
+const ASSETS = './assets/assets.json';
+const RADAR_GREEN = 'Light_green';
 
-async function getSprite() {
-    const resource = await assets;
+const getSprite = async () => {
+    await new Promise(resolve => PIXI.loader
+        .add(ASSETS)
+        .load(resolve));
 
-    return PIXI.Sprite.from(resource.baset.data);
-}
+    return new PIXI.Sprite(PIXI.utils.TextureCache[RADAR_GREEN]);
+};
+
 export const sprite = getSprite();

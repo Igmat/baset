@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/Igmat/baset/compare/v0.9.1...v0.10.0) (2018-03-07)
+
+
+### Bug Fixes
+
+* **cli:** terminate process after accept is done ([6cf04ff](https://github.com/Igmat/baset/commit/6cf04ff))
+* **core:** don't dispose env because it happens to early ([ef3b5fa](https://github.com/Igmat/baset/commit/ef3b5fa))
+
+
+### Features
+
+* **core:** abstract environment api ([f37f42f](https://github.com/Igmat/baset/commit/f37f42f))
+* **env-browser:** using new api and providing server for statics ([36b9103](https://github.com/Igmat/baset/commit/36b9103))
+
+
+
+
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/Igmat/baset/compare/v0.9.0...v0.9.1) (2018-03-06)
+
+
+### Bug Fixes
+
+* **baseliner-md:** hotfix for error whith missing initial baeline ([27faecd](https://github.com/Igmat/baset/commit/27faecd))
+
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/Igmat/baset/compare/v0.8.0...v0.9.0) (2018-03-03)
 
