@@ -24,6 +24,7 @@ const acceptCommand: CommandModule = {
         const tester = new Tester(argv.plugins, argv.options);
         const results = await Promise.all(tester.accept(baselines));
         results.forEach(result => console.log(`Baseline ${result} is written.`));
+        process.exit(0);
     },
 };
 export = acceptCommand;
