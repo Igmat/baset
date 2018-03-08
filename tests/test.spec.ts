@@ -4,6 +4,7 @@ import path from 'path';
 
 export = fs.readdirSync(__dirname)
     .filter(source => fs.lstatSync(path.join(__dirname, source)).isDirectory())
+    .filter(project => project !== 'scaffolded-project')
     .map(project => {
         const cwd = path.resolve(__dirname, `./${project}`);
         const testProccess = spawnSync('npm', ['test'], { cwd, encoding: 'utf8' });

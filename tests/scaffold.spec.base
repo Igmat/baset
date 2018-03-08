@@ -1,0 +1,10 @@
+{
+    "stdout": [
+        "",
+        "",
+        "Spec \"index.spec.ts\" is scaffolded",
+        "Spec \"someClass.spec.ts\" is scaffolded",
+        ""
+    ],
+    "stderr": []
+}

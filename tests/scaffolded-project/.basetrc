@@ -1,0 +1,13 @@
+{
+    "specs": "**/*.spec.ts",
+    "files": "**/*.ts",
+    "bases": "**/*.base",
+    "plugins": {
+        ".spec.js$": "baset-baseliner-json",
+        ".spec.ts$": {
+            "readers": "baset-reader-ts",
+            "baseliner": "baset-baseliner-json",
+            "imports": "./polyfill"
+        }
+    }
+}

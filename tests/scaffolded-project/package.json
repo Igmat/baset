@@ -1,0 +1,24 @@
+{
+    "name": "scaffolded-project",
+    "version": "0.10.0",
+    "private": true,
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "baset",
+        "accept": "baset accept",
+        "scaffold": "baset scaffold"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "reflect-metadata": "^0.1.12",
+        "tslib": "^1.9.0"
+    },
+    "devDependencies": {
+        "baset": "^0.10.0",
+        "baset-baseliner-json": "^0.10.0",
+        "baset-reader-ts": "^0.10.0",
+        "typescript": "next"
+    }
+}
