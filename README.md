@@ -108,21 +108,23 @@ baset <command> [options]
 ```
 Commands:
 
-|  Name  |                             Description                              | Aliases |
-| ------ | -------------------------------------------------------------------- | ------- |
-| test   | **Default.** Creating temp baseline and comparing it to existing one | t       |
-| accept | Accepting new baseline                                               | a       |
+|   Name   |                             Description                              | Aliases |
+| -------- | -------------------------------------------------------------------- | ------- |
+| test     | **Default.** Creating temp baseline and comparing it to existing one | t       |
+| accept   | Accepting new baseline                                               | a       |
+| scaffold | Scaffolding specs for existing code                                  | s       |
 
 Options:
 
-|    Option     |           Description           |                       Type                        |           Default value           |     |
-| ------------- | ------------------------------- | ------------------------------------------------- | --------------------------------- | --- |
-| --version     | Show version number             | boolean                                           |                                   |     |
-| --specs, -s   | Glob pattern for spec files     | string                                            | `"**/*.spec.js"`                  |     |
-| --bases, -b   | Glob pattern for baseline files | string                                            | `"**/*.base"`                     |     |
-| --help, -h    | Show help                       | boolean                                           |                                   |     |
-| --plugins, -p | Plugins used for your tests     | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |     |
-| --options, -o | Options for plugins             | TBD                                               | `{}`                              |     |
+|    Option     |                     Description                     |                       Type                        |           Default value            |
+| ------------- | --------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
+| --version     | Show version number                                 | boolean                                           |                                    |
+| --specs, -s   | Glob pattern for spec files                         | string                                            | `"**/*.spec.js"`                   |
+| --bases, -b   | Glob pattern for baseline files                     | string                                            | `"**/*.base"`                      |
+| --help, -h    | Show help                                           | boolean                                           |                                    |
+| --plugins, -p | Plugins used for your tests                         | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |
+| --options, -o | Options for plugins                                 | TBD                                               | `{}`                               |
+| --files, -f   | Glob pattern for project files. Used by scaffolder. | string                                            | undefined                          |
 
 In your `package.json`:
 ```JSON
