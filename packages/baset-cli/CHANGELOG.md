@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/Igmat/baset/compare/v0.10.0...v0.11.0) (2018-03-08)
+
+
+### Bug Fixes
+
+* **cli:** readable output for scaffold command ([d5350db](https://github.com/Igmat/baset/commit/d5350db))
+
+
+### Features
+
+* **cli:** scaffold command for cli ([4bb4534](https://github.com/Igmat/baset/commit/4bb4534))
+
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/Igmat/baset/compare/v0.9.1...v0.10.0) (2018-03-07)
 

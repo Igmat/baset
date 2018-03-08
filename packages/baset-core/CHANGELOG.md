@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/Igmat/baset/compare/v0.10.0...v0.11.0) (2018-03-08)
+
+
+### Bug Fixes
+
+* **core:** duplicated methods in scaffolder ([bd52c7b](https://github.com/Igmat/baset/commit/bd52c7b))
+
+
+### Features
+
+* **core:** generating and writing scaffolded specs ([7f68128](https://github.com/Igmat/baset/commit/7f68128))
+* **core:** initial scaffolder implementation ([be067e4](https://github.com/Igmat/baset/commit/be067e4))
+
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/Igmat/baset/compare/v0.9.1...v0.10.0) (2018-03-07)
 
