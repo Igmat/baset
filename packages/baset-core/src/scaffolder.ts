@@ -184,11 +184,13 @@ export class Scaffolder {
                 return {
                     ...common,
                     constructors: type.getConstructSignatures().map(serializeSignature),
-                    methods: node.members
-                        .map(member => member.name && checker.getSymbolAtLocation(member.name))
-                        .filter(isDefined)
-                        .map(serializeSymbol)
-                        .filter(isFnDeclaration),
+                    methods: distinctBy(
+                        node.members
+                            .map(member => member.name && checker.getSymbolAtLocation(member.name))
+                            .filter(isDefined)
+                            .map(serializeSymbol)
+                            .filter(isFnDeclaration),
+                        method => method.name),
                 };
             }
             if (tsc.isFunctionDeclaration(node) ||
@@ -238,4 +240,11 @@ function isDefault(declaration: Declaration): declaration is IDefaultDeclaration
 }
 function isNotDefault(declaration: Declaration) {
     return !declaration.originalName;
+}
+function distinctBy<T, U>(array: T[], keySelector: (value: T) => U) {
+    return array
+        .map(keySelector)
+        .filter((key, index, keys) => keys.indexOf(key) === index)
+        .map(uniqueKey => array.find(entity => keySelector(entity) === uniqueKey))
+        .filter(isDefined);
 }
