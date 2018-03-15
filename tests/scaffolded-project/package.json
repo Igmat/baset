@@ -1,6 +1,6 @@
 {
     "name": "scaffolded-project",
-    "version": "0.11.0",
+    "version": "0.11.1",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -16,9 +16,9 @@
         "tslib": "^1.9.0"
     },
     "devDependencies": {
-        "baset": "^0.11.0",
-        "baset-baseliner-json": "^0.11.0",
-        "baset-reader-ts": "^0.11.0",
+        "baset": "^0.11.1",
+        "baset-baseliner-json": "^0.11.1",
+        "baset-reader-ts": "^0.11.1",
         "typescript": "next"
     }
 }
