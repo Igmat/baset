@@ -11,6 +11,10 @@ ${err.actual}`;
 const successMessage = (err: { name: string; expected: string; actual: string }) => `Temp baseline for ${err.name} is written.
 Test for ${err.name} is passed`;
 
+function filterNodeModules(filePath: string) {
+    return !filePath.includes('node_modules');
+}
+
 interface ITestArgs extends IGlobalArgs {
     bases: string;
     specs: string;
@@ -36,8 +40,10 @@ const testCommand: CommandModule = {
     },
     handler: async (argv: ITestArgs) => {
         let isSucceeded = true;
-        const [specs, baselines] = await Promise.all([glob(argv.specs), glob(argv.bases)]);
+        const [allSpecs, allBaselines] = await Promise.all([glob(argv.specs), glob(argv.bases)]);
         const tester = new Tester(argv.plugins, argv.options);
+        const specs = allSpecs.filter(filterNodeModules);
+        const baselines = allBaselines.filter(filterNodeModules);
         try {
             const results = await Promise.all(tester.test(specs, baselines));
             isSucceeded = results.every(result => result.isPassed);
