@@ -14,7 +14,7 @@
         "test": "lerna link && node ./packages/baset/bin/index.js",
         "accept": "node ./packages/baset/bin/index.js a",
         "help": "node ./packages/baset/bin/index.js --help",
-        "doctoc": "doctoc README.md CONTRIBUTING.md",
+        "doctoc": "doctoc README.md docs/CONTRIBUTING.md",
         "commit": "git-cz",
         "prerelease": "npm run doctoc",
         "release": "lerna publish --yes",

@@ -225,10 +225,10 @@ Unfortunately, not yet ready, but you may find our nearest goals at [our board](
 Recent changes can be viewed on the [CHANGELOG.md](CHANGELOG.md)
 
 ## How to Contribute
-Read to contribute [CONTRIBUTING.md](CONTRIBUTING.md)
+Read to contribute [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 ## How to Make Pull Request
-Read to contribute [PULL_REQUEST_TEMPLATE.md](PULL_REQUEST_TEMPLATE.md)
+Read to contribute [PULL_REQUEST_TEMPLATE.md](docs/PULL_REQUEST_TEMPLATE.md)
 
 ## License
 
