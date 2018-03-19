@@ -13,7 +13,8 @@ export = fs.readdirSync(__dirname)
             project,
             stdout: testProccess.stdout.split('\n')
                 // we don't need to check npm tasks output (like `> baset` or `> path/to/node.exe index.js`)
-                .filter(line => !line.startsWith('>')),
+                .filter(line => !line.startsWith('>'))
+                .filter(line => !line.startsWith('PixiJS')),
             stderr: testProccess.stderr.split('\n')
                 // we don't need to check npm warn about node version used in script
                 .filter(line => !line.search('`--scripts-prepend-node-path`')),
