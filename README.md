@@ -10,7 +10,7 @@
 [npm-badge-png]: https://nodei.co/npm/baset.png?downloads=true&downloadRank=true&stars=true
 [package-url]: https://npmjs.com/package/baset
 
-# BaseT
+# ![BaseT](/docs/images/logo.svg)
 > Tool for testing using baseline strategy.
 
 > **WARNING:** it's early beta, so documentation may have mistakes, if you face any problems feel free to create [issues](https://github.com/Igmat/baset/issues).
@@ -219,7 +219,7 @@ There are only few plugins right now:
 7. [`baset-resolver-pixi`](./packages/baset-resolver-pixi) - simple plugin that resolver [pixi](http://www.pixijs.com/) DisplayObject as `base64` encoded image
 
 ## Roadmap
-Unfortunately, not yet ready, but you may find our nearest goals at [our board](https://github.com/Igmat/baset/projects/1)
+You may track progress for first stable release at [this milestone](https://github.com/Igmat/baset/milestone/1)
 
 ## Changelog
 Recent changes can be viewed on the [CHANGELOG.md](CHANGELOG.md)
