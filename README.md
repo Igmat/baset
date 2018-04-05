@@ -21,6 +21,7 @@
 
 
 - [What is it?](#what-is-it)
+- [Motivation](#motivation)
 - [How it works?](#how-it-works)
 - [Why I have to use it?](#why-i-have-to-use-it)
 - [Installation](#installation)
@@ -43,8 +44,22 @@ This tool much like [Jest](https://facebook.github.io/jest/) or [Mocha](https://
 
 But unlike other most known frameworks it uses another approach which could be named **Baseline Strategy**. Initially inspired by [TypeScript](https://github.com/Microsoft/TypeScript) tests (see them [here](https://github.com/Microsoft/TypeScript/tree/master/tests)) it looks like thing that's able to change way we're testing.
 
+## Motivation
+Current situation with **TDD** and tooling around it is complicated.  
+There are a lot of problems and corner cases. And while everybody agrees that unit-testing is generally correct approach, amount of efforts required by it frequently makes TDD unsuitable for particular project.
+
+We are trying to change it.
+
+Our goal is moving TDD from processes (like agile, scrum, waterfall, etc.) to developer's tooling (like linters, compilers, etc.).  
+In order to achieve it we have to focus on real strengths of TDD and unit-testing:
+
+1. Preventing unintentional breaking changes, in other words freezing existing behavior as some sort of 'baseline';
+2. Using documentation samples as tests and using tests as documentation.
+
+To understand core idea and approach better, you can read [`Is TDD wrong?`](./docs/Is_TDD_wrong.md)
+
 ## How it works?
-Let's assume you have module `yourModule.js` that export one function.  
+Let's assume you have module `yourModule.js` that exports one function.  
 Baseline test (e.g. `yourModule.spec.js`) will look like this:
 ```JavaScript
 const yourModule = require('yourModule');
@@ -64,7 +79,8 @@ module.exports = {
     // any number of additional values
 }
 ```
-Running `baset` for this test will produce file `yourModule.spec.base.tmp`. It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.) - just take a look at them and if you think they are correct run `baset accept` and `yourModule.spec.base` will be generated.  
+Running `baset` for this test will produce file `yourModule.spec.base.tmp`.  
+It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.) - just take a look at them and if you think they are correct run `baset accept` and `yourModule.spec.base` will be generated.  
 From this point you have tests for `yourModule` that describe its behavior.  
 All further test runs will compare generated `yourModule.spec.base.tmp` with `yourModule.spec.base` and fail if they are different.
 

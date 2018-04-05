@@ -2,6 +2,27 @@
 
 > **DISCLAIMER:** your attention was captured by clickbait. Obviously, TDD isn’t wrong, but… There is always some ‘but’.
 
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Introduction](#introduction)
+- [Problem is tests!](#problem-is-tests)
+  - [A little bit of history](#a-little-bit-of-history)
+  - [Small Quiz](#small-quiz)
+- [TDD overview](#tdd-overview)
+  - [Tests are formalized requirements](#tests-are-formalized-requirements)
+  - [TDD forces good architecture](#tdd-forces-good-architecture)
+  - [TDD saves time](#tdd-saves-time)
+  - [Tests are the best documentation](#tests-are-the-best-documentation)
+  - [As an intermediate conclusion](#as-an-intermediate-conclusion)
+- [So what's the solution?](#so-whats-the-solution)
+    - [Some samples](#some-samples)
+    - [Plans](#plans)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Introduction
 
 First six years of my career I was freelancing and participating in small start-ups at initial phase. So no tests… Really, not single one.
@@ -381,7 +402,8 @@ I understand that it will be difficult, especially while most of well-known tool
 
 Actually, I developed one, taking into account all the problems described. It called
 
-### [![BaseT](./images/logo.svg)](https://github.com/Igmat/baset)
+[![BaseT](./images/logo.svg)](https://github.com/Igmat/baset)
+
 Base concept is very simple. Write your code:
 ```TypeScript
 export function sampleFn(a: any, b: any) {
@@ -425,7 +447,7 @@ If requirements changed, just change your code run tests and accept **new baseli
 
 This tool still prevents any unintentional breaking changes, while minimizing your efforts. And all you need to do is write **executable code samples**, which are the core of good documentation.
 
-#### Some samples:
+#### Some samples
 You may use it with react. This test:
 ```TypeScript
 import * as React from 'react';
@@ -461,6 +483,7 @@ will produce following `.md` file as **baseline**:
     </div>
 </div>
 ```
+
 ---
 Or with [pixi.js](http://www.pixijs.com/):
 ```TypeScript
@@ -488,6 +511,7 @@ This test will produce following **baseline**:
 `exports.sprite:`
 
 ![exports.sprite](./images/sprite-export-sample.png)
+
 ---
 
 #### Plans
