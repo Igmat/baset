@@ -1,6 +1,6 @@
 # Is TDD wrong?
 
-> **DISCLAIMER:** your attention was captured by clickbait. Obviously, TDD isn’t wrong, but… There is always some ‘but’.
+> **DISCLAIMER:** your attention was captured by clickbait. Obviously, TDD isn’t wrong, but… There is always some _but_.
 
 ## Table of Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -24,38 +24,37 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Introduction
-
 First six years of my career I was freelancing and participating in small start-ups at initial phase. So no tests… Really, not single one.
 
-In such circumstances you have to deliver features for ‘yesterday’. Because market requirements constantly changing, test will be obsolete, when you’ll finish them. And even these tests can be created only if you know what you want to develop, and it’s not always true. Doing R&D you may don’t know what your final goal is. And when you reach some point, you can’t be sure that it won’t dramatically change tomorrow. In fact there are business reasons to save time by avoiding unit-testing.
+In such circumstances you have to deliver features for _yesterday_. Because market requirements constantly changing, test will be obsolete, when you’ll finish them. And even these tests can be created only if you know what you want to develop, and it’s not always true. Doing R&D you may don’t know what your final goal is. And when you reach some point, you can’t be sure that it won’t dramatically change tomorrow. In fact there are business reasons to save time by avoiding unit-testing.
 
 Ok, our industry is much larger than just start-ups.  
 Nearly 2 years ago I was hired by pretty big outsourcing company that has clients of any sizes.  
-During kitchen-talks with my colleagues, I’ve discovered that mostly everybody agrees that unit-testing and TDD is kind of ‘best practice’.  But in all projects where I was participating, there were no tests. And not, it wasn’t my decision. Yes, I know that there are projects that has good test coverage. There are such projects in my company too. But those well tested project also heavily bureaucratized.
+During kitchen-talks with my colleagues, I’ve discovered that mostly everybody agrees that **unit-testing** and **TDD** is kind of _best practice_.  But in all projects where I was participating, there were no tests. And not, it wasn’t my decision. Yes, I know that there are projects that has good test coverage. There are such projects in my company too. But those well tested project also heavily bureaucratized.
 
-So what’s the problem?  
+_So what’s the problem?_  
 Why everybody agrees that TDD is good, but nobody actually follows it?  
-Is TDD wrong? – No!  
-Probably, it has no business value? – And again, no!  
-Are developers lazy? – Yes! But it’s not a reason.  
-Problem is tests themselves!  
+**Is TDD wrong?** – No!  
+**Probably, it has no business value?** – And again, no!  
+**Are developers lazy?** – Yes! But it’s not a reason.  
+**Problem is tests themselves!**  
 Yes, it sounds weird, but I’ll try to prove it. 
 
 ## Problem is tests!
 According to [this survey](https://stateofjs.com/) `Testing Tools` had the lowest overall happiness score in 2016 and 2017. I didn’t find similar earlier information, but it doesn’t really matter.
 
 ### A little bit of history
-In 2008th one of the firsts test frameworks ([QUnit](https://qunitjs.com/)) was released.  
-In 2010 Jasmine appeared.  
-In 2011 – Mocha.  
-First release which I found for Jest was in 2014.
+In **2008** one of the firsts test frameworks ([QUnit](https://qunitjs.com/)) was released.  
+In **2010** [Jasmine](https://jasmine.github.io/) appeared.  
+In **2011** – [Mocha](https://mochajs.org/).  
+First release which I found for [Jest](https://facebook.github.io/jest/) was in **2014**.
 
 ![timeline-for-test-tools](./images/timeline-for-test-tools.svg)
 
-For comparison.  
-In 2010 angular was released.  
-Ember was introduced in 2011.  
-react appeared in 2013.  
+_For comparison._  
+In **2010** [angular.js](https://angularjs.org/) was released.  
+[Ember](https://www.emberjs.com/) was introduced in **2011**.  
+[React](https://reactjs.org/) appeared in **2013**.  
 And so on…
 
 > No js frameworks was created during preparation for this topic...  
@@ -63,7 +62,7 @@ At least by me.
 
 ![timeline-for-frameworks-and-libraries](./images/timeline-for-frameworks-and-libraries.svg)
 
-At same period of time we’ve seen rise and fall of grunt, then gulp. After that we’ve realized the power of npm scripts and webpack was released.
+At same period of time we’ve seen rise and fall of [grunt](https://gruntjs.com/), then [gulp](https://gulpjs.com/). After that we’ve realized the power of [npm scripts](https://docs.npmjs.com/misc/scripts) and [webpack](https://webpack.js.org/) was released.
 
 ![timeline-for-tooling](./images/timeline-for-tooling.svg)
 
@@ -156,15 +155,15 @@ Answers:
 
 You may guess some answers, but in general all these tools are very similar. You may see that even in different languages things remain mostly the same.
 
-So we have at least 8 years experience with unit-testing in JavaScript world. 
+So we have at least **8 years experience** with unit-testing in JavaScript world. 
 But we just adapted something already existing at that point of time. Unit-testing as we know it appeared much earlier. If we will take release of [Test Anything Protocol](https://en.wikipedia.org/wiki/Test_Anything_Protocol) (1987) as starting point, then we use existing approach longer than I live.
 
 [TDD](https://en.wikipedia.org/wiki/Test-driven_development) itself isn't much younger than automated unit-testing, [if not older](https://www.quora.com/Why-does-Kent-Beck-refer-to-the-rediscovery-of-test-driven-development-Whats-the-history-of-test-driven-development-before-Kent-Becks-rediscovery). It brings us to the point where we can properly assess its pros and cons.
 
 ## TDD overview
-In order to be at the page same, let me remind you what is TDD.
+In order to be at the same page, let me remind you what is TDD.
 
-> Test-driven development (TDD) is a software development process that relies on the repetition of a very short development cycle: requirements are turned into very specific test cases, then the software is improved to pass the new tests, only.
+> **Test-driven development (TDD)** is a software development process that relies on the repetition of a very short development cycle: requirements are turned into very specific test cases, then the software is improved to pass the new tests, only. **(c)** [wikipedia](https://en.wikipedia.org/wiki/Test-driven_development)
 
 ![tdd-cycle](./images/tdd-cycle.svg)
 
@@ -173,7 +172,7 @@ But what do we benefit from using it?
 ### Tests are formalized requirements
 Actually it's true only partially.
 
-TDD as practice was "rediscovered" by Kent Beck in 1999, while [Agile Manifesto](http://agilemanifesto.org/) was accepted only 2 years later (in 2001). I have to mention it in order to make you understand that TDD was born in "Golden Age" of [waterfall model](https://en.wikipedia.org/wiki/Waterfall_model) and this fact determines the circumstances and processes for which it was designed. Obviously, TDD will work best in exactly such cases.
+TDD as practice was _"rediscovered"_ by Kent Beck in 1999, while [Agile Manifesto](http://agilemanifesto.org/) was accepted only 2 years later (in 2001). I have to mention it in order to make you understand that TDD was born in "Golden Age" of [waterfall model](https://en.wikipedia.org/wiki/Waterfall_model) and this fact determines the circumstances and processes for which it was designed. Obviously, TDD will work best in exactly such cases.
 
 So, if you work in project, where:
 
@@ -194,12 +193,13 @@ So **"Tests are formalized requirements"** is true only in case of existing thos
 
 ### TDD forces good architecture
 And again it's true only partially.  
-TDD forces modularity, which is necessary but not sufficient for good architecture.
+TDD forces **modularity**, which is necessary but not sufficient for good architecture.
 
 Architecture quality depends on developers. Experienced developers are able to write high-quality code regardless of whether or not unit-testing is used.  
 On the other hand, semiskilled developers will produce low-quality code covered by low-quality tests, because creating good tests is an art form, as well as programming itself.
 
-Yes, tests like sex: "better bad than none at all". But...  
+> Yes, tests like sex: "better bad than none at all". But...
+
 This test doesn't bring you closer to good system design:
 ```TypeScript
 import { inject, TestBed } from '@angular/core/testing';
@@ -292,11 +292,13 @@ But neither TDD nor frameworks will prevent anybody from writing poor-quality co
 
 ### TDD saves time
 Ok, it depends.  
-Let's assume that everybody in project is confident enough with chosen test framework, TDD methodology and best practices of unit-testing.  
-And there are no misunderstood in all this stuff.  
-And requirements are clear and stable.  
-And developers team understands them in same manner as product owner.  
-And management is ready to handle all organizational issues, caused by it (e.g. longer onboarding for new programmers).
+Let's assume that:
+
+1. Everybody in project is confident enough with chosen test framework, TDD methodology and best practices of unit-testing;
+2. And there are no misunderstood in all this stuff;
+3. And requirements are clear and stable;
+4. And developers team understands them in same manner as product owner;
+5. And management is ready to handle all organizational issues, caused by it (e.g. longer onboarding for new programmers).
 
 Even in this case, you'll have to invest some efforts first, which will increase initial development phase and only later you'll get it back by decreasing time spent for bugfixing and maintenance.  
 Yes, second could probably be bigger than first. In this case you'll get some profit from TDD.  
@@ -381,18 +383,18 @@ As you can see - it's much closer to real docs than initial test.
 3. **TDD saves time** if you invest it first;
 4. **Tests are the best documentation** if there are no other executable code samples.
 
-So TDD is wrong, isn't it? - No, TDD isn't wrong.  
+**So TDD is wrong, isn't it?** - No, TDD isn't wrong.  
 It shows right direction and raises important questions. We just have to rethink and change the way we apply it.
 
 ## So what's the solution?
-Don't treat TDD as silver bullet.  
+Don't treat TDD as **silver bullet**.  
 Don't treat it even as a process on same level as Agile for example.  
-Instead focus on its real strengths:
+Instead focus on its **real strengths**:
 
-1. Preventing unintentional breaking changes, in other words freezing existing behavior as some sort of 'baseline';
-2. Using documentation samples as tests.
+1. Preventing unintentional breaking changes, in other words freezing existing behavior as some sort of **'baseline'**;
+2. Using **documentation samples** as tests.
 
-Think of unit-testing as a developer's tool. Like [linter](https://eslint.org/) or [compiler](https://www.typescriptlang.org/).
+Think of unit-testing as a **developer's tool**. Like [linter](https://eslint.org/) or [compiler](https://www.typescriptlang.org/).
 
 > For example, you won't ask Product Owner about using linter - instead you'll just use it.
 
@@ -427,7 +429,7 @@ export = {
 ```
 > **NOTE:** test is very synthetic, just for demonstration purposes.
 
-Then run `baset test` and get your temporary baseline:
+Then run `baset test` and get your temporary **baseline**:
 ```JSON
 {
     "values": [
@@ -440,16 +442,16 @@ Then run `baset test` and get your temporary baseline:
     ]
 }
 ```
-If values are correct, just run `baset accept` and commit newly created baseline to your repository.
+If values are correct, just run `baset accept` and commit newly created **baseline** to your repository.
 
-All next test runs will compare existing **baseline** with values exported from your test files. If they differ, then test is failed, otherwise it's passed.  
+All next test runs will compare existing **baseline** with values exported from your test files. If they differ, then test is _failed_, otherwise it's _passed_.  
 If requirements changed, just change your code run tests and accept **new baseline**.
 
 This tool still prevents any unintentional breaking changes, while minimizing your efforts. And all you need to do is write **executable code samples**, which are the core of good documentation.
 
 #### Some samples
 You may use it with react. This test:
-```TypeScript
+```TypeScriptReact
 import * as React from 'react';
 import { jsxFn } from './index';
 
@@ -515,7 +517,7 @@ This test will produce following **baseline**:
 ---
 
 #### Plans
-I have to mention that this tool is in early beta and there are a lot of plans for it, like:
+I have to mention that this tool is in early beta and there are a lot of [plans](https://github.com/Igmat/baset/milestone/1) for it, like:
 
 1. [Watch/Workflow mode](https://github.com/Igmat/baset/issues/65)
 2. [TAP compatibility](https://github.com/Igmat/baset/issues/55)
