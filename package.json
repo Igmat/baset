@@ -14,7 +14,7 @@
         "test": "lerna link && node ./packages/baset/bin/index.js",
         "accept": "node ./packages/baset/bin/index.js a",
         "help": "node ./packages/baset/bin/index.js --help",
-        "doctoc": "doctoc README.md docs/CONTRIBUTING.md docs/Is_TDD_wrong.md",
+        "doctoc": "doctoc README.md docs/CONTRIBUTING.md docs/Is_TDD_wrong.md docs/Is_TDD_wrong.RU.md",
         "commit": "git-cz",
         "prerelease": "npm run doctoc",
         "release": "lerna publish --yes",

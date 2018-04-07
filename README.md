@@ -56,7 +56,7 @@ In order to achieve it we have to focus on real strengths of TDD and unit-testin
 1. Preventing unintentional breaking changes, in other words freezing existing behavior as some sort of 'baseline';
 2. Using documentation samples as tests and using tests as documentation.
 
-To understand core idea and approach better, you can read [`Is TDD wrong?`](./docs/Is_TDD_wrong.md)
+To understand core idea and approach better, you can read [**Is TDD wrong?**](./docs/Is_TDD_wrong.md) ([RU](./docs/Is_TDD_wrong.RU.md))
 
 ## How it works?
 Let's assume you have module `yourModule.js` that exports one function.  
