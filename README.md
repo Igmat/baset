@@ -79,10 +79,19 @@ module.exports = {
     // any number of additional values
 }
 ```
-Running `baset` for this test will produce file `yourModule.spec.base.tmp`.  
-It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.) - just take a look at them and if you think they are correct run `baset accept` and `yourModule.spec.base` will be generated.  
-From this point you have tests for `yourModule` that describe its behavior.  
-All further test runs will compare generated `yourModule.spec.base.tmp` with `yourModule.spec.base` and fail if they are different.
+Run:
+```
+baset test
+```
+And this test will produce file `yourModule.spec.tmp.base`.  
+It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.).
+Just take a look at them and if you think they are correct run:
+```
+baset accept
+```
+And `yourModule.spec.base` will be generated.  
+From this point you have **test** and **baseline** for `yourModule` that describe its behavior.  
+All further test runs will compare generated `yourModule.spec.tmp.base` with `yourModule.spec.base` and _fail_ if they are different, or _pass_ otherwise.
 
 ## Why I have to use it?
 You haven't, but if you:
@@ -132,18 +141,18 @@ Commands:
 
 Options:
 
-|    Option     |                     Description                     |                       Type                        |           Default value            |
-| ------------- | --------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
-| --version     | Show version number                                 | boolean                                           |                                    |
-| --specs, -s   | Glob pattern for spec files                         | string                                            | `"**/*.spec.js"`                   |
-| --bases, -b   | Glob pattern for baseline files                     | string                                            | `"**/*.base"`                      |
-| --help, -h    | Show help                                           | boolean                                           |                                    |
-| --plugins, -p | Plugins used for your tests                         | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |
-| --options, -o | Options for plugins                                 | TBD                                               | `{}`                               |
-| --files, -f   | Glob pattern for project files. Used by scaffolder. | string                                            | undefined                          |
+|                Option                |                     Description                     |                       Type                        |           Default value            |
+| ------------------------------------ | --------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
+| &#8209;&#8209;version                | Show version number                                 | boolean                                           |                                    |
+| &#8209;&#8209;specs,&nbsp;&#8209;s   | Glob pattern for spec files                         | string                                            | `"**/*.spec.js"`                   |
+| &#8209;&#8209;bases,&nbsp;&#8209;b   | Glob pattern for baseline files                     | string                                            | `"**/*.base"`                      |
+| &#8209;&#8209;help,&nbsp;&#8209;h    | Show help                                           | boolean                                           |                                    |
+| &#8209;&#8209;plugins,&nbsp;&#8209;p | Plugins used for your tests                         | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |
+| &#8209;&#8209;options,&nbsp;&#8209;o | Options for plugins                                 | TBD                                               | `{}`                               |
+| &#8209;&#8209;files,&nbsp;&#8209;f   | Glob pattern for project files. Used by scaffolder. | string                                            | `undefined`                        |
 
 In your `package.json`:
-```JSON
+```JavaScript
 {
     "scripts": {
         "test": "baset",
@@ -166,7 +175,7 @@ In your `package.json`:
 }
 ```
 In `.basetrc` or `.basetrc.json`:
-```JSON
+```JavaScript
 {
     "specs": "**/*.spec.js",
     "bases": "**/*.base",
