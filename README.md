@@ -1,3 +1,5 @@
+[![Become a patron](./docs/images/become_a_patron_button.png)](https://www.patreon.com/igmat)
+
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
@@ -10,7 +12,7 @@
 [npm-badge-png]: https://nodei.co/npm/baset.png?downloads=true&downloadRank=true&stars=true
 [package-url]: https://npmjs.com/package/baset
 
-# BaseT
+# ![BaseT](/docs/images/logo.svg)
 > Tool for testing using baseline strategy.
 
 > **WARNING:** it's early beta, so documentation may have mistakes, if you face any problems feel free to create [issues](https://github.com/Igmat/baset/issues).
@@ -21,6 +23,7 @@
 
 
 - [What is it?](#what-is-it)
+- [Motivation](#motivation)
 - [How it works?](#how-it-works)
 - [Why I have to use it?](#why-i-have-to-use-it)
 - [Installation](#installation)
@@ -43,8 +46,22 @@ This tool much like [Jest](https://facebook.github.io/jest/) or [Mocha](https://
 
 But unlike other most known frameworks it uses another approach which could be named **Baseline Strategy**. Initially inspired by [TypeScript](https://github.com/Microsoft/TypeScript) tests (see them [here](https://github.com/Microsoft/TypeScript/tree/master/tests)) it looks like thing that's able to change way we're testing.
 
+## Motivation
+Current situation with **TDD** and tooling around it is complicated.  
+There are a lot of problems and corner cases. And while everybody agrees that unit-testing is generally correct approach, amount of efforts required by it frequently makes TDD unsuitable for particular project.
+
+We are trying to change it.
+
+Our goal is moving TDD from processes (like agile, scrum, waterfall, etc.) to developer's tooling (like linters, compilers, etc.).  
+In order to achieve it we have to focus on real strengths of TDD and unit-testing:
+
+1. Preventing unintentional breaking changes, in other words freezing existing behavior as some sort of 'baseline';
+2. Using documentation samples as tests and using tests as documentation.
+
+To understand core idea and approach better, you can read [**Is TDD wrong?**](./docs/Is_TDD_wrong.md) ([RU](./docs/Is_TDD_wrong.RU.md))
+
 ## How it works?
-Let's assume you have module `yourModule.js` that export one function.  
+Let's assume you have module `yourModule.js` that exports one function.  
 Baseline test (e.g. `yourModule.spec.js`) will look like this:
 ```JavaScript
 const yourModule = require('yourModule');
@@ -64,9 +81,19 @@ module.exports = {
     // any number of additional values
 }
 ```
-Running `baset` for this test will produce file `yourModule.spec.base.tmp`. It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.) - just take a look at them and if you think they are correct run `baset accept` and `yourModule.spec.base` will be generated.  
-From this point you have tests for `yourModule` that describe its behavior.  
-All further test runs will compare generated `yourModule.spec.base.tmp` with `yourModule.spec.base` and fail if they are different.
+Run:
+```
+baset test
+```
+And this test will produce file `yourModule.spec.tmp.base`.  
+It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.).
+Just take a look at them and if you think they are correct run:
+```
+baset accept
+```
+And `yourModule.spec.base` will be generated.  
+From this point you have **test** and **baseline** for `yourModule` that describe its behavior.  
+All further test runs will compare generated `yourModule.spec.tmp.base` with `yourModule.spec.base` and _fail_ if they are different, or _pass_ otherwise.
 
 ## Why I have to use it?
 You haven't, but if you:
@@ -116,18 +143,18 @@ Commands:
 
 Options:
 
-|    Option     |                     Description                     |                       Type                        |           Default value            |
-| ------------- | --------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
-| --version     | Show version number                                 | boolean                                           |                                    |
-| --specs, -s   | Glob pattern for spec files                         | string                                            | `"**/*.spec.js"`                   |
-| --bases, -b   | Glob pattern for baseline files                     | string                                            | `"**/*.base"`                      |
-| --help, -h    | Show help                                           | boolean                                           |                                    |
-| --plugins, -p | Plugins used for your tests                         | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |
-| --options, -o | Options for plugins                                 | TBD                                               | `{}`                               |
-| --files, -f   | Glob pattern for project files. Used by scaffolder. | string                                            | undefined                          |
+|                Option                |                     Description                     |                       Type                        |           Default value            |
+| ------------------------------------ | --------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
+| &#8209;&#8209;version                | Show version number                                 | boolean                                           |                                    |
+| &#8209;&#8209;specs,&nbsp;&#8209;s   | Glob pattern for spec files                         | string                                            | `"**/*.spec.js"`                   |
+| &#8209;&#8209;bases,&nbsp;&#8209;b   | Glob pattern for baseline files                     | string                                            | `"**/*.base"`                      |
+| &#8209;&#8209;help,&nbsp;&#8209;h    | Show help                                           | boolean                                           |                                    |
+| &#8209;&#8209;plugins,&nbsp;&#8209;p | Plugins used for your tests                         | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |
+| &#8209;&#8209;options,&nbsp;&#8209;o | Options for plugins                                 | TBD                                               | `{}`                               |
+| &#8209;&#8209;files,&nbsp;&#8209;f   | Glob pattern for project files. Used by scaffolder. | string                                            | `undefined`                        |
 
 In your `package.json`:
-```JSON
+```JavaScript
 {
     "scripts": {
         "test": "baset",
@@ -150,7 +177,7 @@ In your `package.json`:
 }
 ```
 In `.basetrc` or `.basetrc.json`:
-```JSON
+```JavaScript
 {
     "specs": "**/*.spec.js",
     "bases": "**/*.base",
@@ -219,16 +246,16 @@ There are only few plugins right now:
 7. [`baset-resolver-pixi`](./packages/baset-resolver-pixi) - simple plugin that resolver [pixi](http://www.pixijs.com/) DisplayObject as `base64` encoded image
 
 ## Roadmap
-Unfortunately, not yet ready, but you may find our nearest goals at [our board](https://github.com/Igmat/baset/projects/1)
+You may track progress for first stable release at [this milestone](https://github.com/Igmat/baset/milestone/1)
 
 ## Changelog
 Recent changes can be viewed on the [CHANGELOG.md](CHANGELOG.md)
 
 ## How to Contribute
-Read to contribute [CONTRIBUTING.md](CONTRIBUTING.md)
+Read to contribute [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 ## How to Make Pull Request
-Read to contribute [PULL_REQUEST_TEMPLATE.md](PULL_REQUEST_TEMPLATE.md)
+Read to contribute [PULL_REQUEST_TEMPLATE.md](docs/PULL_REQUEST_TEMPLATE.md)
 
 ## License
 
