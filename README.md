@@ -1,3 +1,5 @@
+[![Become a patron](./docs/images/become_a_patron_button.png)](https://www.patreon.com/igmat)
+
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
