@@ -252,7 +252,9 @@ You may track progress for first stable release at [this milestone](https://gith
 Recent changes can be viewed on the [CHANGELOG.md](CHANGELOG.md)
 
 ## How to Contribute
-Read to contribute [CONTRIBUTING.md](docs/CONTRIBUTING.md)
+Read to contribute [CONTRIBUTING.md](docs/CONTRIBUTING.md) or
+
+[![Donate me](https://img.shields.io/badge/DONATE-ME-green.svg?longCache=true&style=for-the-badge)](https://www.patreon.com/igmat)
 
 ## How to Make Pull Request
 Read to contribute [PULL_REQUEST_TEMPLATE.md](docs/PULL_REQUEST_TEMPLATE.md)
