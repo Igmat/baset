@@ -242,8 +242,9 @@ There are only few plugins right now:
 3. [`baset-env-browser`](./packages/baset-env-browser) - simple plugin that enables browser API in specs and sources using [jsdom](https://github.com/jsdom/jsdom) package.
 4. [`baset-reader-ts`](./packages/baset-reader-ts) - simple plugin that allows to write specs using [TypeScript](https://www.typescriptlang.org/)
 5. [`baset-reader-babel`](./packages/baset-reader-babel) - simple plugin that allows to write specs using [Babel](https://babeljs.io/)
-6. [`baset-resolver-react`](./packages/baset-resolver-react) - simple plugin that resolves [react](https://reactjs.org/) components as `html`
-7. [`baset-resolver-pixi`](./packages/baset-resolver-pixi) - simple plugin that resolver [pixi](http://www.pixijs.com/) DisplayObject as `base64` encoded image
+6. [`baset-reader-md`](./packages/baset-reader-md) - simple plugin that allows to write specs using [MarkDown](https://en.wikipedia.org/wiki/Markdown) where only code blocks are executed, and `#` headings used for tests structuring.
+7. [`baset-resolver-react`](./packages/baset-resolver-react) - simple plugin that resolves [react](https://reactjs.org/) components as `html`
+8. [`baset-resolver-pixi`](./packages/baset-resolver-pixi) - simple plugin that resolver [pixi](http://www.pixijs.com/) DisplayObject as `base64` encoded image
 
 ## Roadmap
 You may track progress for first stable release at [this milestone](https://github.com/Igmat/baset/milestone/1)
