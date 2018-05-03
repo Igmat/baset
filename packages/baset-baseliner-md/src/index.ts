@@ -42,7 +42,7 @@ ${known.map(renderKnown)}
 `;
 
 export default class MDBaseliner extends AbstractBaseliner {
-    readonly ext = '.md';
+    readonly ext = '.base.md';
     private jsonBaseliner: JSONBaseliner;
     constructor(options: any) {
         super(options);

@@ -1,6 +1,6 @@
 {
     "specs": "**/*.spec.ts",
-    "bases": "**/*.spec.md",
+    "bases": "**/*.spec.base.md",
     "plugins": {
         ".spec.ts$": {
             "environment": "baset-env-browser",

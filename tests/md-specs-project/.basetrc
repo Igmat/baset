@@ -1,0 +1,11 @@
+{
+    "specs": "**/*.spec.md",
+    "files": "**/*.ts",
+    "bases": "**/*.base.md",
+    "plugins": {
+        ".spec.md$": {
+            "readers": ["baset-reader-md", "baset-reader-ts"],
+            "baseliner": "baset-baseliner-md"
+        }
+    }
+}

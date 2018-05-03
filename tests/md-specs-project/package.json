@@ -1,0 +1,21 @@
+{
+    "name": "md-specs-project",
+    "version": "0.11.1",
+    "private": true,
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "baset",
+        "accept": "baset accept",
+        "scaffold": "baset scaffold"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "baset": "^0.11.1",
+        "baset-baseliner-md": "^0.11.1",
+        "baset-reader-md": "^0.11.1",
+        "baset-reader-ts": "^0.11.1",
+        "typescript": "next"
+    }
+}
