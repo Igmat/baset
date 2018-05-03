@@ -65,3 +65,4 @@ lerna-debug.log
 # tmp baseline
 **/*.spec.tmp.md
 **/*.spec.tmp.base
+**/*.spec.base.tmp.md

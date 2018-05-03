@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "commonjs",
+        "sourceMap": true,
+        "declaration": true,
+        "outDir": "dist",
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "lib": [
+            "dom",
+            "es7"
+        ],
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "src/types/*",
+                "lib/*"
+            ]
+        },
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "include": [
+        "lib/**/*",
+        "/*.ts"
+    ]
+}
