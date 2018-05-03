@@ -139,7 +139,7 @@ export class TestGroup {
     private getCompiler = () => {
         const hooks = this.getHooks();
         const resolvers = this.getResolvers();
-        this.readerChain.reverse().forEach(reader => reader.registerHook(hooks.addHook, resolvers.addResolver));
+        [...this.readerChain].reverse().forEach(reader => reader.registerHook(hooks.addHook, resolvers.addResolver));
 
         return {
             compile: (code: string, filename: string) =>
