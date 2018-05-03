@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/Igmat/baset/compare/v0.11.1...v0.12.0) (2018-05-03)
+
+
+### Bug Fixes
+
+* **baseliner-md:** changed default ext from .md to .base.md ([6c95d61](https://github.com/Igmat/baset/commit/6c95d61))
+* **core:** correct order of readers ([b6c6777](https://github.com/Igmat/baset/commit/b6c6777))
+
+
+### Features
+
+* **reader-md:** initial simple implementation ([6a718eb](https://github.com/Igmat/baset/commit/6a718eb)), closes [#11](https://github.com/Igmat/baset/issues/11)
+
+
+
+
 <a name="0.11.1"></a>
 ## [0.11.1](https://github.com/Igmat/baset/compare/v0.11.0...v0.11.1) (2018-03-15)
 
