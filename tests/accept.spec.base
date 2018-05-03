@@ -15,7 +15,7 @@
             "stdout": [
                 "",
                 "",
-                "Baseline index.spec.md is written.",
+                "Baseline index.spec.base.md is written.",
                 ""
             ],
             "stderr": []
@@ -39,8 +39,8 @@
             "stdout": [
                 "",
                 "",
-                "Baseline graphics.spec.md is written.",
-                "Baseline sprite.spec.md is written.",
+                "Baseline graphics.spec.base.md is written.",
+                "Baseline sprite.spec.base.md is written.",
                 ""
             ],
             "stderr": []
@@ -91,6 +91,28 @@
         }
     },
     {
+        "project": "md-specs-project",
+        "test": {
+            "stdout": [
+                "",
+                "",
+                "Temp baseline for index.spec.md is written.",
+                "Test for index.spec.md is passed",
+                ""
+            ],
+            "stderr": []
+        },
+        "accept": {
+            "stdout": [
+                "",
+                "",
+                "Baseline index.spec.base.md is written.",
+                ""
+            ],
+            "stderr": []
+        }
+    },
+    {
         "project": "sample-project",
         "test": {
             "stdout": [
@@ -128,7 +150,7 @@
             "stdout": [
                 "",
                 "",
-                "Baseline index.spec.md is written.",
+                "Baseline index.spec.base.md is written.",
                 ""
             ],
             "stderr": []
@@ -150,7 +172,7 @@
             "stdout": [
                 "",
                 "",
-                "Baseline index.spec.md is written.",
+                "Baseline index.spec.base.md is written.",
                 ""
             ],
             "stderr": []
