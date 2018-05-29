@@ -1,6 +1,6 @@
 {
     "name": "baset-baseliner-md",
-    "version": "0.12.0",
+    "version": "0.12.1",
     "description": "JSON baseliner plugin for BaseT project.",
     "author": "Ihor Chulinda <ichulinda@gmail.com>",
     "license": "MIT",
