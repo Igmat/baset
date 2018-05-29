@@ -1,18 +1,24 @@
 import JSONBaseliner from 'baset-baseliner-json';
 import { AbstractBaseliner, circularReference, dataTypes, utils } from 'baset-core';
-import htmlBeautify from 'html-beautify';
+import { clean } from 'clean-html';
 import { markdown } from 'markdown';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import { isPrimitive } from 'util';
 
+async function htmlBeautify(src: string) {
+    return new Promise(resolve => clean(src, resolve));
+}
 interface IKnownType {
     type: typeof dataTypes.image | typeof dataTypes.html;
     name: string;
     src: string;
 }
+function uglifyJson(json: string) {
+    return utils.normalizeEndings(json).split('\n').map(line => line.trim()).join('');
+}
 function isEmptyJsonSting(json: string) {
-    return !json || json === '[]' || json === '{}';
+    return !json || json === '[]' || json === '{}' || uglifyJson(json) === '{"default": {}}';
 }
 
 const knownTypeTemplates = {
@@ -38,7 +44,7 @@ ${json}
 
 const mdTemplate = (json: string, known: IKnownType[]) => `
 ${!isEmptyJsonSting(json) ? renderJson(json) : ''}
-${known.map(renderKnown)}
+${known.map(renderKnown).join('')}
 `;
 
 export default class MDBaseliner extends AbstractBaseliner {
@@ -51,20 +57,23 @@ export default class MDBaseliner extends AbstractBaseliner {
     create = async (result: Promise<any>[]) => {
         const results = await Promise.all(result);
         const known = results.length === 1
-            ? this.cutKnownTypes(results[0], 'exports')
-            : this.cutKnownTypes(results, 'exports');
+            ? await this.cutKnownTypes(results[0], 'exports')
+            : await this.cutKnownTypes(results, 'exports');
 
         return mdTemplate(await this.jsonBaseliner.create(results), known);
     }
     compare = async (result: Promise<any>[], baseline: Promise<string>) => {
         const [results, baselineValue] = await Promise.all([Promise.all(result), baseline]);
         const known = results.length === 1
-            ? this.cutKnownTypes(results[0], 'exports')
-            : this.cutKnownTypes(results, 'exports');
+            ? await this.cutKnownTypes(results[0], 'exports')
+            : await this.cutKnownTypes(results, 'exports');
         const oldBase = this.parse(baselineValue);
         const newJsonValues = await this.jsonBaseliner.create(results);
+        const newJson = (isEmptyJsonSting(newJsonValues))
+            ? '{}'
+            : newJsonValues;
         let isEqual = true;
-        if (utils.normalizeEndings(newJsonValues) !== utils.normalizeEndings(oldBase.json)) isEqual = false;
+        if (utils.normalizeEndings(newJson) !== utils.normalizeEndings(oldBase.json)) isEqual = false;
         if (!await compareKnownTypes(oldBase.knownEntities, known)) isEqual = false;
 
         return {
@@ -107,15 +116,15 @@ export default class MDBaseliner extends AbstractBaseliner {
         };
     }
 
-    private cutKnownTypes = (parent: any, path: string, key?: string | number): IKnownType[] => {
+    private cutKnownTypes = async (parent: any, path: string, key?: string | number): Promise<IKnownType[]> => {
         const obj = (key !== undefined)
             ? parent[key]
             : parent;
         if (isPrimitive(obj)) return [];
         if (Array.isArray(obj)) {
             return ([] as IKnownType[]).concat(
-                ...obj.map((value, index) =>
-                    this.cutKnownTypes(obj, `${path}[${index}]`, index)));
+                ...await Promise.all(obj.map((value, index) =>
+                    this.cutKnownTypes(obj, `${path}[${index}]`, index))));
         }
         const type = obj[dataTypes.image]
             ? dataTypes.image
@@ -127,7 +136,7 @@ export default class MDBaseliner extends AbstractBaseliner {
                 type,
                 name: path,
                 src: (type === dataTypes.html)
-                    ? htmlBeautify(obj.value)
+                    ? await htmlBeautify(obj.value)
                     : obj.value,
             };
             if (key !== undefined) delete parent[key];
@@ -135,8 +144,9 @@ export default class MDBaseliner extends AbstractBaseliner {
             return [result];
         }
 
-        return ([] as IKnownType[]).concat(...Object.keys(obj)
-            .map(index => this.cutKnownTypes(obj, `${path}.${index}`, index)));
+        return ([] as IKnownType[]).concat(
+            ...await Promise.all(Object.keys(obj)
+                .map(index => this.cutKnownTypes(obj, `${path}.${index}`, index))));
     }
 }
 
@@ -151,7 +161,9 @@ async function compareKnownTypes(oldBase: IKnownType[], newBase: IKnownType[]) {
         if (value.type === dataTypes.image) {
             if (!await compareImages(value.src, newValue.src)) return false;
         } else {
-            if (utils.normalizeEndings(value.src) !== utils.normalizeEndings(newValue.src)) return false;
+            if (utils.normalizeEndings(value.src) !== utils.normalizeEndings(newValue.src)) {
+                return false;
+            }
         }
     }
 

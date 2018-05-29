@@ -9,3 +9,8 @@ export const value = (
         {jsxFn('abc', 's')}
     </div>
 );
+
+export default {
+    'value1': jsxFn(1, 1),
+    'value2': jsxFn('q', 'q'),
+};

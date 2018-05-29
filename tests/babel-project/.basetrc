@@ -3,7 +3,6 @@
     "bases": "**/*.spec.base.md",
     "plugins": {
         ".spec.jsx?$": {
-            "environment": "baset-env-browser",
             "readers": ["baset-reader-babel"],
             "resolvers": "baset-resolver-react",
             "baseliner": "baset-baseliner-md"
