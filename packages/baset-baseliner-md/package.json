@@ -42,7 +42,7 @@
     "dependencies": {
         "baset-baseliner-json": "^0.12.0",
         "baset-core": "^0.12.0",
-        "html-beautify": "^1.0.4",
+        "clean-html": "^1.5.0",
         "markdown": "^0.5.0",
         "pixelmatch": "^4.0.2",
         "pngjs": "^3.3.2"
