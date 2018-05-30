@@ -46,6 +46,17 @@
         "stderr": []
     },
     {
+        "project": "md-specs-project",
+        "stdout": [
+            "",
+            "",
+            "Temp baseline for index.spec.md is written.",
+            "Test for index.spec.md is passed",
+            ""
+        ],
+        "stderr": []
+    },
+    {
         "project": "sample-project",
         "stdout": [
             "",
