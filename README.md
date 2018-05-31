@@ -143,15 +143,16 @@ Commands:
 
 Options:
 
-|                Option                |                     Description                     |                       Type                        |           Default value            |
-| ------------------------------------ | --------------------------------------------------- | ------------------------------------------------- | ---------------------------------- |
-| &#8209;&#8209;version                | Show version number                                 | boolean                                           |                                    |
-| &#8209;&#8209;specs,&nbsp;&#8209;s   | Glob pattern for spec files                         | string                                            | `"**/*.spec.js"`                   |
-| &#8209;&#8209;bases,&nbsp;&#8209;b   | Glob pattern for baseline files                     | string                                            | `"**/*.base"`                      |
-| &#8209;&#8209;help,&nbsp;&#8209;h    | Show help                                           | boolean                                           |                                    |
-| &#8209;&#8209;plugins,&nbsp;&#8209;p | Plugins used for your tests                         | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"` |
-| &#8209;&#8209;options,&nbsp;&#8209;o | Options for plugins                                 | TBD                                               | `{}`                               |
-| &#8209;&#8209;files,&nbsp;&#8209;f   | Glob pattern for project files. Used by scaffolder. | string                                            | `undefined`                        |
+|                Option                 |                                         Description                                         |                       Type                        |                   Default value                    |
+| ------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| &#8209;&#8209;version                 | Show version number                                                                         | boolean                                           |                                                    |
+| &#8209;&#8209;specs,&nbsp;&#8209;s    | Glob pattern for spec files                                                                 | string                                            | `"**/*.spec.js"`                                   |
+| &#8209;&#8209;bases,&nbsp;&#8209;b    | Glob pattern for baseline files                                                             | string                                            | `"**/*.base"`                                      |
+| &#8209;&#8209;help,&nbsp;&#8209;h     | Show help                                                                                   | boolean                                           |                                                    |
+| &#8209;&#8209;reporter,&nbsp;&#8209;r | [TAP](https://testanything.org/) reporter for test results. `false` to get plain TAP output | string                                            | [`"tap-diff"`](https://github.com/axross/tap-diff) |
+| &#8209;&#8209;plugins,&nbsp;&#8209;p  | Plugins used for your tests                                                                 | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"`                 |
+| &#8209;&#8209;options,&nbsp;&#8209;o  | Options for plugins                                                                         | TBD                                               | `{}`                                               |
+| &#8209;&#8209;files,&nbsp;&#8209;f    | Glob pattern for project files. Used by scaffolder.                                         | string                                            | `undefined`                                        |
 
 In your `package.json`:
 ```JavaScript
