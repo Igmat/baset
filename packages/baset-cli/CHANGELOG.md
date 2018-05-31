@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.13.0"></a>
+# [0.13.0](https://github.com/Igmat/baset/compare/v0.12.1...v0.13.0) (2018-05-31)
+
+
+### Features
+
+* **cli:** implementing tap compatible output ([80d2fc4](https://github.com/Igmat/baset/commit/80d2fc4)), closes [#55](https://github.com/Igmat/baset/issues/55)
+* **cli:** option for using tap reporters ([4955454](https://github.com/Igmat/baset/commit/4955454)), closes [#55](https://github.com/Igmat/baset/issues/55)
+
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/Igmat/baset/compare/v0.11.1...v0.12.0) (2018-05-03)
 
