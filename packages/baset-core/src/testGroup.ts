@@ -2,7 +2,7 @@ import { CompilerFunction, NodeVM, NodeVMOptions, ResolverFunction } from 'baset
 import fs from 'fs';
 import path from 'path';
 import { isPrimitive } from 'util';
-import { AbstractBaseliner, IBaselinerConstructor } from './abstractBaseliner';
+import { AbstractBaseliner, IBaselinerConstructor, ICompareResult } from './abstractBaseliner';
 import { AbstractEnvironment, IEnvironmentConstructor } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
 import { AbstractResolver, IResolverConstructor } from './abstractResolver';
@@ -93,7 +93,13 @@ export class TestGroup {
         const tests = (compiledSrc instanceof Array)
             ? compiledSrc
             : [compiledSrc];
-        const testsExports = tests.map((test, index) => context.run(test, `${resolvedPath}.${index}.js`));
+        const testsExports = tests.map((test, index) => {
+            try {
+                return context.run(test, `${resolvedPath}.${index}.js`);
+            } catch (err) {
+                return err;
+            }
+        });
         const testsResults = testsExports.map((value, index) => this.calculateValues(value, context, sandbox, `exports[${index}]`));
 
         const ext = path.extname(filePath);
