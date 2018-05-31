@@ -5,8 +5,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.jsx is written.",
-                "Test for index.spec.jsx is passed",
+                "",
+                "  index.spec.jsx",
+                "        Temp baseline is written.",
+                "    √  index.spec.jsx",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -27,10 +34,19 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for graphics.spec.ts is written.",
-                "Test for graphics.spec.ts is passed",
-                "Temp baseline for sprite.spec.ts is written.",
-                "Test for sprite.spec.ts is passed",
+                "",
+                "  graphics.spec.ts",
+                "        Temp baseline is written.",
+                "    √  graphics.spec.ts",
+                "",
+                "  sprite.spec.ts",
+                "        Temp baseline is written.",
+                "    √  sprite.spec.ts",
+                "",
+                "passed: 2  failed: 0  of 2 tests  ",
+                "",
+                "0 of 2 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -52,8 +68,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.ts is written.",
-                "Test for index.spec.ts is passed",
+                "",
+                "  index.spec.ts",
+                "        Temp baseline is written.",
+                "    √  index.spec.ts",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -74,8 +97,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.js is written.",
-                "Test for index.spec.js is passed",
+                "",
+                "  index.spec.js",
+                "        Temp baseline is written.",
+                "    √  index.spec.js",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -96,8 +126,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.md is written.",
-                "Test for index.spec.md is passed",
+                "",
+                "  index.spec.md",
+                "        Temp baseline is written.",
+                "    √  index.spec.md",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -118,8 +155,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.js is written.",
-                "Test for index.spec.js is passed",
+                "",
+                "  index.spec.js",
+                "        Temp baseline is written.",
+                "    √  index.spec.js",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -140,8 +184,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.tsx is written.",
-                "Test for index.spec.tsx is passed",
+                "",
+                "  index.spec.tsx",
+                "        Temp baseline is written.",
+                "    √  index.spec.tsx",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -162,8 +213,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.tsx is written.",
-                "Test for index.spec.tsx is passed",
+                "",
+                "  index.spec.tsx",
+                "        Temp baseline is written.",
+                "    √  index.spec.tsx",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -184,10 +242,19 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.ts is written.",
-                "Test for index.spec.ts is passed",
-                "Temp baseline for pathImport.spec.ts is written.",
-                "Test for pathImport.spec.ts is passed",
+                "",
+                "  index.spec.ts",
+                "        Temp baseline is written.",
+                "    √  index.spec.ts",
+                "",
+                "  pathImport.spec.ts",
+                "        Temp baseline is written.",
+                "    √  pathImport.spec.ts",
+                "",
+                "passed: 2  failed: 0  of 2 tests  ",
+                "",
+                "0 of 2 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
@@ -209,8 +276,15 @@
             "stdout": [
                 "",
                 "",
-                "Temp baseline for index.spec.ts is written.",
-                "Test for index.spec.ts is passed",
+                "",
+                "  index.spec.ts",
+                "        Temp baseline is written.",
+                "    √  index.spec.ts",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
                 ""
             ],
             "stderr": []
