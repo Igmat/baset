@@ -17,8 +17,9 @@ export = fs.readdirSync(__dirname)
                     // we don't need to check npm tasks output (like `> baset` or `> path/to/node.exe index.js`)
                     .filter(line => !line.startsWith('>'))
                     .filter(line => !line.startsWith('PixiJS'))
-                    // we don't need timing output from `tap-diff` here
-                    .map(line => line.replace(/\(.*m?s\)/, '')),
+                    .map(line => line
+                        .replace(/\(.*m?s\)/, '') // we don't need timing output from `tap-diff` here
+                        .replace(/(✔|√)/, ' ')), // `tap-diff` has different signs on win and *nix
                 stderr: testProccess.stderr.split('\n')
                     // we don't need to check npm warn about node version used in script
                     .filter(line => !line.search('`--scripts-prepend-node-path`')),
@@ -28,8 +29,9 @@ export = fs.readdirSync(__dirname)
                     // we don't need to check npm tasks output (like `> baset` or `> path/to/node.exe index.js`)
                     .filter(line => !line.startsWith('>'))
                     .filter(line => !line.startsWith('PixiJS'))
-                    // we don't need timing output from `tap-diff` here
-                    .map(line => line.replace(/\(.*m?s\)/, '')),
+                    .map(line => line
+                        .replace(/\(.*m?s\)/, '') // we don't need timing output from `tap-diff` here
+                        .replace(/(✔|√)/, ' ')), // `tap-diff` has different signs on win and *nix
                 stderr: acceptProccess.stderr.split('\n')
                     // we don't need to check npm warn about node version used in script
                     .filter(line => !line.search('`--scripts-prepend-node-path`')),
