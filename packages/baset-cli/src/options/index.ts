@@ -55,7 +55,7 @@ function getDefaultPlugins(plugins: ITestGroupPlugins): ITestGroupOptions {
     };
 }
 function resolveModule<T extends string | undefined>(name: T) {
-    return (name && name.startsWith('baset'))
+    return (name && !name.startsWith('.') && !name.startsWith('/'))
         ? `./node_modules/${name}`
         : name;
 }

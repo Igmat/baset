@@ -2,14 +2,7 @@ import { Tester } from 'baset-core';
 import glob from 'glob-promise';
 import { CommandModule } from 'yargs';
 import { IGlobalArgs } from '../options';
-
-const errMessage = (err: { name: string; expected: string; actual: string }) => `Temp baseline for ${err.name} is written.
-Expected for ${err.name}:
-${err.expected}
-Actual:
-${err.actual}`;
-const successMessage = (err: { name: string; expected: string; actual: string }) => `Temp baseline for ${err.name} is written.
-Test for ${err.name} is passed`;
+import { getTapStream } from '../TAP';
 
 function filterNodeModules(filePath: string) {
     return !filePath.includes('node_modules');
@@ -18,6 +11,7 @@ function filterNodeModules(filePath: string) {
 interface ITestArgs extends IGlobalArgs {
     bases: string;
     specs: string;
+    reporter: string;
 }
 
 const testCommand: CommandModule = {
@@ -37,6 +31,12 @@ const testCommand: CommandModule = {
             describe: 'Glob pattern for baseline files',
             default: '**/*.base',
         },
+        reporter: {
+            alias: 'r',
+            type: 'string',
+            describe: 'TAP reporter to use, `false` for plain output',
+            default: 'tap-diff',
+        },
     },
     handler: async (argv: ITestArgs) => {
         let isSucceeded = true;
@@ -44,15 +44,23 @@ const testCommand: CommandModule = {
         const tester = new Tester(argv.plugins, argv.options);
         const specs = allSpecs.filter(filterNodeModules);
         const baselines = allBaselines.filter(filterNodeModules);
+        let reporterIsSkipped: boolean;
         try {
-            const results = await Promise.all(tester.test(specs, baselines));
-            isSucceeded = results.every(result => result.isPassed);
-            results.forEach(result => (result.isPassed)
-                ? console.log(successMessage(result))
-                : console.log(errMessage(result)));
+            reporterIsSkipped = JSON.parse(argv.reporter) === false;
+        } catch (err) {
+            reporterIsSkipped = !argv.reporter;
+        }
+        try {
+            const { tapStream, finish } = getTapStream(tester.test(specs, baselines));
+
+            if (reporterIsSkipped) tapStream.pipe(process.stdout);
+            else tapStream.pipe(require(argv.reporter)()).pipe(process.stdout);
+
+            const results = await finish;
+            isSucceeded = !(results.failed) && !(results.crashed);
         } catch (err) {
             isSucceeded = false;
-            console.log(err);
+            console.error(err);
         }
         process.exit(isSucceeded ? 0 : 1);
     },

@@ -1,5 +1,8 @@
 import path from 'path';
 import { isPrimitive } from 'util';
+import { ICompareResult } from './abstractBaseliner';
+import { Options } from './tap';
+import { TestError } from './testError';
 import { ITestGroupOptions, TestGroup } from './testGroup';
 import { IDictionary, isExists, pathToTmp, readFile, tmpToPath, unlink, writeFile } from './utils';
 
@@ -19,7 +22,7 @@ export class Tester {
         return files.map(this.acceptBase);
     }
 
-    private testSpec = async (name: string) => {
+    private testSpec = async (name: string, index: number) => {
         const reader = this.testGroups.find(group => group.match(name));
         if (!reader) throw new Error(`No reader defined for ${name}!`);
         const testResult = await reader.test(name);
@@ -27,9 +30,7 @@ export class Tester {
 
         return {
             name,
-            isPassed: testResult.output.isEqual,
-            expected: testResult.output.expected || '',
-            actual: testResult.output.actual,
+            options: this.convertToOptions(testResult.output, index),
         };
     }
 
@@ -40,5 +41,20 @@ export class Tester {
         await unlink(path.resolve(name));
 
         return filePath;
+    }
+
+    private convertToOptions(result: ICompareResult, index: number): Options {
+        return result.isEqual
+            ? {
+                index,
+                passed: true,
+                skip: false,
+                comment: 'Temp baseline is written.',
+            }
+            : {
+                index,
+                passed: false,
+                error: new TestError(result),
+            };
     }
 }
