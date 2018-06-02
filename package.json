@@ -21,7 +21,7 @@
         "commitmsg": "commitlint -e $GIT_PARAMS"
     },
     "devDependencies": {
-        "@commitlint/cli": "^6.0.2",
+        "@commitlint/cli": "^7.0.0",
         "@commitlint/config-conventional": "^7.0.0",
         "@types/cross-spawn": "^6.0.0",
         "commitizen": "^2.9.6",
