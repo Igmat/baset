@@ -22,7 +22,7 @@
     },
     "devDependencies": {
         "@commitlint/cli": "^6.0.2",
-        "@commitlint/config-conventional": "^6.0.2",
+        "@commitlint/config-conventional": "^7.0.0",
         "@types/cross-spawn": "^6.0.0",
         "commitizen": "^2.9.6",
         "cross-spawn": "^6.0.3",
