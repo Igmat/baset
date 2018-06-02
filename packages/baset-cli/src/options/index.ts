@@ -12,6 +12,7 @@ export interface ITestGroupPlugins {
     readers?: string[] | string;
     resolvers?: string[] | string;
     imports?: string[] | string;
+    isolateContext?: boolean;
 }
 
 function groupPlugins(plugins: string[]): ITestGroupOptions {
@@ -31,6 +32,7 @@ function groupPlugins(plugins: string[]): ITestGroupOptions {
         readers,
         resolvers,
         imports,
+        isolateContext: false,
     };
 }
 function getDefaultPlugins(plugins: ITestGroupPlugins): ITestGroupOptions {
@@ -52,6 +54,7 @@ function getDefaultPlugins(plugins: ITestGroupPlugins): ITestGroupOptions {
                 ? plugins.imports
                 : [plugins.imports]
             : []).map(resolveModule),
+        isolateContext: !!plugins.isolateContext,
     };
 }
 function resolveModule<T extends string | undefined>(name: T) {

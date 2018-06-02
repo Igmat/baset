@@ -16,6 +16,7 @@ export interface ITestGroupOptions {
     readers: string[];
     resolvers: string[];
     imports: string[];
+    isolateContext: boolean;
 }
 
 export class TestGroup {
@@ -26,6 +27,8 @@ export class TestGroup {
     private readerChain: AbstractReader[];
     private resolvers: AbstractResolver[];
     private indexOfResolver: (obj: any, context: NodeVM, sandbox: IDictionary<any>) => Promise<number>;
+    private context?: NodeVM;
+    private sandbox?: IDictionary<any>;
     constructor(
         pattern: string | RegExp,
         private options: ITestGroupOptions,
@@ -68,25 +71,7 @@ export class TestGroup {
 
     test = async (filePath: string) => {
         const resolvedPath = path.resolve(filePath);
-        const compiler = this.getCompiler();
-        const sandbox: IDictionary<any> = {};
-        const envImport = this.environment && this.environment.getContextImport(sandbox);
-        const imports = [
-            envImport,
-            ...this.options.imports,
-        ].filter((importName): importName is string => !!importName);
-        const context = new NodeVM({
-            require: {
-                builtin: ['*'],
-                context: 'sandbox',
-                external: true,
-                import: imports,
-            },
-            sandbox: { basetSandbox: sandbox },
-            compiler: compiler.compile,
-            sourceExtensions: compiler.extensions,
-            resolveFilename: compiler.resolveFilename,
-        });
+        const { context, sandbox } = this.prepareContext();
         const specSrc = readFile(resolvedPath, { encoding: 'utf8' });
         const compiledSrc = await this.readerChain
             .reduce<Promise<string | string[]>>((result, reader) => reader.read(filePath, result), specSrc);
@@ -188,6 +173,38 @@ export class TestGroup {
             resolve: (original: ResolverFunction, request: string) =>
                 resolvers.reduce((result, resolver) => resolver(result), original)(request),
         };
+    }
+
+    private prepareContext = () => {
+        if (!this.options.isolateContext && this.context && this.sandbox) {
+            return {
+                context: this.context,
+                sandbox: this.sandbox,
+            };
+        }
+        const compiler = this.getCompiler();
+        const sandbox: IDictionary<any> = {};
+        const envImport = this.environment && this.environment.getContextImport(sandbox);
+        const imports = [
+            envImport,
+            ...this.options.imports,
+        ].filter((importName): importName is string => !!importName);
+        const context = new NodeVM({
+            require: {
+                builtin: ['*'],
+                context: 'sandbox',
+                external: true,
+                import: imports,
+            },
+            sandbox: { basetSandbox: sandbox },
+            compiler: compiler.compile,
+            sourceExtensions: compiler.extensions,
+            resolveFilename: compiler.resolveFilename,
+        });
+        this.context = context;
+        this.sandbox = sandbox;
+
+        return { context, sandbox };
     }
 }
 

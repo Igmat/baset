@@ -143,17 +143,19 @@ Commands:
 
 Options:
 
-|                Option                 |                                         Description                                         |                       Type                        |                   Default value                    |
-| ------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- |
-| &#8209;&#8209;version                 | Show version number                                                                         | boolean                                           |                                                    |
-| &#8209;&#8209;specs,&nbsp;&#8209;s    | Glob pattern for spec files                                                                 | string                                            | `"**/*.spec.js"`                                   |
-| &#8209;&#8209;bases,&nbsp;&#8209;b    | Glob pattern for baseline files                                                             | string                                            | `"**/*.base"`                                      |
-| &#8209;&#8209;help,&nbsp;&#8209;h     | Show help                                                                                   | boolean                                           |                                                    |
-| &#8209;&#8209;reporter,&nbsp;&#8209;r | [TAP](https://testanything.org/) reporter for test results. `false` to get plain TAP output | string                                            | [`"tap-diff"`](https://github.com/axross/tap-diff) |
-| &#8209;&#8209;plugins,&nbsp;&#8209;p  | Plugins used for your tests                                                                 | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"`                 |
-| &#8209;&#8209;options,&nbsp;&#8209;o  | Options for plugins                                                                         | TBD                                               | `{}`                                               |
-| &#8209;&#8209;files,&nbsp;&#8209;f    | Glob pattern for project files. Used by scaffolder.                                         | string                                            | `undefined`                                        |
+|                Option                 |                                                                           Description                                                                            |                       Type                        |                   Default value                    |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| &#8209;&#8209;version                 | Show version number                                                                                                                                              | boolean                                           |                                                    |
+| &#8209;&#8209;specs,&nbsp;&#8209;s    | Glob pattern for spec files                                                                                                                                      | string                                            | `"**/*.spec.js"`                                   |
+| &#8209;&#8209;bases,&nbsp;&#8209;b    | Glob pattern for baseline files                                                                                                                                  | string                                            | `"**/*.base"`                                      |
+| &#8209;&#8209;help,&nbsp;&#8209;h     | Show help                                                                                                                                                        | boolean                                           |                                                    |
+| &#8209;&#8209;reporter,&nbsp;&#8209;r | [TAP](https://testanything.org/) reporter for test results. `false` to get plain TAP output                                                                      | string                                            | [`"tap-diff"`](https://github.com/axross/tap-diff) |
+| &#8209;&#8209;plugins,&nbsp;&#8209;p  | Plugins used for your tests                                                                                                                                      | string \| [configuration](#plugins-configuration) | `".spec.js$:baset-baseliner-json"`                 |
+| &#8209;&#8209;options,&nbsp;&#8209;o  | Options for plugins                                                                                                                                              | TBD                                               | `{}`                                               |
+| &#8209;&#8209;files,&nbsp;&#8209;f    | Glob pattern for project files. Used by scaffolder.                                                                                                              | string                                            | `undefined`                                        |
+| &#8209;&#8209;isolateContext          | Run each test in isolated context. May be usefull, if your tests/code may affect other tests by mutating globals. **ATTENTION**: this will slow down your tests. | boolean                                           | `false`                                            |
 
+isolateContext
 In your `package.json`:
 ```JavaScript
 {
@@ -209,13 +211,14 @@ The most important configuration option is `plugins`. You may configure it via c
 `${pattern}` - is regular expression for filename of your test files, so you may define different plugin options for different file types (e.g. using `baset-reader-ts` for `.ts` files and `baset-reader-babel` for `.js` files).  
 `${options}` - is `string` or `string[]` or `object` with following fields:
 
-|   Field     |                                                                         Description                                                                          |        Type         |    Default value     |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | -------------------- |
-| baseliner   | name or path to module, that is responsible for generating baseline                                                                                          | string **Required** | baset-baseliner-json |
-| environment | name or path to module, that mimics desired environment (e.g. browser)                                                                                       | string              | undefined            |
-| readers     | name or path to module(s), that reads and transpiles specs and source code (e.g. babel, typescript)                                                          | string[] \| string  | undefined            |
-| resolvers   | name or path to module(s), that is able to resolve specific values (e.g. [react](https://reactjs.org/) components or [pixi](http://www.pixijs.com/) sprites) | string[] \| string  | undefined            |
-| imports     | name or path to module(s), that should be imported in test context (e.g. polyfills or [reflect-metadata](https://github.com/rbuckton/reflect-metadata))      | string[] \| string  | undefined            |
+|     Field      |                                                                           Description                                                                            |        Type         |    Default value     |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | -------------------- |
+| baseliner      | name or path to module, that is responsible for generating baseline                                                                                              | string **Required** | baset-baseliner-json |
+| environment    | name or path to module, that mimics desired environment (e.g. browser)                                                                                           | string              | undefined            |
+| readers        | name or path to module(s), that reads and transpiles specs and source code (e.g. babel, typescript)                                                              | string[] \| string  | undefined            |
+| resolvers      | name or path to module(s), that is able to resolve specific values (e.g. [react](https://reactjs.org/) components or [pixi](http://www.pixijs.com/) sprites)     | string[] \| string  | undefined            |
+| imports        | name or path to module(s), that should be imported in test context (e.g. polyfills or [reflect-metadata](https://github.com/rbuckton/reflect-metadata))          | string[] \| string  | undefined            |
+| isolateContext | Run each test in isolated context. May be usefull, if your tests/code may affect other tests by mutating globals. **ATTENTION**: this will slow down your tests. | boolean             | false                |
 
 If `${options}` is `string`, then it used as `baseliner` name or path.  
 If `${options}` is `string[]`, then it has to follow next agreement for its content:
