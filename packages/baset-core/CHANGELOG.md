@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.13.1"></a>
+## [0.13.1](https://github.com/Igmat/baset/compare/v0.13.0...v0.13.1) (2018-06-02)
+
+
+### Performance Improvements
+
+* **core:** reuse context by default ([a09b925](https://github.com/Igmat/baset/commit/a09b925))
+
+
+
+
 <a name="0.13.0"></a>
 # [0.13.0](https://github.com/Igmat/baset/compare/v0.12.1...v0.13.0) (2018-05-31)
 
