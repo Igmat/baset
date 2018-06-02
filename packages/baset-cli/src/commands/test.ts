@@ -12,6 +12,7 @@ interface ITestArgs extends IGlobalArgs {
     bases: string;
     specs: string;
     reporter: string;
+    isolateContext: boolean;
 }
 
 const testCommand: CommandModule = {
@@ -37,11 +38,16 @@ const testCommand: CommandModule = {
             describe: 'TAP reporter to use, `false` for plain output',
             default: 'tap-diff',
         },
+        isolateContext: {
+            type: 'boolean',
+            describe: 'Run each test in isolated context. ATTENTION: this will slow down your tests',
+            default: false,
+        },
     },
     handler: async (argv: ITestArgs) => {
         let isSucceeded = true;
         const [allSpecs, allBaselines] = await Promise.all([glob(argv.specs), glob(argv.bases)]);
-        const tester = new Tester(argv.plugins, argv.options);
+        const tester = new Tester(argv.plugins, argv.options, argv.isolateContext);
         const specs = allSpecs.filter(filterNodeModules);
         const baselines = allBaselines.filter(filterNodeModules);
         let reporterIsSkipped: boolean;

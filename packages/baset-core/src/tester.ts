@@ -10,9 +10,17 @@ export class Tester {
     private testGroups: TestGroup[];
 
     // tslint:disable-next-line:no-any
-    constructor(plugins: IDictionary<ITestGroupOptions>, pluginsOptions: IDictionary<any>) {
+    constructor(plugins: IDictionary<ITestGroupOptions>, pluginsOptions: IDictionary<any>, private isolateContext = false) {
         this.testGroups = Object.keys(plugins)
-            .map(key => new TestGroup(key, plugins[key], pluginsOptions));
+            .map(key => new TestGroup(
+                key,
+                isolateContext
+                    ? {
+                        ...plugins[key],
+                        isolateContext,
+                    }
+                    : plugins[key],
+                pluginsOptions));
     }
 
     test(specs: string[], baselines: string[]) {
