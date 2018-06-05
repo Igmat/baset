@@ -1,0 +1,25 @@
+component_depth: 2
+exclude:
+  - /.vscode/.*
+  - /scripts/.*
+  - /docs/.*
+  - /commitlint\.config\.js
+languages:
+- typescript
+- javascript
+
+- name: typescript
+  production:
+    exclude:
+      - /tests/.*\.ts
+      - /tests/.*\.tsx
+      - /tests/.*\.spec\.md
+      - /tests/.*\.spec\.base
+      - /tests/.*\.spec\.base\.md
+  test:
+    include:
+      - /tests/.*\.ts
+      - /tests/.*\.tsx
+      - /tests/.*\.spec\.md
+      - /tests/.*\.spec\.base
+      - /tests/.*\.spec\.base\.md
