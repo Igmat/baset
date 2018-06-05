@@ -7,6 +7,7 @@
 [![Travis CI](https://travis-ci.org/Igmat/baset.svg?branch=master)](https://travis-ci.org/Igmat/baset)
 [![Build status](https://ci.appveyor.com/api/projects/status/xpalrob91ur08xtt/branch/master?svg=true)](https://ci.appveyor.com/project/Igmat/baset/branch/master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Igmat/baset?branch=master)](https://bettercodehub.com/)
+[![CodeFactor](https://www.codefactor.io/repository/github/igmat/baset/badge)](https://www.codefactor.io/repository/github/igmat/baset)
 [![Known Vulnerabilities](https://snyk.io/test/npm/baset/badge.svg)](https://snyk.io/test/npm/baset)
 
 [![npm badge][npm-badge-png]][package-url]
