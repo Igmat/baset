@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-env-browser/badge.svg)](https://snyk.io/test/npm/baset-env-browser)
+
 # BaseT browser environment plugin
 > Browser environment plugin for [BaseT](https://github.com/Igmat/baset) project.
 

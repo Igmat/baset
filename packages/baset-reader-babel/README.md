@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-reader-babel/badge.svg)](https://snyk.io/test/npm/baset-reader-babel)
+
 # BaseT Babel plugin
 > Babel reader plugin for [BaseT](https://github.com/Igmat/baset) project.
 

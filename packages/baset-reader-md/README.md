@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-reader-md/badge.svg)](https://snyk.io/test/npm/baset-reader-md)
+
 # BaseT MarkDown reader plugin
 > MarkDown reader plugin for [BaseT](https://github.com/Igmat/baset) project.
 

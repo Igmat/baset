@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-vm/badge.svg)](https://snyk.io/test/npm/baset-vm)
+
 # BaseT VM
 > VM for [BaseT](https://github.com/Igmat/baset) project.
 

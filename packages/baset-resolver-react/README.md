@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-resolver-react/badge.svg)](https://snyk.io/test/npm/baset-resolver-react)
+
 # BaseT React resolver
 > React resolver for [BaseT](https://github.com/Igmat/baset) project.
 

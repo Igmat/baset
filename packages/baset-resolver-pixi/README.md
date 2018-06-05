@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-resolver-pixi/badge.svg)](https://snyk.io/test/npm/baset-resolver-pixi)
+
 # BaseT React resolver
 > Pixi resolver for [BaseT](https://github.com/Igmat/baset) project.
 

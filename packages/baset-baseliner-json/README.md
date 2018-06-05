@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-baseliner-json/badge.svg)](https://snyk.io/test/npm/baset-baseliner-json)
+
 # BaseT export plugin
 > Export reader plugin for [BaseT](https://github.com/Igmat/baset) project.
 

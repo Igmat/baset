@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-core/badge.svg)](https://snyk.io/test/npm/baset-core)
+
 # BaseT Core
 > Core library for [BaseT](https://github.com/Igmat/baset) project.
 

@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/npm/baset-reader-ts/badge.svg)](https://snyk.io/test/npm/baset-reader-ts)
+
 # BaseT TypeScript plugin
 > TypeScript reader plugin for [BaseT](https://github.com/Igmat/baset) project.
 
