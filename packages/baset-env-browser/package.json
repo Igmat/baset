@@ -1,6 +1,6 @@
 {
     "name": "baset-env-browser",
-    "version": "0.13.1",
+    "version": "0.13.2",
     "description": "Browser environment for BaseT project.",
     "keywords": [
         "baset-env-browser",
