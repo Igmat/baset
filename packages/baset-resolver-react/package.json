@@ -1,6 +1,6 @@
 {
     "name": "baset-resolver-react",
-    "version": "0.13.1",
+    "version": "0.13.3",
     "description": "React resolver plugin for BaseT project.",
     "keywords": [
         "baset-resolver-react",

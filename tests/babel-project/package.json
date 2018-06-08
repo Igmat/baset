@@ -1,6 +1,6 @@
 {
     "name": "babel-project",
-    "version": "0.13.2",
+    "version": "0.13.3",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -22,6 +22,6 @@
         "baset-baseliner-md": "^0.13.1",
         "baset-env-browser": "^0.13.2",
         "baset-reader-babel": "^0.13.1",
-        "baset-resolver-react": "^0.13.1"
+        "baset-resolver-react": "^0.13.3"
     }
 }
