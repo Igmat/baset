@@ -1,6 +1,6 @@
 {
     "name": "md-specs-project",
-    "version": "0.13.1",
+    "version": "0.13.4",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -12,10 +12,10 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "baset": "^0.13.1",
-        "baset-baseliner-md": "^0.13.1",
-        "baset-reader-md": "^0.13.1",
-        "baset-reader-ts": "^0.13.1",
+        "baset": "^0.13.4",
+        "baset-baseliner-md": "^0.13.4",
+        "baset-reader-md": "^0.13.4",
+        "baset-reader-ts": "^0.13.4",
         "typescript": "next"
     }
 }
