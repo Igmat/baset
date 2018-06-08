@@ -257,15 +257,15 @@ There are only few plugins right now:
 You may track progress for first stable release at [this milestone](https://github.com/Igmat/baset/milestone/1)
 
 ## Changelog
-Recent changes can be viewed on the [CHANGELOG.md](CHANGELOG.md)
+Recent changes can be viewed on the [CHANGELOG](CHANGELOG.md)
 
 ## How to Contribute
-Read to contribute [CONTRIBUTING.md](docs/CONTRIBUTING.md) or
+Read to contribute [CONTRIBUTING](docs/CONTRIBUTING.md) or
 
 [![Donate me](https://img.shields.io/badge/DONATE-ME-green.svg?longCache=true&style=for-the-badge)](https://www.patreon.com/igmat)
 
 ## How to Make Pull Request
-Read to contribute [PULL_REQUEST_TEMPLATE.md](docs/PULL_REQUEST_TEMPLATE.md)
+Read to contribute [PULL REQUEST TEMPLATE](.github/PULL_REQUEST_TEMPLATE.md)
 
 ## License
 
