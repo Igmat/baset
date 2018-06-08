@@ -1,6 +1,6 @@
 {
     "name": "circular-reference-project",
-    "version": "0.13.4",
+    "version": "0.13.5",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -13,7 +13,7 @@
     "devDependencies": {
         "baset": "^0.13.4",
         "baset-baseliner-json": "^0.13.4",
-        "baset-reader-ts": "^0.13.4",
+        "baset-reader-ts": "^0.13.5",
         "typescript": "next"
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "baset-reader-babel",
-    "version": "0.13.4",
+    "version": "0.13.5",
     "description": "Babel reader plugin for BaseT project.",
     "keywords": [
         "baset-reader-babel",
