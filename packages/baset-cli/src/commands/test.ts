@@ -1,5 +1,6 @@
 import { Tester } from 'baset-core';
 import glob from 'glob-promise';
+import { Writable } from 'stream';
 import { CommandModule } from 'yargs';
 import { IGlobalArgs } from '../options';
 import { getTapStream } from '../TAP';
@@ -47,7 +48,6 @@ const testCommand: CommandModule = {
     handler: async (argv: ITestArgs) => {
         let isSucceeded = true;
         const [allSpecs, allBaselines] = await Promise.all([glob(argv.specs), glob(argv.bases)]);
-        const tester = new Tester(argv.plugins, argv.options, argv.isolateContext);
         const specs = allSpecs.filter(filterNodeModules);
         const baselines = allBaselines.filter(filterNodeModules);
         let reporterIsSkipped: boolean;
@@ -57,12 +57,16 @@ const testCommand: CommandModule = {
             reporterIsSkipped = !argv.reporter;
         }
         try {
-            const { tapStream, finish } = getTapStream(tester.test(specs, baselines));
+            const outStream: Writable = (reporterIsSkipped)
+                ? process.stdout
+                : require(argv.reporter)();
+            if (!reporterIsSkipped) outStream.pipe(process.stdout);
 
-            if (reporterIsSkipped) tapStream.pipe(process.stdout);
-            else tapStream.pipe(require(argv.reporter)()).pipe(process.stdout);
+            const { finish } = getTapStream(specs.length, outStream);
 
-            const results = await finish;
+            const tester = new Tester(argv.plugins, argv.options, argv.isolateContext);
+
+            const results = await finish(() => tester.test(specs, baselines));
             isSucceeded = !(results.failed) && !(results.crashed);
         } catch (err) {
             isSucceeded = false;

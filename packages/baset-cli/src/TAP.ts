@@ -1,5 +1,5 @@
 import { tap, TestError } from 'baset-core';
-import { Readable } from 'stream';
+import { Readable, Writable } from 'stream';
 
 function serializeError(err: TestError) {
     return {
@@ -19,6 +19,9 @@ function serializeError(err: TestError) {
 
 function start(): string {
     return 'TAP version 13\n';
+}
+function plan(count: number): string {
+    return `1..${count}\n`;
 }
 function test(title: string, options: tap.Options): string {
     let directive = '';
@@ -63,20 +66,24 @@ function test(title: string, options: tap.Options): string {
 }
 function end(stats: tap.IStats): string {
     return [
-        `\n1..${stats.passed + stats.failed + stats.skipped + stats.todo}`,
+        // `\n1..${stats.passed + stats.failed + stats.skipped + stats.todo}`,
         `# tests ${stats.passed + stats.failed + stats.skipped}`,
         `# pass ${stats.passed}`,
         stats.skipped && `# skip ${stats.skipped}`,
         `# fail ${stats.failed + stats.crashed + stats.todo}\n`,
     ].filter(Boolean).join('\n');
 }
+function diagnostic(message: string): string {
+    return `# ${message}\n`;
+}
 
-export function getTapStream(results: Promise<{ name: string; options: tap.Options }>[]) {
+export function getTapStream(count: number, outStream: Writable) {
     const tapStream = new Readable({
         objectMode: true,
         read() { /* we don't need implementation of this method here */ },
     });
-    const finish = (async () => {
+
+    async function finish(getResults: () => Promise<{ name: string; options: tap.Options }>[]) {
         const stats: tap.IStats = {
             crashed: 0,
             failed: 0,
@@ -84,7 +91,11 @@ export function getTapStream(results: Promise<{ name: string; options: tap.Optio
             skipped: 0,
             todo: 0,
         };
-        tapStream.push(start());
+        outStream.write(start());
+        outStream.write(plan(count));
+        outStream.write(diagnostic('Preparing test environment...'));
+        const results = getResults();
+        outStream.write(diagnostic('Test environment is ready'));
         for (const result of results) {
             const { name, options } = await result;
             if (options.passed) {
@@ -101,7 +112,9 @@ export function getTapStream(results: Promise<{ name: string; options: tap.Optio
         tapStream.emit('close');
 
         return stats;
-    })();
+    }
 
-    return { tapStream, finish };
+    tapStream.pipe(outStream);
+
+    return { finish };
 }
