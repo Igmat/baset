@@ -1,6 +1,6 @@
 {
   "name": "sample-project",
-  "version": "0.13.4",
+  "version": "0.13.6",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "asn1.js": "^5.0.0"
   },
   "devDependencies": {
-    "baset": "^0.13.4",
-    "baset-baseliner-json": "^0.13.4"
+    "baset": "^0.13.6",
+    "baset-baseliner-json": "^0.13.6"
   }
 }
