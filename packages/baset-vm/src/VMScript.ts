@@ -2,7 +2,7 @@ import vm from 'vm';
 
 export class VMScript {
     private wrapped = false;
-    compiled?: vm.Script;
+    private compiled?: vm.Script;
     constructor(private code: string, public filename = 'vm.js') {
     }
     wrap(prefix: string, postfix: string) {
@@ -11,16 +11,19 @@ export class VMScript {
         }
         this.code = prefix + this.code + postfix;
         this.wrapped = true;
+
         return this;
     }
     compile() {
         if (this.compiled) {
-            return this;
+            return this.compiled;
         }
-        this.compiled = new vm.Script(this.code, {
+        const compiled = new vm.Script(this.code, {
             filename: this.filename,
             displayErrors: false,
         });
-        return this;
+        this.compiled = compiled;
+
+        return compiled;
     }
 }

@@ -1,450 +1,502 @@
-const {Script} = host.require('vm');
-const fs = host.require('fs');
-const pa = host.require('path');
-const console = host.console;
+declare namespace NodeJS {
+    interface Global {
+        VMError: typeof import ('./VMError').VMError;
+    }
+}
 
-const BUILTIN_MODULES = host.process.binding('natives');
-const JSON_PARSE = JSON.parse;
+interface IExtensions {
+    [index: string]: (module: NodeJS.Module, filename: string, dirname: string) => unknown;
+}
+interface IModules {
+    [index: string]: NodeJS.Module;
+}
+type IEventName =
+    'beforeExit' |
+    'disconnect' |
+    'exit' |
+    'rejectionHandled' |
+    'uncaughtException' |
+    'unhandledRejection' |
+    'warning' |
+    'message' |
+    'newListener' |
+    'removeListener';
 
-/**
- * @param {Object} host Hosts's internal objects.
- */
+// tslint:disable-next-line:no-unused-expression
+(function sandbox(this: NodeJS.Global, vm: import ('./').NodeVM, host: import ('./').IHost) {
+    'use strict';
 
-return ((vm, host) => {
-	'use strict';
+    const { Script } = host.require('vm');
+    const fs = host.require('fs');
+    const pa = host.require('path');
 
-	const global = this;
+    // tslint:disable-next-line:no-this-assignment
+    const global = this;
+    Object.assign(global, host);
 
-	const TIMERS = new host.WeakMap()
-	const BUILTINS = {};
-	const CACHE = {};
-	const EXTENSIONS = {
-		[".json"](module, filename) {
-			try {
-				var code = fs.readFileSync(filename, "utf8");
-			} catch (e) {
-				throw Contextify.value(e);
-			}
+    Object.setPrototypeOf(global, Object.prototype);
 
-			module.exports = JSON_PARSE(code);
-		},
-        [".node"](module, filename) {
-            // we need to skip this check in order to work with `canvas-prebuilt` package
-            // FIXME: find better workaround
-            // if (vm.options.require.context === 'sandbox') throw new VMError('Native modules can be required only with context set to \'host\'.');
+    Object.defineProperties(global, {
+        global: { value: global },
+        GLOBAL: { value: global },
+        root: { value: global },
+        isVM: { value: true },
+    });
+    const ERROR_CST = Error.captureStackTrace;
 
-			try {
-				module.exports = Contextify.readonly(host.require(filename));
-			} catch (e) {
-				throw Contextify.value(e);
-			}
-		}
-	};
+    /**
+     * VMError definition.
+     */
+    class VMError extends Error {
+        constructor(message: string, public code?: string) {
+            super(message);
 
+            ERROR_CST(this, this.constructor);
+        }
+    }
 
-	for (var i = 0; i < vm.options.sourceExtensions.length; i++) {
-		var ext = vm.options.sourceExtensions[i];
+    global.VMError = VMError;
 
-		EXTENSIONS[ext] = (module, filename, dirname) => {
-			if (vm.options.require.context !== 'sandbox') {
-				try {
-					module.exports = Contextify.readonly(host.require(filename));
-				} catch (e) {
-					throw Contextify.value(e);
-				}
-			} else {
-				try {
-					// Load module
-					var contents = fs.readFileSync(filename, "utf8")
-					if (typeof vm.options.compiler === "function") {
-						contents = vm.options.compiler(contents, filename)
-					}
+    // TODO: check if really exists in runtime
+    // tslint:disable-next-line:no-any
+    const BUILTIN_MODULES: IModules = (host.process as any).binding('natives');
+    const JSON_PARSE = JSON.parse;
 
-					var code = `(function (exports, require, module, __filename, __dirname) { 'use strict'; ${contents} \n});`;
-
-					// Precompile script
-					const script = new Script(code, {
-						filename: filename || "vm.js",
-						displayErrors: false
-					});
-
-					var closure = script.runInContext(global, {
-						filename: filename || "vm.js",
-						displayErrors: false
-					});
-				} catch (ex) {
-					throw Contextify.value(ex);
-				}
-
-				// run script
-				closure(module.exports, module.require, module, filename, dirname);
-			}
-		}
-	}
-
-	/**
-	 * Resolve filename.
-	 */
-
-	const originalResolveFilename = function(path) {
-		path = pa.resolve(path);
-
-		const exists = fs.existsSync(path);
-		const isdir = exists ? fs.statSync(path).isDirectory() : false;
-
-		// direct file match
-		if (exists && !isdir) return path;
-
-		// load as file
-		for (var i = 0; i < vm.options.sourceExtensions.length; i++) {
-			var ext = vm.options.sourceExtensions[i];
-			if (fs.existsSync(`${path}${ext}`)) {
-                const stat = fs.statSync(`${path}${ext}`);
-                // some directories could be named like `asn1.js`, so we have to check it here
-				if (stat && !stat.isDirectory()) {
-					return `${path}${ext}`
-				}
-			};
-		}
-		if (fs.existsSync(`${path}.node`)) return `${path}.node`;
-		if (fs.existsSync(`${path}.json`)) return `${path}.json`;
-
-		// load as directory
-
-		if (fs.existsSync(`${path}/package.json`)) {
-			try {
-				var pkg = JSON.parse(fs.readFileSync(`${path}/package.json`, "utf8"));
-				if (pkg.main == null) pkg.main = "index.js";
-			} catch (ex) {
-				throw new VMError(`Module '${modulename}' has invalid package.json`, "EMODULEINVALID");
-			}
-
-			return _resolveFilename(`${path}/${pkg.main}`);
-		}
-
-		for (var i = 0; i < vm.options.sourceExtensions.length; i++) {
-			var ext = vm.options.sourceExtensions[i];
-			if (fs.existsSync(`${path}/index${ext}`)) return `${path}/index${ext}`;
-		}
-
-		if (fs.existsSync(`${path}/index.node`)) return `${path}/index.node`;
-
-		return null;
+    const TIMERS = new host.WeakMap();
+    const BUILTINS: IModules = {};
+    const CACHE: IModules = {};
+    const EXTENSIONS: IExtensions = {
+        ['.json'](module: NodeJS.Module, filename: string) {
+            try {
+                module.exports = JSON_PARSE(fs.readFileSync(filename, 'utf8'));
+            } catch (e) {
+                throw e;
+            }
+        },
+        ['.node'](module: NodeJS.Module, filename: string) {
+            try {
+                module.exports = host.require(filename);
+            } catch (e) {
+                throw e;
+            }
+        },
     };
 
-    const _resolveFilename = vm.options.resolveFilename
-        ? function (path) {
-            return vm.options.resolveFilename(originalResolveFilename, path);
-        }
-        : originalResolveFilename;
-
-	/**
-	 * Builtin require.
-	 */
-
-	const _requireBuiltin = function(modulename) {
-		if (modulename === 'buffer') return ({Buffer});
-		if (BUILTINS[modulename]) return BUILTINS[modulename].exports; // Only compiled builtins are stored here
-
-		if (modulename === 'util') {
-			return Contextify.readonly(host.require(modulename), {
-				// Allows VM context to use util.inherits
-				inherits: function(ctor, superCtor) {
-					ctor.super_ = superCtor;
-					Object.setPrototypeOf(ctor.prototype, superCtor.prototype);
-				}
-			});
-		}
-
-		if (modulename === 'events') {
-			try {
-				const script = new Script(`(function (exports, require, module, process) { 'use strict'; ${BUILTIN_MODULES[modulename]} \n});`, {
-					filename: `${modulename}.vm.js`
-				});
-
-				// setup module scope
-				const module = BUILTINS[modulename] = {
-					exports: {},
-					require: _requireBuiltin
-				};
-
-				// run script
-				script.runInContext(global)(module.exports, module.require, module, host.process);
-
-				return module.exports;
-			} catch (e) {
-				throw Contextify.value(e);
-			}
-		}
-
-		return Contextify.readonly(host.require(modulename));
-	};
-
-	/**
-	 * Prepare require.
-	 */
-
-	const _prepareRequire = function(current_dirname) {
-        const _require = function (modulename) {
-			if (vm.options.nesting && modulename === 'vm2') return {VM: Contextify.readonly(host.VM), NodeVM: Contextify.readonly(host.NodeVM)};
-			if (!vm.options.require) throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
-			if (modulename == null) throw new VMError("Module '' not found.", "ENOTFOUND");
-			if (typeof modulename !== 'string') throw new VMError(`Invalid module name '${modulename}'`, "EINVALIDNAME");
-
-			// Mock?
-
-			if (vm.options.require.mock && vm.options.require.mock[modulename]) {
-				return Contextify.readonly(vm.options.require.mock[modulename]);
-			}
-
-			// Builtin?
-
-			if (BUILTIN_MODULES[modulename]) {
-				if (host.Array.isArray(vm.options.require.builtin)) {
-					if (vm.options.require.builtin.indexOf('*') >= 0) {
-						if (vm.options.require.builtin.indexOf(`-${modulename}`) >= 0) {
-							throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
-						}
-					} else if (vm.options.require.builtin.indexOf(modulename) === -1) {
-						throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
-					}
-				} else if (vm.options.require.builtin) {
-					if (!vm.options.require.builtin[modulename]) {
-						throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
-					}
-				} else {
-					throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
-				}
-
-				return _requireBuiltin(modulename);
-			}
-
-			// External?
-
-			if (!vm.options.require.external) throw new VMError(`Access denied to require '${modulename}'`, "EDENIED");
-
-			if (/^(\.|\.\/|\.\.\/)/.exec(modulename)) {
-                // Module is relative file, e.g. ./script.js or ../script.js
-
-				if (!current_dirname) throw new VMError("You must specify script path to load relative modules.", "ENOPATH");
-
-				var filename = _resolveFilename(`${current_dirname}/${modulename}`);
-			} else if (/^(\/|\\|[a-zA-Z]:\\)/.exec(modulename)) {
-				// Module is absolute file, e.g. /script.js or //server/script.js or C:\script.js
-
-				var filename = _resolveFilename(modulename);
-            } else {
-                // it could be found by custom resolver
-                var filename = _resolveFilename(modulename);
-                if (!filename) {
-                    // Check node_modules in path
-
-                    if (!current_dirname) throw new VMError("You must specify script path to load relative modules.", "ENOPATH");
-
-                    if(Array.isArray(vm.options.require.external)) {
-                        const isWhitelisted = vm.options.require.external.indexOf(modulename) !== -1
-                        if (!isWhitelisted) throw new VMError(`The module '${modulename}' is not whitelisted in VM.`, "EDENIED");
-                    }
-
-                    const paths = current_dirname.split(pa.sep);
-
-                    while (paths.length) {
-                        let path = paths.join(pa.sep);
-
-                        // console.log(`${path}${pa.sep}node_modules${pa.sep}${modulename}`)
-
-                        filename = _resolveFilename(`${path}${pa.sep}node_modules${pa.sep}${modulename}`);
-                        if (filename) break;
-
-                        paths.pop();
-                    }
+    for (const ext of vm.options.sourceExtensions) {
+        EXTENSIONS[ext] = (module, filename, dirname) => {
+            if (typeof vm.options.require === 'boolean' || vm.options.require.context !== 'sandbox') {
+                try {
+                    module.exports = host.require(filename);
+                } catch (e) {
+                    throw e;
                 }
-			}
+            } else {
+                try {
+                    // Load module
+                    let contents = fs.readFileSync(filename, 'utf8');
+                    if (filename.endsWith(`tcomb${pa.sep}lib${pa.sep}isArray.js`)) {
+                        contents = `module.exports = function isArray(x) {
+                            return Array.isArray ? Array.isArray(x) : x instanceof Array;
+                        };`;
+                    }
+                    if (typeof vm.options.compiler === 'function') {
+                        contents = vm.options.compiler(contents, filename);
+                    }
 
-			if (!filename) throw new VMError(`Cannot find module '${modulename}'`, "ENOTFOUND");
+                    const code = `(function (exports, require, module, __filename, __dirname) { 'use strict'; ${contents} \n});`;
 
-			// return cache whenever possible
-			if (CACHE[filename]) return CACHE[filename].exports;
+                    // Precompile script
+                    const script = new Script(code, {
+                        filename: filename || 'vm.js',
+                        displayErrors: false,
+                    });
 
-			const dirname = pa.dirname(filename);
-			const extname = pa.extname(filename);
+                    const closure = script.runInContext(global, {
+                        filename: filename || 'vm.js',
+                        displayErrors: false,
+                    });
 
-			if (vm.options.require.root) {
-				const requiredPath = pa.resolve(vm.options.require.root);
-				if (dirname.indexOf(requiredPath) !== 0) {
-					throw new VMError(`Module '${modulename}' is not allowed to be required. The path is outside the border!`, "EDENIED");
-				}
-			}
+                    // run script
+                    closure(module.exports, module.require, module, filename, dirname);
+                } catch (ex) {
+                    throw ex;
+                }
+            }
+        };
+    }
 
-			const module = CACHE[filename] = {
-				filename,
-				exports: {},
-				require: _prepareRequire(dirname)
-			};
+    /**
+     * Resolve filename.
+     */
+    function originalResolveFilename(path: string): string | null {
+        const resolvedPath = pa.resolve(path);
 
-			// lookup extensions
-			if (EXTENSIONS[extname]) {
-				EXTENSIONS[extname](module, filename, dirname);
-				return module.exports;
-			}
+        const exists = fs.existsSync(resolvedPath);
+        const isDir = exists ? fs.statSync(resolvedPath).isDirectory() : false;
 
-			throw new VMError(`Failed to load '${modulename}': Unknown type.`, "ELOADFAIL");
-		};
+        // direct file match
+        if (exists && !isDir) return resolvedPath;
 
-		return _require;
-	};
+        // load as file
+        for (const ext of vm.options.sourceExtensions) {
+            if (fs.existsSync(`${resolvedPath}${ext}`)) {
+                const stat = fs.statSync(`${resolvedPath}${ext}`);
+                // some directories could be named like `asn1.js`, so we have to check it here
+                if (stat && !stat.isDirectory()) {
+                    return `${resolvedPath}${ext}`;
+                }
+            }
+        }
+        if (fs.existsSync(`${resolvedPath}.node`)) return `${resolvedPath}.node`;
+        if (fs.existsSync(`${resolvedPath}.json`)) return `${resolvedPath}.json`;
 
-	/**
-	 * Prepare sandbox.
-	 */
+        // load as directory
 
-	global.setTimeout = function(callback, delay, ...args) {
-		const tmr = host.setTimeout(function() {
-			callback.apply(null, args)
-		}, delay);
+        if (fs.existsSync(`${resolvedPath}/package.json`)) {
+            try {
+                const pkg = JSON.parse(fs.readFileSync(`${resolvedPath}/package.json`, 'utf8'));
+                if (pkg.main === undefined) pkg.main = 'index.js';
 
-		const local = {
-			ref() { return tmr.ref(); },
-			unref() { return tmr.unref(); }
-		};
+                return resolveFilename(`${resolvedPath}/${pkg.main}`);
+            } catch (ex) {
+                throw new VMError(`Module '${resolvedPath}' has invalid package.json`, 'EMODULEINVALID');
+            }
+        }
 
-		TIMERS.set(local, tmr);
-		return local;
-	};
+        for (const ext of vm.options.sourceExtensions) {
+            if (fs.existsSync(`${resolvedPath}/index${ext}`)) return `${resolvedPath}/index${ext}`;
+        }
 
-	global.setInterval = function(callback, interval, ...args) {
-		const tmr = host.setInterval(function() {
-			callback.apply(null, args)
-		}, interval);
+        if (fs.existsSync(`${resolvedPath}/index.node`)) return `${resolvedPath}/index.node`;
 
-		const local = {
-			ref() { return tmr.ref(); },
-			unref() { return tmr.unref(); }
-		};
+        return null;
+    }
+    const { resolveFilename: providedResolveFilename } = vm.options;
+    const resolveFilename = providedResolveFilename
+        ? (path: string) => providedResolveFilename(originalResolveFilename, path)
+        : originalResolveFilename;
+    function resolveFilenameLikeNode(modulename: string, currentDirname: string) {
+        // it could be found by custom resolver
+        let filename = resolveFilename(modulename);
+        if (!filename) {
+            // Check node_modules in path
+            if (!currentDirname) throw new VMError('You must specify script path to load relative modules.', 'ENOPATH');
 
-		TIMERS.set(local, tmr);
-		return local;
-	};
+            if (typeof vm.options.require !== 'boolean' && Array.isArray(vm.options.require.external)) {
+                const isWhitelisted = vm.options.require.external.indexOf(modulename) !== -1;
+                if (!isWhitelisted) throw new VMError(`The module '${modulename}' is not whitelisted in VM.`, 'EDENIED');
+            }
 
-	global.setImmediate = function(callback, ...args) {
-		const tmr = host.setImmediate(function() {
-			callback.apply(null, args)
-		});
+            const paths = currentDirname.split(pa.sep);
 
-		const local = {
-			ref() { return tmr.ref(); },
-			unref() { return tmr.unref(); }
-		};
+            while (paths.length) {
+                const path = paths.join(pa.sep);
 
-		TIMERS.set(local, tmr);
-		return local;
-	};
+                // console.log(`${path}${pa.sep}node_modules${pa.sep}${modulename}`)
 
-	global.clearTimeout = function(local) {
-		host.clearTimeout(TIMERS.get(local));
-		return null;
-	};
+                filename = resolveFilename(`${path}${pa.sep}node_modules${pa.sep}${modulename}`);
+                if (filename) break;
 
-	global.clearInterval = function(local) {
-		host.clearInterval(TIMERS.get(local));
-		return null;
-	};
+                paths.pop();
+            }
+        }
 
-	global.clearImmediate = function(local) {
-		host.clearImmediate(TIMERS.get(local));
-		return null;
-	};
+        return filename;
+    }
 
-    let processCwd;
-	global.process = {
-		argv: [],
-		title: host.process.title,
-		version: host.process.version,
-		versions: Contextify.readonly(host.process.versions),
-		arch: host.process.arch,
-		platform: host.process.platform,
-		env: {},
-		pid: host.process.pid,
-		features: Contextify.readonly(host.process.features),
+    function createModule(id: string, require: NodeRequireFunction, filename: string = id, exports: unknown = {}): NodeJS.Module {
+        return {
+            id,
+            filename,
+            exports,
+            require,
+            loaded: true,
+            parent: null,
+            children: [],
+            paths: [id, filename],
+        };
+    }
+
+    /**
+     * Builtin require.
+     */
+    function getBuiltIn(modulename: string) {
+        function requireBuiltin(builtInName: string) {
+            if (builtInName === 'buffer') return ({ Buffer });
+            if (BUILTINS[builtInName]) return BUILTINS[builtInName].exports; // Only compiled builtins are stored here
+
+            if (builtInName === 'events') {
+                try {
+                    const script = new Script(
+                        `(function (exports, require, module, process) { 'use strict'; ${BUILTIN_MODULES[builtInName]} \n});`,
+                        {
+                            filename: `${builtInName}.vm.js`,
+                        },
+                    );
+
+                    // setup module scope
+                    const module = createModule(builtInName, requireBuiltin, `${builtInName}.vm.js`);
+                    BUILTINS[builtInName] = module;
+
+                    // run script
+                    script.runInContext(global)(module.exports, module.require, module, host.process);
+
+                    return module.exports;
+                } catch (e) {
+                    throw e;
+                }
+            }
+
+            return host.require(builtInName);
+        }
+        if (typeof vm.options.require !== 'boolean' && host.Array.isArray(vm.options.require.builtin)) {
+            if (vm.options.require.builtin.indexOf('*') >= 0) {
+                if (vm.options.require.builtin.indexOf(`-${modulename}`) >= 0) {
+                    throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+                }
+            } else if (vm.options.require.builtin.indexOf(modulename) === -1) {
+                throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+            }
+        } else if (
+            typeof vm.options.require !== 'boolean' &&
+            vm.options.require.builtin &&
+            !host.Array.isArray(vm.options.require.builtin)) {
+            if (!vm.options.require.builtin[modulename]) {
+                throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+            }
+        } else {
+            throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+        }
+
+        return requireBuiltin(modulename);
+    }
+
+    /**
+     * Prepare require.
+     */
+    function prepareRequire(currentDirname: string) {
+        return  function require(modulename: string) {
+            if (vm.options.nesting && modulename === 'baset-vm') return { NodeVM: host.NodeVM };
+            if (!vm.options.require) throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+            if (modulename === undefined) throw new VMError("Module '' not found.", 'ENOTFOUND');
+            if (typeof modulename !== 'string') throw new VMError(`Invalid module name '${modulename}'`, 'EINVALIDNAME');
+
+            // Mock?
+            if (typeof vm.options.require !== 'boolean' && vm.options.require.mock && vm.options.require.mock[modulename]) {
+                return vm.options.require.mock[modulename];
+            }
+
+            // Builtin?
+
+            if (BUILTIN_MODULES[modulename]) return getBuiltIn(modulename);
+
+            // External?
+            if (typeof vm.options.require === 'boolean' || !vm.options.require.external) {
+                throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+            }
+
+            let filename: string | null = null;
+            if (/^(\.|\.\/|\.\.\/)/.exec(modulename)) {
+                // Module is relative file, e.g. ./script.js or ../script.js
+                if (!currentDirname) throw new VMError('You must specify script path to load relative modules.', 'ENOPATH');
+
+                filename = resolveFilename(`${currentDirname}/${modulename}`);
+            } else {
+                // Module is absolute file, e.g. /script.js or //server/script.js or C:\script.js
+                filename = (/^(\/|\\|[a-zA-Z]:\\)/.exec(modulename))
+                    ? resolveFilename(modulename)
+                    : resolveFilenameLikeNode(modulename, currentDirname);
+            }
+
+            if (!filename) throw new VMError(`Cannot find module '${modulename}'`, 'ENOTFOUND');
+
+            // return cache whenever possible
+            if (CACHE[filename]) return CACHE[filename].exports;
+
+            const dirname = pa.dirname(filename);
+            const extname = pa.extname(filename);
+
+            if (vm.options.require.root) {
+                const requiredPath = pa.resolve(vm.options.require.root);
+                if (dirname.indexOf(requiredPath) !== 0) {
+                    throw new VMError(`Module '${modulename}' is not allowed to be required. The path is outside the border!`, 'EDENIED');
+                }
+            }
+
+            const module = createModule(filename, prepareRequire(dirname));
+            CACHE[filename] = module;
+
+            // lookup extensions
+            if (EXTENSIONS[extname]) {
+                EXTENSIONS[extname](module, filename, dirname);
+
+                return module.exports;
+            }
+
+            throw new VMError(`Failed to load '${modulename}': Unknown type.`, 'ELOADFAIL');
+        };
+    }
+
+    /**
+     * Prepare sandbox.
+     */
+    global.setTimeout = function (callback, delay, ...args) {
+        const tmr = host.setTimeout(
+            function () {
+                callback.apply(null, args);
+            },
+            delay);
+
+        const local = {
+            ref() { return tmr.ref(); },
+            unref() { return tmr.unref(); },
+        };
+
+        TIMERS.set(local, tmr);
+
+        return local;
+    };
+
+    global.setInterval = function (callback, interval, ...args) {
+        const tmr = host.setInterval(
+            function () {
+                callback.apply(null, args);
+            },
+            interval);
+
+        const local = {
+            ref() { return tmr.ref(); },
+            unref() { return tmr.unref(); },
+        };
+
+        TIMERS.set(local, tmr);
+
+        return local;
+    };
+
+    global.setImmediate = function (callback, ...args) {
+        const tmr = host.setImmediate(function () {
+            callback.apply(null, args);
+        });
+
+        const local = {
+            ref() { return tmr.ref(); },
+            unref() { return tmr.unref(); },
+        };
+
+        TIMERS.set(local, tmr);
+
+        return local;
+    };
+
+    global.clearTimeout = function (local) {
+        host.clearTimeout(TIMERS.get(local));
+    };
+
+    global.clearInterval = function (local) {
+        host.clearInterval(TIMERS.get(local));
+    };
+
+    global.clearImmediate = function (local) {
+        host.clearImmediate(TIMERS.get(local));
+    };
+
+    let processCwd: string;
+    global.process = {
+        argv: [],
+        title: host.process.title,
+        version: host.process.version,
+        versions: host.process.versions,
+        arch: host.process.arch,
+        platform: host.process.platform,
+        env: {},
+        pid: host.process.pid,
+        // features: host.process.features,
         uptime: host.process.uptime,
-		nextTick(callback) { return host.process.nextTick(() => callback.call(null)); },
-		hrtime() { return host.process.hrtime(); },
-        cwd() {return processCwd || host.process.cwd(); },
-		on(name, handler) {
-			if (name !== 'beforeExit' && name !== 'exit') {
-				throw new Error(`Access denied to listen for '${name}' event.`);
-			}
+        nextTick: host.process.nextTick,
+        hrtime: host.process.hrtime,
+        cwd() { return processCwd || host.process.cwd(); },
+        on(name: string, handler: any) {
+            if (name !== 'beforeExit' && name !== 'exit') {
+                throw new Error(`Access denied to listen for '${name}' event.`);
+            }
 
-			host.process.on(name, Decontextify.value(handler));
-			return this;
+            // FIXME: small hack for TS, because it has some problems with type narrowing here
+            if (name === 'beforeExit') host.process.on(name, handler);
+            if (name === 'exit') host.process.on(name, handler);
+
+            return this;
         },
-        chdir(directory) {
+        chdir(directory: string) {
             processCwd = directory;
         },
 
-		once(name, handler) {
-			if (name !== 'beforeExit' && name !== 'exit') {
-				throw new Error(`Access denied to listen for '${name}' event.`);
-			}
+        once(name: string, handler: any) {
+            if (name !== 'beforeExit' && name !== 'exit') {
+                throw new Error(`Access denied to listen for '${name}' event.`);
+            }
 
-			host.process.once(name, Decontextify.value(handler));
-			return this;
-		},
+            // FIXME: small hack for TS, because it has some problems with type narrowing here
+            if (name === 'beforeExit') host.process.on(name, handler);
+            if (name === 'exit') host.process.on(name, handler);
 
-		listeners(name) {
-			return Contextify.readonly(host.process.listeners(name));
-		},
-
-		removeListener(name, handler) {
-			host.process.removeListener(name, Decontextify.value(handler));
-			return this;
-		},
-
-		umask() {
-			if (arguments.length) {
-				throw new Error("Access denied to set umask.");
-			}
-
-			return host.process.umask();
+            return this;
         },
-	};
 
-	if (vm.options.console === 'inherit') {
-		global.console = Contextify.readonly(host.console);
-	} else if (vm.options.console === 'redirect') {
-		global.console = {
-			log(...args) {
-				vm.emit('console.log', ...Decontextify.arguments(args));
-				return null;
-			},
-			info(...args) {
-				vm.emit('console.info', ...Decontextify.arguments(args));
-				return null;
-			},
-			warn(...args) {
-				vm.emit('console.warn', ...Decontextify.arguments(args));
-				return null;
-			},
-			error(...args) {
-				vm.emit('console.error', ...Decontextify.arguments(args));
-				return null;
-			},
-			dir(...args) {
-				vm.emit('console.dir', ...Decontextify.arguments(args));
-				return null;
-			},
-			time: () => {},
-			timeEnd: () => {},
-			trace(...args) {
-				vm.emit('console.trace', ...Decontextify.arguments(args));
-				return null;
-			}
-		};
-	}
+        listeners(name: string) {
+            // FIXME: big hack for TS, because it has some problems with type narrowing here
+            // tslint:disable-next-line:no-any
+            return host.process.listeners(name as any) as any;
+        },
 
-	/*
-	Return contextized require.
-	*/
+        removeListener(name: string, handler: any) {
+            host.process.removeListener(name, handler);
 
-	return _prepareRequire;
-})(vm, host);
+            return this;
+        },
+
+        umask() {
+            if (arguments.length) {
+                throw new Error('Access denied to set umask.');
+            }
+
+            return host.process.umask();
+        },
+
+    // TODO: investigate if there is a need of all process features
+    // tslint:disable-next-line:no-any
+    } as any as NodeJS.Process;
+
+    // if (vm.options.console === 'inherit') {
+    global.console = host.console;
+    // } else if (vm.options.console === 'redirect') {
+    //     global.console = {
+    //         log(...args) {
+    //             vm.emit('console.log', ...args);
+    //         },
+    //         info(...args) {
+    //             vm.emit('console.info', ...args);
+    //         },
+    //         warn(...args) {
+    //             vm.emit('console.warn', ...args);
+    //         },
+    //         error(...args) {
+    //             vm.emit('console.error', ...args);
+    //         },
+    //         dir(...args) {
+    //             vm.emit('console.dir', ...args);
+    //         },
+    //         time: () => { },
+    //         timeEnd: () => { },
+    //         trace(...args) {
+    //             vm.emit('console.trace', ...args);
+    //         },
+    //     };
+    // }
+
+    /*
+    Return contextized require.
+    */
+
+    return prepareRequire;
+});

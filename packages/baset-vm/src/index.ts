@@ -11,11 +11,8 @@ export {
 };
 
 const sb = fs.readFileSync(`${__dirname}/sandbox.js`, 'utf8');
-const cf = fs.readFileSync(`${__dirname}/contextify.js`, 'utf8');
 
-const PROTECTED = ['constructor', '__proto__'];
-
-const _compileToJS = function compileToJS(code: string, compiler: string | CompilerFunction, filename = '') {
+function compileToJS(code: string, compiler: string | CompilerFunction, filename = '') {
     if (typeof compiler === 'function') return compiler(code, filename);
 
     switch (compiler) {
@@ -28,15 +25,17 @@ const _compileToJS = function compileToJS(code: string, compiler: string | Compi
         default:
             throw new VMError(`Unsupported compiler '${compiler}'.`);
     }
-};
+}
 
 /**
  * Require options for a VM
  */
 export interface IVMRequire {
     /** Array of allowed builtin modules, accepts ["*"] for all (default: none) */
-    builtin?: string[];
-    /*
+    builtin?: string[] | {
+        [index: string]: unknown;
+    };
+    /**
      * `host` (default) to require modules in host and proxy them to sandbox. `sandbox` to load, compile and
      * require modules in sandbox. Builtin modules except `events` always required in host and proxied to sandbox
      */
@@ -48,14 +47,50 @@ export interface IVMRequire {
     /** Restricted path where local modules can be required (default: every path). */
     root?: string;
     /** Collection of mock modules (both external or builtin). */
-    mock?: any;
+    mock?: {
+        [index: string]: unknown;
+    };
 }
-export type CompilerFunction = (code: string, filename: string) => string | VMScript;
-export type ResolverFunction = (request: string) => string;
+export type CompilerFunction = (code: string, filename: string) => string;
+export type ResolverFunction = (request: string) => string | null;
+export interface IHost {
+    require: typeof require;
+    process: typeof process;
+    console: typeof console;
+    setTimeout: typeof setTimeout;
+    setInterval: typeof setInterval;
+    setImmediate: typeof setImmediate;
+    clearTimeout: typeof clearTimeout;
+    clearInterval: typeof clearInterval;
+    clearImmediate: typeof clearImmediate;
+    String: typeof String;
+    Number: typeof Number;
+    Buffer: typeof Buffer;
+    Boolean: typeof Boolean;
+    Array: typeof Array;
+    Date: typeof Date;
+    Error: typeof Error;
+    RangeError: typeof RangeError;
+    ReferenceError: typeof ReferenceError;
+    SyntaxError: typeof SyntaxError;
+    TypeError: typeof TypeError;
+    RegExp: typeof RegExp;
+    Function: typeof Function;
+    Object: typeof Object;
+    VMError: typeof VMError;
+    Proxy: typeof Proxy;
+    Reflect: typeof Reflect;
+    Map: typeof Map;
+    WeakMap: typeof WeakMap;
+    Set: typeof Set;
+    WeakSet: typeof WeakSet;
+    Promise: typeof Promise;
+    NodeVM?: typeof NodeVM;
+}
 /**
- *  Options for creating a NodeVM
+ * Options specific for Node VM
  */
-export interface IVMOptions {
+export interface INodeVMOptions {
     /**
      * `javascript` (default) or custom compiler function (which receives the code, and it's filepath).
      *  The library expects you to have coffee-script pre-installed if the compiler is set to `coffeescript`.
@@ -63,7 +98,7 @@ export interface IVMOptions {
     compiler?: 'javascript' | CompilerFunction;
     /** VM's global object. */
     sandbox?: {
-        [index: string]: any;
+        [index: string]: unknown;
     };
     /**
      * Script timeout in milliseconds.  Timeout is only effective on code you run through `run`.
@@ -74,136 +109,7 @@ export interface IVMOptions {
     /** File extensions that the internal module resolver should accept. */
     sourceExtensions?: string[];
 
-    resolveFilename?: false | ((original: ResolverFunction, request: string) => string);
-}
-
-/**
- * Class VM.
- */
-export class VM extends EventEmitter {
-    /**
-     * VM options.
-     */
-    options: IVMOptions;
-    private context: vm.Context;
-    private _internal: any;
-
-    /**
-     * Create VM instance.
-     * @param options VM options.
-     */
-    constructor(options: IVMOptions = {}) {
-        super();
-
-        // defaults
-        this.options = {
-            timeout: options.timeout !== undefined ? options.timeout : undefined,
-            sandbox: options.sandbox !== undefined ? options.sandbox : undefined,
-            compiler: options.compiler !== undefined ? options.compiler : 'javascript',
-        };
-
-        const host = {
-            console,
-            String,
-            Number,
-            Buffer,
-            Boolean,
-            Array,
-            Date,
-            Error,
-            RangeError,
-            ReferenceError,
-            SyntaxError,
-            TypeError,
-            RegExp,
-            Function,
-            Object,
-            VMError,
-            Proxy,
-            Reflect,
-            Map,
-            WeakMap,
-            Set,
-            WeakSet,
-            Promise,
-        };
-
-        this.context = vm.createContext();
-
-        Reflect.defineProperty(this, '_internal', {
-            value: vm.runInContext(`(function(require, host) { ${cf} \n})`, this.context, {
-                filename: `${__dirname}/contextify.js`,
-                displayErrors: false,
-            }).call(this.context, require, host),
-        });
-
-        // prepare global sandbox
-        if (this.options.sandbox) {
-            if (typeof this.options.sandbox !== 'object') {
-                throw new VMError('Sandbox must be object.');
-            }
-
-            for (const name in this.options.sandbox) {
-                if (!this.options.sandbox.hasOwnProperty(name)) continue;
-                this._internal.Contextify.globalValue(this.options.sandbox[name], name);
-            }
-        }
-    }
-
-    /**
-     * Freezes the object inside VM making it read-only. Not available for primitive values.
-     * @param value Object to freeze.
-     * @param globalName Whether to add the object to global.
-     * @returns Object to freeze.
-     */
-    freeze<T extends object>(value: T, globalName: string) {
-        this._internal.Contextify.readonly(value);
-        if (global) this._internal.Contextify.globalValue(value, globalName);
-
-        return value;
-    }
-
-    /**
-     * Protects the object inside VM making impossible to set functions as it's properties. Not available for primitive values.
-     * @param value Object to protect.
-     * @param globalName Whether to add the object to global.
-     * @returns Object to protect.
-     */
-    protect<T extends object>(value: T, globalName: string) {
-        this._internal.Contextify.protected(value);
-        if (global) this._internal.Contextify.globalValue(value, globalName);
-
-        return value;
-    }
-
-    /**
-     * Run the code in VM.
-     * @param code Code to run.
-     * @returns Result of executed code.
-     */
-    run<T = any>(code: string): T {
-        const compiled = (this.options.compiler && this.options.compiler !== 'javascript')
-            ? _compileToJS(code, this.options.compiler)
-            : code;
-
-        const script = compiled instanceof VMScript ? compiled : new VMScript(compiled);
-
-        try {
-            return this._internal.Decontextify.value(script.compile().compiled!.runInContext(this.context, {
-                filename: script.filename,
-                displayErrors: false,
-                timeout: this.options.timeout,
-            }));
-        } catch (e) {
-            throw this._internal.Decontextify.value(e);
-        }
-    }
-}
-
-/**
- * Options specific for Node VM
- */
-export interface INodeVMOptions extends IVMOptions {
+    resolveFilename?: false | ((original: ResolverFunction, request: string) => string | null);
     /** `inherit` to enable console, `redirect` to redirect to events, `off` to disable console (default: `inherit`). */
     console?: 'inherit' | 'redirect';
     /** `true` or an object to enable `require` options (default: `false`). */
@@ -222,8 +128,8 @@ export class NodeVM extends EventEmitter {
      * VM options.
      */
     options: Required<INodeVMOptions>;
-    private _internal: any;
     private context: vm.Context;
+    private prepareRequire: (dirname?: string) => (moduleName: string) => unknown;
     /**
      * Create NodeVM instance.
      * Unlike VM, NodeVM lets you use require same way like in regular node.
@@ -248,10 +154,9 @@ export class NodeVM extends EventEmitter {
         const nesting = (this.options.nesting)
             ? {
                 NodeVM,
-                VM,
             }
             : {};
-        const host = {
+        const host: IHost = {
             require,
             process,
             console,
@@ -284,31 +189,19 @@ export class NodeVM extends EventEmitter {
             WeakSet,
             Promise,
             ...nesting,
+
+            // prepare global sandbox
+            ...this.options.sandbox,
         };
 
         this.context = vm.createContext();
 
-        Object.defineProperty(this, '_internal', {
-            value: vm.runInContext(`(function(require, host) { ${cf} \n})`, this.context, {
-                filename: `${__dirname}/contextify.js`,
-                displayErrors: false,
-            }).call(this.context, require, host),
-        });
-
-        const closure = vm.runInContext(`(function (vm, host, Contextify, Decontextify, Buffer) { ${sb} \n})`, this.context, {
+        const closure: Function = vm.runInContext(sb, this.context, {
             filename: `${__dirname}/sandbox.js`,
             displayErrors: false,
         });
 
-        Object.defineProperty(this, '_prepareRequire', {
-            value: closure.call(this.context, this, host, this._internal.Contextify, this._internal.Decontextify, this._internal.Buffer),
-        });
-
-        // prepare global sandbox
-        for (const name in this.options.sandbox) {
-            if (!this.options.sandbox.hasOwnProperty(name)) continue;
-            this._internal.Contextify.globalValue(this.options.sandbox[name], name);
-        }
+        this.prepareRequire = closure.call(this.context, this, host);
 
         if (this.options.require && this.options.require !== true && this.options.require.import) {
             if (!Array.isArray(this.options.require.import)) {
@@ -322,35 +215,11 @@ export class NodeVM extends EventEmitter {
     }
 
     /**
-     * Freezes the object inside VM making it read-only. Not available for primitive values.
-     * @param value Object to freeze.
-     * @param globalName Whether to add the object to global.
-     * @return Object to freeze.
-     */
-    freeze<T extends object>(value: T, globalName: string) {
-        this._internal.Contextify.readonly(value);
-        if (global) this._internal.Contextify.globalValue(value, globalName);
-        return value;
-    }
-
-    /**
-     * Protects the object inside VM making impossible to set functions as it's properties. Not available for primitive values.
-     * @param value Object to protect.
-     * @param globalName Whether to add the object to global.
-     * @return Object to protect.
-     */
-    protect<T extends object>(value: T, globalName: string) {
-        this._internal.Contextify.protected(value);
-        if (global) this._internal.Contextify.globalValue(value, globalName);
-        return value;
-    }
-
-    /**
      * Require a module in VM and return it's exports.
      * @param module Module name.
      * @returns Exported module.
      */
-    require<T = any>(module: string): T {
+    require<T = unknown>(module: string): T {
         return this.run(`module.exports = require('${module}');`, 'vm.js');
     }
 
@@ -362,42 +231,36 @@ export class NodeVM extends EventEmitter {
      * @param filename Filename that shows up in any stack traces produced from this script.
      * @returns Result of executed code.
      */
-    run<T = any>(code: string, filename?: string): T {
-        if (this.options.compiler !== 'javascript') {
-            code = _compileToJS(code, this.options.compiler, filename);
-        }
+    run<T = unknown>(codeInput: string, filenameInput?: string): T {
+        const code = (this.options.compiler !== 'javascript')
+            ? compileToJS(codeInput, this.options.compiler, filenameInput)
+            : '';
 
-        if (filename) {
-            filename = pa.resolve(filename);
-            const dirname = pa.dirname(filename);
-
-        } else {
-            filename = null;
-            const dirname = null;
-        }
+        const filename = filenameInput && pa.resolve(filenameInput);
+        const dirname = filename && pa.dirname(filename);
 
         const module = vm.runInContext('({exports: {}})', this.context, {
             displayErrors: false,
         });
 
-        const script = code instanceof VMScript ? code : new VMScript(code, filename);
+        const script = new VMScript(code, filename);
         script.wrap('(function (exports, require, module, __filename, __dirname) { ', ' \n})');
 
         try {
-            const closure = script.compile()._compiled.runInContext(this.context, {
+            const closure = script.compile().runInContext(this.context, {
                 filename: script.filename,
                 displayErrors: false,
             });
 
-            const returned = closure.call(this.context, module.exports, this._prepareRequire(dirname), module, filename, dirname);
-        } catch (e) {
-            throw this._internal.Decontextify.value(e);
-        }
+            const returned = closure.call(this.context, module.exports, this.prepareRequire(dirname), module, filename, dirname);
 
-        if (this.options.wrapper === 'commonjs') {
-            return this._internal.Decontextify.value(module.exports);
-        } else {
-            return this._internal.Decontextify.value(returned);
+            if (this.options.wrapper === 'commonjs') {
+                return module.exports;
+            } else {
+                return returned;
+            }
+        } catch (e) {
+            throw e;
         }
     }
 
