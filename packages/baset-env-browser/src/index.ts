@@ -10,7 +10,7 @@ export interface IBrowserEnvOptions {
 
 export default class BrowserEnv extends AbstractEnvironment {
     private serveUrl = 'about:blank';
-    private server?: Server;
+    private server?: Promise<Server>;
     constructor(public options: IBrowserEnvOptions) {
         super(options);
         if (options && (options.staticFolder || options.serverPort)) {
@@ -20,15 +20,18 @@ export default class BrowserEnv extends AbstractEnvironment {
 
             const app = express();
             app.use('/', express.static(folder));
-            setTimeout(() => this.server = app.listen(port));
+            this.server = new Promise(resolve => resolve(app.listen(port)));
         }
     }
-    getContextImport(sandbox: utils.IDictionary<any>) {
+    async getContextImport(sandbox: utils.IDictionary<any>) {
         sandbox.basetBrowserEnv__StaticUrl = this.serveUrl;
+        if (this.server) await this.server;
 
         return path.resolve(__dirname, 'runInContext').split('\\').join('/');
     }
-    dispose() {
-        if (this.server) this.server.close();
+    async dispose() {
+        if (!this.server) return;
+        const server = await this.server;
+        server.close();
     }
 }
