@@ -13,11 +13,11 @@ export default class PixiResolver extends AbstractResolver {
     match = async (obj: any, context: NodeVM, sandbox: utils.IDictionary<any>) => {
         sandbox.basetResolverPixi__ObjectToMatch = obj;
 
-        return context.run(await matchInContextScript, 'PixiResolver.js').matchResult;
+        return context.run<{matchResult: boolean}>(await matchInContextScript, 'PixiResolver.js').matchResult;
     }
     resolve = async (obj: any, context: NodeVM, sandbox: utils.IDictionary<any>) => {
         sandbox.basetResolverPixi__ObjectToRender = obj;
-        const base64String: string = await context.run(await renderInContextScript, 'PixiResolver.js').renderedResult;
+        const base64String = await context.run<{ renderedResult: string }>(await renderInContextScript, 'PixiResolver.js').renderedResult;
 
         return {
             value: base64String,
