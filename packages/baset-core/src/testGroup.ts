@@ -27,8 +27,10 @@ export class TestGroup {
     private readerChain: AbstractReader[];
     private resolvers: AbstractResolver[];
     private indexOfResolver: (obj: any, context: NodeVM, sandbox: IDictionary<any>) => Promise<number>;
-    private context?: NodeVM;
-    private sandbox?: IDictionary<any>;
+    private vm?: Promise<{
+        context: NodeVM;
+        sandbox: IDictionary<any>;
+    }>;
     constructor(
         pattern: string | RegExp,
         private options: ITestGroupOptions,
@@ -71,7 +73,7 @@ export class TestGroup {
 
     test = async (filePath: string) => {
         const resolvedPath = path.resolve(filePath);
-        const { context, sandbox } = await this.prepareContext();
+        const { context, sandbox } = await this.prepareVM();
         const specSrc = readFile(resolvedPath, { encoding: 'utf8' });
         const compiledSrc = await this.readerChain
             .reduce<Promise<string | string[]>>((result, reader) => reader.read(filePath, result), specSrc);
@@ -175,13 +177,14 @@ export class TestGroup {
         };
     }
 
-    private prepareContext = async () => {
-        if (!this.options.isolateContext && this.context && this.sandbox) {
-            return {
-                context: this.context,
-                sandbox: this.sandbox,
-            };
+    private prepareVM = () => {
+        if (this.options.isolateContext || !this.vm) {
+            this.vm = this.prepareContext();
         }
+
+        return this.vm;
+    }
+    private prepareContext = async () => {
         const compiler = this.getCompiler();
         const sandbox: IDictionary<any> = {};
         const envImport = this.environment && await this.environment.getContextImport(sandbox);
@@ -201,8 +204,6 @@ export class TestGroup {
             sourceExtensions: compiler.extensions,
             resolveFilename: compiler.resolveFilename,
         });
-        this.context = context;
-        this.sandbox = sandbox;
 
         return { context, sandbox };
     }
