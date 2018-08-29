@@ -53,40 +53,6 @@ export interface IVMRequire {
 }
 export type CompilerFunction = (code: string, filename: string) => string;
 export type ResolverFunction = (request: string) => string | null;
-export interface IHost {
-    require: typeof require;
-    process: typeof process;
-    console: typeof console;
-    setTimeout: typeof setTimeout;
-    setInterval: typeof setInterval;
-    setImmediate: typeof setImmediate;
-    clearTimeout: typeof clearTimeout;
-    clearInterval: typeof clearInterval;
-    clearImmediate: typeof clearImmediate;
-    String: typeof String;
-    Number: typeof Number;
-    Buffer: typeof Buffer;
-    Boolean: typeof Boolean;
-    Array: typeof Array;
-    Date: typeof Date;
-    Error: typeof Error;
-    RangeError: typeof RangeError;
-    ReferenceError: typeof ReferenceError;
-    SyntaxError: typeof SyntaxError;
-    TypeError: typeof TypeError;
-    RegExp: typeof RegExp;
-    Function: typeof Function;
-    Object: typeof Object;
-    VMError: typeof VMError;
-    Proxy: typeof Proxy;
-    Reflect: typeof Reflect;
-    Map: typeof Map;
-    WeakMap: typeof WeakMap;
-    Set: typeof Set;
-    WeakSet: typeof WeakSet;
-    Promise: typeof Promise;
-    NodeVM?: typeof NodeVM;
-}
 /**
  * Options specific for Node VM
  */
@@ -156,7 +122,7 @@ export class NodeVM extends EventEmitter {
                 NodeVM,
             }
             : {};
-        const host: IHost = {
+        const host = {
             require,
             process,
             console,
@@ -178,7 +144,6 @@ export class NodeVM extends EventEmitter {
             SyntaxError,
             TypeError,
             RegExp,
-            Function,
             Object,
             VMError,
             Proxy,
@@ -188,6 +153,11 @@ export class NodeVM extends EventEmitter {
             Set,
             WeakSet,
             Promise,
+            // This item also was here, but it seems to broke stuff like jsdom
+            // So we `fn instanceof Function` always will be false if used for object
+            // from `vm` outside of it, but `typeof fn === 'function'` still works properly,
+            // and seems to be better solution
+            /* Function */
             ...nesting,
 
             // prepare global sandbox
@@ -200,6 +170,7 @@ export class NodeVM extends EventEmitter {
             filename: `${__dirname}/sandbox.js`,
             displayErrors: false,
         });
+        Object.setPrototypeOf(host, global);
 
         this.prepareRequire = closure.call(this.context, this, host);
 

@@ -21,9 +21,12 @@ type IEventName =
     'message' |
     'newListener' |
     'removeListener';
-
+interface IHost extends NodeJS.Global {
+    require: NodeRequireFunction;
+    NodeVM: import ('./').NodeVM;
+}
 // tslint:disable-next-line:no-unused-expression
-(function sandbox(this: NodeJS.Global, vm: import ('./').NodeVM, host: import ('./').IHost) {
+(function sandbox(this: NodeJS.Global, vm: import ('./').NodeVM, host: IHost) {
     'use strict';
 
     const { Script } = host.require('vm');
@@ -32,7 +35,10 @@ type IEventName =
 
     // tslint:disable-next-line:no-this-assignment
     const global = this;
-    Object.assign(global, host);
+    // tslint:disable-next-line:forin
+    for (const name in host) {
+        (global as any)[name] = (host as any)[name];
+    }
     delete (global as any).require;
 
     Object.setPrototypeOf(global, Object.prototype);
@@ -63,7 +69,6 @@ type IEventName =
     const BUILTIN_MODULES: IModules = (host.process as any).binding('natives');
     const JSON_PARSE = JSON.parse;
 
-    const TIMERS = new host.WeakMap();
     const BUILTINS: IModules = {};
     const CACHE: IModules = {};
     const EXTENSIONS: IExtensions = {
@@ -207,7 +212,6 @@ type IEventName =
      */
     function getBuiltIn(modulename: string) {
         function requireBuiltin(builtInName: string) {
-            if (builtInName === 'buffer') return ({ Buffer });
             if (BUILTINS[builtInName]) return BUILTINS[builtInName].exports; // Only compiled builtins are stored here
 
             if (builtInName === 'events') {
@@ -325,159 +329,46 @@ type IEventName =
     /**
      * Prepare sandbox.
      */
-    global.setTimeout = function (callback, delay, ...args) {
-        const tmr = host.setTimeout(
-            function () {
-                callback.apply(null, args);
-            },
-            delay);
-
-        const local = {
-            ref() { return tmr.ref(); },
-            unref() { return tmr.unref(); },
-        };
-
-        TIMERS.set(local, tmr);
-
-        return local;
-    };
-
-    global.setInterval = function (callback, interval, ...args) {
-        const tmr = host.setInterval(
-            function () {
-                callback.apply(null, args);
-            },
-            interval);
-
-        const local = {
-            ref() { return tmr.ref(); },
-            unref() { return tmr.unref(); },
-        };
-
-        TIMERS.set(local, tmr);
-
-        return local;
-    };
-
-    global.setImmediate = function (callback, ...args) {
-        const tmr = host.setImmediate(function () {
-            callback.apply(null, args);
-        });
-
-        const local = {
-            ref() { return tmr.ref(); },
-            unref() { return tmr.unref(); },
-        };
-
-        TIMERS.set(local, tmr);
-
-        return local;
-    };
-
-    global.clearTimeout = function (local) {
-        host.clearTimeout(TIMERS.get(local));
-    };
-
-    global.clearInterval = function (local) {
-        host.clearInterval(TIMERS.get(local));
-    };
-
-    global.clearImmediate = function (local) {
-        host.clearImmediate(TIMERS.get(local));
-    };
-
     let processCwd: string;
     global.process = {
+        ...host.process,
         argv: [],
-        title: host.process.title,
-        version: host.process.version,
-        versions: host.process.versions,
-        arch: host.process.arch,
-        platform: host.process.platform,
         env: {},
-        pid: host.process.pid,
-        // features: host.process.features,
-        uptime: host.process.uptime,
-        nextTick: host.process.nextTick,
-        hrtime: host.process.hrtime,
         cwd() { return processCwd || host.process.cwd(); },
-        on(name: string, handler: any) {
-            if (name !== 'beforeExit' && name !== 'exit') {
-                throw new Error(`Access denied to listen for '${name}' event.`);
-            }
-
-            // FIXME: small hack for TS, because it has some problems with type narrowing here
-            if (name === 'beforeExit') host.process.on(name, handler);
-            if (name === 'exit') host.process.on(name, handler);
-
-            return this;
-        },
         chdir(directory: string) {
             processCwd = directory;
         },
-
-        once(name: string, handler: any) {
-            if (name !== 'beforeExit' && name !== 'exit') {
-                throw new Error(`Access denied to listen for '${name}' event.`);
-            }
-
-            // FIXME: small hack for TS, because it has some problems with type narrowing here
-            if (name === 'beforeExit') host.process.on(name, handler);
-            if (name === 'exit') host.process.on(name, handler);
-
-            return this;
-        },
-
-        listeners(name: string) {
-            // FIXME: big hack for TS, because it has some problems with type narrowing here
-            // tslint:disable-next-line:no-any
-            return host.process.listeners(name as any) as any;
-        },
-
-        removeListener(name: string, handler: any) {
-            host.process.removeListener(name, handler);
-
-            return this;
-        },
-
-        umask() {
-            if (arguments.length) {
-                throw new Error('Access denied to set umask.');
-            }
-
-            return host.process.umask();
-        },
-
     // TODO: investigate if there is a need of all process features
     // tslint:disable-next-line:no-any
     } as any as NodeJS.Process;
 
-    // if (vm.options.console === 'inherit') {
-    global.console = host.console;
-    // } else if (vm.options.console === 'redirect') {
-    //     global.console = {
-    //         log(...args) {
-    //             vm.emit('console.log', ...args);
-    //         },
-    //         info(...args) {
-    //             vm.emit('console.info', ...args);
-    //         },
-    //         warn(...args) {
-    //             vm.emit('console.warn', ...args);
-    //         },
-    //         error(...args) {
-    //             vm.emit('console.error', ...args);
-    //         },
-    //         dir(...args) {
-    //             vm.emit('console.dir', ...args);
-    //         },
-    //         time: () => { },
-    //         timeEnd: () => { },
-    //         trace(...args) {
-    //             vm.emit('console.trace', ...args);
-    //         },
-    //     };
-    // }
+    if (vm.options.console === 'inherit') {
+        global.console = host.console;
+    } else if (vm.options.console === 'redirect') {
+        global.console = {
+            ...host.console,
+            log(...args: unknown[]) {
+                vm.emit('console.log', ...args);
+            },
+            info(...args: unknown[]) {
+                vm.emit('console.info', ...args);
+            },
+            warn(...args: unknown[]) {
+                vm.emit('console.warn', ...args);
+            },
+            error(...args: unknown[]) {
+                vm.emit('console.error', ...args);
+            },
+            dir(...args: unknown[]) {
+                vm.emit('console.dir', ...args);
+            },
+            time: () => { },
+            timeEnd: () => { },
+            trace(...args: unknown[]) {
+                vm.emit('console.trace', ...args);
+            },
+        };
+    }
 
     /*
     Return contextized require.
