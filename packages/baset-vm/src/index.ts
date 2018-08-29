@@ -246,22 +246,16 @@ export class NodeVM extends EventEmitter {
         const script = new VMScript(code, filename);
         script.wrap('(function (exports, require, module, __filename, __dirname) { ', ' \n})');
 
-        try {
-            const closure = script.compile().runInContext(this.context, {
-                filename: script.filename,
-                displayErrors: false,
-            });
+        const closure = script.compile().runInContext(this.context, {
+            filename: script.filename,
+            displayErrors: false,
+        });
 
-            const returned = closure.call(this.context, module.exports, this.prepareRequire(dirname), module, filename, dirname);
+        const returned = closure.call(this.context, module.exports, this.prepareRequire(dirname), module, filename, dirname);
 
-            if (this.options.wrapper === 'commonjs') {
-                return module.exports;
-            } else {
-                return returned;
-            }
-        } catch (e) {
-            throw e;
-        }
+        return (this.options.wrapper === 'commonjs')
+            ? module.exports
+            : returned;
     }
 
     /**

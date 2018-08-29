@@ -33,6 +33,7 @@ type IEventName =
     // tslint:disable-next-line:no-this-assignment
     const global = this;
     Object.assign(global, host);
+    delete (global as any).require;
 
     Object.setPrototypeOf(global, Object.prototype);
 
@@ -67,60 +68,44 @@ type IEventName =
     const CACHE: IModules = {};
     const EXTENSIONS: IExtensions = {
         ['.json'](module: NodeJS.Module, filename: string) {
-            try {
-                module.exports = JSON_PARSE(fs.readFileSync(filename, 'utf8'));
-            } catch (e) {
-                throw e;
-            }
+            module.exports = JSON_PARSE(fs.readFileSync(filename, 'utf8'));
         },
         ['.node'](module: NodeJS.Module, filename: string) {
-            try {
-                module.exports = host.require(filename);
-            } catch (e) {
-                throw e;
-            }
+            module.exports = host.require(filename);
         },
     };
 
     for (const ext of vm.options.sourceExtensions) {
         EXTENSIONS[ext] = (module, filename, dirname) => {
             if (typeof vm.options.require === 'boolean' || vm.options.require.context !== 'sandbox') {
-                try {
-                    module.exports = host.require(filename);
-                } catch (e) {
-                    throw e;
-                }
+                module.exports = host.require(filename);
             } else {
-                try {
-                    // Load module
-                    let contents = fs.readFileSync(filename, 'utf8');
-                    if (filename.endsWith(`tcomb${pa.sep}lib${pa.sep}isArray.js`)) {
-                        contents = `module.exports = function isArray(x) {
-                            return Array.isArray ? Array.isArray(x) : x instanceof Array;
-                        };`;
-                    }
-                    if (typeof vm.options.compiler === 'function') {
-                        contents = vm.options.compiler(contents, filename);
-                    }
-
-                    const code = `(function (exports, require, module, __filename, __dirname) { 'use strict'; ${contents} \n});`;
-
-                    // Precompile script
-                    const script = new Script(code, {
-                        filename: filename || 'vm.js',
-                        displayErrors: false,
-                    });
-
-                    const closure = script.runInContext(global, {
-                        filename: filename || 'vm.js',
-                        displayErrors: false,
-                    });
-
-                    // run script
-                    closure(module.exports, module.require, module, filename, dirname);
-                } catch (ex) {
-                    throw ex;
+                // Load module
+                let contents = fs.readFileSync(filename, 'utf8');
+                if (filename.endsWith(`tcomb${pa.sep}lib${pa.sep}isArray.js`)) {
+                    contents = `module.exports = function isArray(x) {
+                        return Array.isArray ? Array.isArray(x) : x instanceof Array;
+                    };`;
                 }
+                if (typeof vm.options.compiler === 'function') {
+                    contents = vm.options.compiler(contents, filename);
+                }
+
+                const code = `(function (exports, require, module, __filename, __dirname) { 'use strict'; ${contents} \n});`;
+
+                // Precompile script
+                const script = new Script(code, {
+                    filename: filename || 'vm.js',
+                    displayErrors: false,
+                });
+
+                const closure = script.runInContext(global, {
+                    filename: filename || 'vm.js',
+                    displayErrors: false,
+                });
+
+                // run script
+                closure(module.exports, module.require, module, filename, dirname);
             }
         };
     }
