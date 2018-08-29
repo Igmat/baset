@@ -26,6 +26,6 @@
         "baset-reader-babel": "^0.13.6",
         "baset-reader-ts": "^0.13.6",
         "baset-resolver-react": "^0.13.6",
-        "typescript": "next"
+        "typescript": "3.0.1"
     }
 }
