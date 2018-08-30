@@ -1,10 +1,17 @@
 import JSONBaseliner from 'baset-baseliner-json';
 import { AbstractBaseliner, circularReference, dataTypes, utils } from 'baset-core';
 import { clean } from 'clean-html';
-import { markdown } from 'markdown';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
+import markdown from 'remark-parse';
+import unified from 'unified';
 import { isPrimitive } from 'util';
+const processor = unified()
+  .use(markdown, {commonmark: true});
+
+function markdownParse(src: string) {
+    return processor.parse(src);
+}
 
 async function htmlBeautify(src: string) {
     return new Promise(resolve => clean(src, resolve));
@@ -88,21 +95,21 @@ export default class MDBaseliner extends AbstractBaseliner {
     }
     private parse = (baseline: string) => {
         if (!baseline.trim()) return { json: '', knownEntities: [] };
-        const mdTree = markdown.parse(baseline);
-        const paraNodes: any[] = mdTree.slice(1);
-        const json: string = (paraNodes[0][1] === 'JSON values:\n')
-            ? paraNodes[0][2][1].replace(/^JSON\n/, '')
+        const mdTree = markdownParse(baseline);
+        const nodes: any[] = mdTree.children;
+        const json: string = (nodes[0].children[0].value === 'JSON values:')
+            ? nodes[1].value
             : '{}';
-        const firstKnownTypeIndex = Number(json !== '{}');
+        const firstKnownTypeIndex = Number(json !== '{}') * 2;
         const knownEntities: IKnownType[] = [];
-        for (let i = firstKnownTypeIndex; i < paraNodes.length; i += 2) {
-            const type = paraNodes[i + 1][1][0] === 'img'
+        for (let i = firstKnownTypeIndex; i < nodes.length; i += 2) {
+            const name = nodes[i].children[0].value.replace(':', '');
+            const type = nodes[i + 1].type === 'paragraph'
                 ? dataTypes.image
                 : dataTypes.html;
-            const name = paraNodes[i][1][1].replace(':', '');
             const src = (type === dataTypes.image)
-                ? paraNodes[i + 1][1][1].href
-                : paraNodes[i + 1][1][1].replace(/^HTML\n/, '');
+                ? nodes[i + 1].children[0].url
+                : nodes[i + 1].value;
             knownEntities.push({
                 name,
                 type,
@@ -136,7 +143,9 @@ export default class MDBaseliner extends AbstractBaseliner {
                 type,
                 name: path,
                 src: (type === dataTypes.html)
-                    ? await htmlBeautify(obj.value)
+                    ? obj[dataTypes.html] === 'react'
+                        ? obj.value
+                        : await htmlBeautify(obj.value)
                     : obj.value,
             };
             if (key !== undefined) delete parent[key];
