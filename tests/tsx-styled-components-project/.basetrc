@@ -1,0 +1,11 @@
+{
+    "specs": "**/*.spec.ts?(x)",
+    "bases": "**/*.spec.base.md",
+    "plugins": {
+        ".spec.tsx?$": {
+            "readers": ["./scripts/baset-assets-reader.js", "baset-reader-ts"],
+            "resolvers": "baset-resolver-react",
+            "baseliner": "baset-baseliner-md"
+        }
+    }
+}
