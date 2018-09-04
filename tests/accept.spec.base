@@ -269,6 +269,39 @@
         }
     },
     {
+        "project": "tsx-styled-components-project",
+        "test": {
+            "stdout": [
+                "",
+                "",
+                "",
+                "  Preparing test environment...",
+                "",
+                "  Test environment is ready",
+                "",
+                "  src/App.spec.tsx",
+                "        Temp baseline is written.",
+                "       src/App.spec.tsx",
+                "",
+                "passed: 1  failed: 0  of 1 tests  ",
+                "",
+                "0 of 1 tests failed.",
+                "",
+                ""
+            ],
+            "stderr": []
+        },
+        "accept": {
+            "stdout": [
+                "",
+                "",
+                "Baseline src/App.spec.base.md is written.",
+                ""
+            ],
+            "stderr": []
+        }
+    },
+    {
         "project": "typescript-project",
         "test": {
             "stdout": [
