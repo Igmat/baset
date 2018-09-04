@@ -1,6 +1,6 @@
 {
     "name": "baset-baseliner-md",
-    "version": "0.13.7",
+    "version": "0.14.0",
     "description": "JSON baseliner plugin for BaseT project.",
     "author": "Ihor Chulinda <ichulinda@gmail.com>",
     "license": "MIT",
@@ -43,9 +43,9 @@
         "baset-baseliner-json": "^0.13.7",
         "baset-core": "^0.13.7",
         "clean-html": "^1.5.0",
-        "remark-parse": "^5.0.0",
-        "unified": "^7.0.0",
         "pixelmatch": "^4.0.2",
-        "pngjs": "^3.3.2"
+        "pngjs": "^3.3.2",
+        "remark-parse": "^5.0.0",
+        "unified": "^7.0.0"
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "tsx-styled-components-project",
-  "version": "0.1.0",
+  "version": "0.14.0",
   "private": true,
   "dependencies": {
     "react": "^16.4.2",
@@ -21,12 +21,12 @@
     "@types/react": "^16.4.13",
     "@types/react-dom": "^16.0.7",
     "@types/styled-components": "^3.0.0",
-    "typescript": "^3.0.3",
     "baset": "^0.13.7",
+    "baset-baseliner-md": "^0.14.0",
     "baset-core": "^0.13.7",
-    "baset-baseliner-md": "^0.13.7",
     "baset-env-browser": "^0.13.7",
     "baset-reader-ts": "^0.13.7",
-    "baset-resolver-react": "^0.13.7"
+    "baset-resolver-react": "^0.14.0",
+    "typescript": "^3.0.3"
   }
 }
