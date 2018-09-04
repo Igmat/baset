@@ -1,6 +1,6 @@
 {
   "name": "tsx-styled-components-project",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "private": true,
   "dependencies": {
     "react": "^16.4.2",
