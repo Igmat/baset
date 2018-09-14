@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.13.7"></a>
+## [0.13.7](https://github.com/Igmat/baset/compare/v0.13.6...v0.13.7) (2018-08-30)
+
+
+### Bug Fixes
+
+* **core:** changes for working with reworked vm ([d30224f](https://github.com/Igmat/baset/commit/d30224f))
+* **core:** minor performance and compile time bugfixes ([ea46ea8](https://github.com/Igmat/baset/commit/ea46ea8))
+
+
+
+
 <a name="0.13.6"></a>
 ## [0.13.6](https://github.com/Igmat/baset/compare/v0.13.5...v0.13.6) (2018-06-10)
 

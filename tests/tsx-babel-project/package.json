@@ -1,6 +1,6 @@
 {
     "name": "tsx-babel-project",
-    "version": "0.13.6",
+    "version": "0.14.0",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -20,12 +20,12 @@
         "babel-cli": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
-        "baset": "^0.13.6",
-        "baset-baseliner-md": "^0.13.6",
-        "baset-env-browser": "^0.13.6",
-        "baset-reader-babel": "^0.13.6",
-        "baset-reader-ts": "^0.13.6",
-        "baset-resolver-react": "^0.13.6",
-        "typescript": "next"
+        "baset": "^0.13.7",
+        "baset-baseliner-md": "^0.14.0",
+        "baset-env-browser": "^0.13.7",
+        "baset-reader-babel": "^0.13.7",
+        "baset-reader-ts": "^0.13.7",
+        "baset-resolver-react": "^0.14.0",
+        "typescript": "3.0.1"
     }
 }

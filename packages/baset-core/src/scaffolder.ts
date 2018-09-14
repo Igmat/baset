@@ -217,7 +217,7 @@ export class Scaffolder {
 }
 
 /** True if this is visible outside this file, false otherwise */
-function isNodeExported(node: tsc.Node): boolean {
+function isNodeExported(node: tsc.Declaration): boolean {
     return (
         // tslint:disable-next-line:no-bitwise
         tsc.getCombinedModifierFlags(node) & tsc.ModifierFlags.Export) !== 0 ||
