@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.13.7"></a>
+## [0.13.7](https://github.com/Igmat/baset/compare/v0.13.6...v0.13.7) (2018-08-30)
+
+
+### Bug Fixes
+
+* **resolver-pixi:** changes for work with reworked vm ([749501b](https://github.com/Igmat/baset/commit/749501b))
+
+
+
+
 <a name="0.13.6"></a>
 ## [0.13.6](https://github.com/Igmat/baset/compare/v0.13.5...v0.13.6) (2018-06-10)
 

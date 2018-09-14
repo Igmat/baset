@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.1"></a>
+## [0.14.1](https://github.com/Igmat/baset/compare/v0.14.0...v0.14.1) (2018-09-04)
+
+
+
+
+**Note:** Version bump only for package root
+
+<a name="0.14.0"></a>
+# [0.14.0](https://github.com/Igmat/baset/compare/v0.13.7...v0.14.0) (2018-09-04)
+
+
+### Features
+
+* **resolver-react:** using react-test-render instead of react-dom ([1703b43](https://github.com/Igmat/baset/commit/1703b43))
+
+
+
+
+<a name="0.13.7"></a>
+## [0.13.7](https://github.com/Igmat/baset/compare/v0.13.6...v0.13.7) (2018-08-30)
+
+
+### Bug Fixes
+
+* **core:** changes for working with reworked vm ([d30224f](https://github.com/Igmat/baset/commit/d30224f))
+* **core:** minor performance and compile time bugfixes ([ea46ea8](https://github.com/Igmat/baset/commit/ea46ea8))
+* **env-browser:** changes for work with reworked vm ([748b5b1](https://github.com/Igmat/baset/commit/748b5b1))
+* **resolver-pixi:** changes for work with reworked vm ([749501b](https://github.com/Igmat/baset/commit/749501b))
+* **vm:** correct global for vm without broken function constructor ([1405c53](https://github.com/Igmat/baset/commit/1405c53)), closes [#58](https://github.com/Igmat/baset/issues/58)
+
+
+
+
 <a name="0.13.6"></a>
 ## [0.13.6](https://github.com/Igmat/baset/compare/v0.13.5...v0.13.6) (2018-06-10)
 

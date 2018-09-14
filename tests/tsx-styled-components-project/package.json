@@ -1,0 +1,32 @@
+{
+  "name": "tsx-styled-components-project",
+  "version": "0.14.1",
+  "private": true,
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts-ts": "2.17.0",
+    "styled-components": "^3.4.5"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "baset",
+    "accept": "baset a",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.4",
+    "@types/react": "^16.4.13",
+    "@types/react-dom": "^16.0.7",
+    "@types/styled-components": "^3.0.0",
+    "baset": "^0.13.7",
+    "baset-baseliner-md": "^0.14.0",
+    "baset-core": "^0.13.7",
+    "baset-env-browser": "^0.13.7",
+    "baset-reader-ts": "^0.13.7",
+    "baset-resolver-react": "^0.14.0",
+    "typescript": "^3.0.3"
+  }
+}
