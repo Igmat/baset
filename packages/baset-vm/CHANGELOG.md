@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.13.7"></a>
+## [0.13.7](https://github.com/Igmat/baset/compare/v0.13.6...v0.13.7) (2018-08-30)
+
+
+### Bug Fixes
+
+* **vm:** correct global for vm without broken function constructor ([1405c53](https://github.com/Igmat/baset/commit/1405c53)), closes [#58](https://github.com/Igmat/baset/issues/58)
+
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/Igmat/baset/compare/v0.8.0...v0.9.0) (2018-03-03)
 

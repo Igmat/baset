@@ -1,6 +1,6 @@
 {
     "name": "umd-like-dep-project",
-    "version": "0.13.6",
+    "version": "0.13.7",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -15,10 +15,10 @@
     },
     "devDependencies": {
         "@types/howler": "^2.0.5",
-        "baset": "^0.13.6",
-        "baset-baseliner-json": "^0.13.6",
-        "baset-env-browser": "^0.13.6",
-        "baset-reader-ts": "^0.13.6",
+        "baset": "^0.13.7",
+        "baset-baseliner-json": "^0.13.7",
+        "baset-env-browser": "^0.13.7",
+        "baset-reader-ts": "^0.13.7",
         "typescript": "3.0.1"
     }
 }

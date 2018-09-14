@@ -180,6 +180,28 @@
         "stderr": []
     },
     {
+        "project": "tsx-styled-components-project",
+        "stdout": [
+            "",
+            "",
+            "",
+            "  Preparing test environment...",
+            "",
+            "  Test environment is ready",
+            "",
+            "  src/App.spec.tsx",
+            "        Temp baseline is written.",
+            "       src/App.spec.tsx",
+            "",
+            "passed: 1  failed: 0  of 1 tests  ",
+            "",
+            "0 of 1 tests failed.",
+            "",
+            ""
+        ],
+        "stderr": []
+    },
+    {
         "project": "typescript-project",
         "stdout": [
             "",

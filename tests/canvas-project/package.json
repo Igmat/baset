@@ -1,6 +1,6 @@
 {
     "name": "canvas-project",
-    "version": "0.13.6",
+    "version": "0.14.0",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -15,11 +15,11 @@
     },
     "devDependencies": {
         "@types/pixi.js": "^4.7.0",
-        "baset": "^0.13.6",
-        "baset-baseliner-md": "^0.13.6",
-        "baset-env-browser": "^0.13.6",
-        "baset-reader-ts": "^0.13.6",
-        "baset-resolver-pixi": "^0.13.6",
+        "baset": "^0.13.7",
+        "baset-baseliner-md": "^0.14.0",
+        "baset-env-browser": "^0.13.7",
+        "baset-reader-ts": "^0.13.7",
+        "baset-resolver-pixi": "^0.13.7",
         "typescript": "3.0.1"
     }
 }
