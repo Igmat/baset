@@ -28,7 +28,7 @@
         "baset-cli": "^0.13.7"
     },
     "devDependencies": {
-        "@types/node": "^10.3.1"
+        "@types/node": "^10.10.0"
     },
     "yargs": {
         "dot-notation": false

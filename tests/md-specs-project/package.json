@@ -16,6 +16,6 @@
         "baset-baseliner-md": "^0.14.0",
         "baset-reader-md": "^0.13.7",
         "baset-reader-ts": "^0.13.7",
-        "typescript": "3.0.1"
+        "typescript": "^3.0.3"
     }
 }
