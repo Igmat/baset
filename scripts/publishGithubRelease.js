@@ -14,6 +14,7 @@ async function publishToGithub() {
     const changelog = readFileSync(path.resolve('./CHANGELOG.md'), { encoding: 'utf8' });
     const releases = getReleasesFromChangelog(changelog);
     const unpublishedReleases = await getUnpublishedReleases(releases);
+    console.log(unpublishedReleases);
 
     return await publishReleasesToGithub(unpublishedReleases);
 }
@@ -41,7 +42,14 @@ function getReleasesFromChangelog(changelog) {
 
 async function getUnpublishedReleases(releases) {
     const responses = await Promise.all(releases.map(async (release) => {
-        const { ok } = await fetch(`${releasesHref}/tags/${release.version}`);
+        const { ok } = await fetch(
+            `${releasesHref}/tags/${release.version}`,
+            {
+                headers: {
+                    'Authorization': ` token ${GH_TOKEN}`
+                },
+            }
+        );
         return {
             release,
             ok
