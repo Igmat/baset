@@ -11,7 +11,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "asn1.js": "^5.0.0"
+    "asn1.js": "^5.0.1"
   },
   "devDependencies": {
     "baset": "^0.13.7",

@@ -1,23 +1,18 @@
 {
-  "lerna": "2.8.0",
-  "packages": [
-    "./packages/*",
-    "./tests/*"
-  ],
-  "version": "0.14.1",
-  "commands": {
-    "publish": {
-      "allowBranch": "master",
-      "conventionalCommits": true,
-      "ignore": [
-        "*.md",
-        "LICENSE",
-        "*.spec.*"
-      ]
-    },
-    "bootstrap": {
-      "hoist": true,
-      "nohoist": "@types/!(cross-spawn)*"
+    "packages": [
+        "./packages/*",
+        "./tests/*"
+    ],
+    "version": "0.14.1",
+    "command": {
+        "publish": {
+            "allowBranch": "master",
+            "conventionalCommits": true,
+            "ignoreChanges": [
+                "*.md",
+                "LICENSE",
+                "*.spec.*"
+            ]
+        }
     }
-  }
 }

@@ -8,7 +8,9 @@
         "url": "git@github.com:Igmat/baset.git"
     },
     "scripts": {
-        "postinstall": "lerna bootstrap",
+        "bootstrap": "lerna bootstrap",
+        "postbootstrap": "node ./scripts/createBinSymlinks.js",
+        "postinstall": "npm run bootstrap",
         "build": "lerna run build",
         "watch": "lerna run watch --parallel",
         "test": "lerna link && node ./packages/baset/bin/index.js",
@@ -32,10 +34,10 @@
         "git-url-parse": "^10.0.1",
         "greenkeeper-lockfile": "^1.15.1",
         "husky": "^0.14.3",
-        "lerna": "^3.3.2",
+        "lerna": "^3.4.0",
         "node-fetch": "^2.2.0",
         "tslint": "^5.11.0",
-        "typescript": "3.0.3"
+        "typescript": "^3.0.3"
     },
     "config": {
         "commitizen": {

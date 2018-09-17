@@ -3,10 +3,10 @@
   "version": "0.14.1",
   "private": true,
   "dependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-scripts-ts": "2.17.0",
-    "styled-components": "^3.4.5"
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-scripts-ts": "^2.17.0",
+    "styled-components": "^3.4.6"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -16,11 +16,11 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "@types/node": "^10.9.4",
-    "@types/react": "^16.4.13",
+    "@types/jest": "^23.3.2",
+    "@types/node": "^10.10.0",
+    "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
-    "@types/styled-components": "^3.0.0",
+    "@types/styled-components": "^3.0.1",
     "baset": "^0.13.7",
     "baset-baseliner-md": "^0.14.0",
     "baset-core": "^0.13.7",
