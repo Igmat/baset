@@ -53,5 +53,9 @@
                 "./packages/baset-baseliner-json"
             ]
         }
+    },
+    "dependencies": {
+        "remark-parse": "^5.0.0",
+        "unified": "^7.0.0"
     }
 }
