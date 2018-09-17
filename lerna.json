@@ -13,10 +13,6 @@
                 "LICENSE",
                 "*.spec.*"
             ]
-        },
-        "bootstrap": {
-            "hoist": true,
-            "nohoist": "@types/!(cross-spawn)*"
         }
     }
 }
