@@ -1,5 +1,0 @@
-/node_modules/**/*
-# for test puproses
-!/node_modules/
-!/node_modules/testing-filtering/
-!/node_modules/testing-filtering/to.test.spec.js
