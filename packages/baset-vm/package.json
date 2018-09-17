@@ -1,6 +1,6 @@
 {
     "name": "baset-vm",
-    "version": "0.13.7",
+    "version": "0.14.2",
     "description": "VM package for BaseT project.",
     "keywords": [
         "baset-vm",

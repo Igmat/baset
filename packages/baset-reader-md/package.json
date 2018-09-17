@@ -1,6 +1,6 @@
 {
     "name": "baset-reader-md",
-    "version": "0.13.7",
+    "version": "0.14.2",
     "description": "MarkDown reader plugin for BaseT project.",
     "keywords": [
         "baset-reader-md",
@@ -33,7 +33,7 @@
         "@types/node": "^10.10.0"
     },
     "dependencies": {
-        "baset-core": "^0.13.7",
+        "baset-core": "^0.14.2",
         "markdown": "^0.5.0"
     }
 }

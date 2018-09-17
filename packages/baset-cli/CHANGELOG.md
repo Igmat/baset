@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.2"></a>
+## [0.14.2](https://github.com/Igmat/baset/compare/v0.14.1...v0.14.2) (2018-09-17)
+
+
+### Bug Fixes
+
+* packages/baset-cli/package.json to reduce vulnerabilities ([769230f](https://github.com/Igmat/baset/commit/769230f))
+
+
+
+
+
 <a name="0.13.7"></a>
 ## [0.13.7](https://github.com/Igmat/baset/compare/v0.13.6...v0.13.7) (2018-08-30)
 

@@ -1,6 +1,6 @@
 {
     "name": "baset-baseliner-json",
-    "version": "0.13.7",
+    "version": "0.14.2",
     "description": "JSON baseliner plugin for BaseT project.",
     "author": "Ihor Chulinda <ichulinda@gmail.com>",
     "license": "MIT",
@@ -32,6 +32,6 @@
         "@types/node": "^10.10.0"
     },
     "dependencies": {
-        "baset-core": "^0.13.7"
+        "baset-core": "^0.14.2"
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "baset-env-browser",
-    "version": "0.13.7",
+    "version": "0.14.2",
     "description": "Browser environment for BaseT project.",
     "keywords": [
         "baset-env-browser",
@@ -34,10 +34,10 @@
         "@types/node": "^10.10.0"
     },
     "dependencies": {
-        "baset-core": "^0.13.7",
+        "baset-core": "^0.14.2",
         "canvas-prebuilt": "^1.6.11",
-        "node-pre-gyp": "^0.11.0",
         "express": "^4.16.3",
-        "jsdom": "^12.0.0"
+        "jsdom": "^12.0.0",
+        "node-pre-gyp": "^0.11.0"
     }
 }

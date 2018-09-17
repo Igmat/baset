@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.2"></a>
+## [0.14.2](https://github.com/Igmat/baset/compare/v0.14.1...v0.14.2) (2018-09-17)
+
+
+### Bug Fixes
+
+* packages/baset-cli/package.json to reduce vulnerabilities ([769230f](https://github.com/Igmat/baset/commit/769230f))
+* tests/tsx-babel-project/package.json to reduce vulnerabilities ([#105](https://github.com/Igmat/baset/issues/105)) ([55df73c](https://github.com/Igmat/baset/commit/55df73c))
+
+
+
+
+
 <a name="0.14.1"></a>
 ## [0.14.1](https://github.com/Igmat/baset/compare/v0.14.0...v0.14.1) (2018-09-04)
 

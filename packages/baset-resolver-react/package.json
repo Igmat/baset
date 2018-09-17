@@ -1,6 +1,6 @@
 {
     "name": "baset-resolver-react",
-    "version": "0.14.0",
+    "version": "0.14.2",
     "description": "React resolver plugin for BaseT project.",
     "keywords": [
         "baset-resolver-react",
@@ -35,7 +35,7 @@
         "@types/react-test-renderer": "^16.0.2"
     },
     "dependencies": {
-        "baset-core": "^0.13.7",
+        "baset-core": "^0.14.2",
         "pretty-format": "^23.6.0",
         "react": "^16.5.1",
         "react-test-renderer": "^16.5.1"
