@@ -5,7 +5,10 @@
         ".spec.tsx?$": {
             "readers": ["./scripts/baset-assets-reader.js", "baset-reader-ts"],
             "resolvers": "baset-resolver-react",
-            "baseliner": "baset-baseliner-md"
+            "baseliner": "baset-baseliner-md",
+            "mocks": {
+                "styled-components": "./src/mocks/styled"
+            }
         }
     }
 }

@@ -21,6 +21,7 @@
   <p
     className="sc-bdVaJa fYQaoZ"
   >
+    hi from mock
     To get started, edit 
     <code>
       src/App.tsx
