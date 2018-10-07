@@ -260,19 +260,27 @@ interface IHost extends NodeJS.Global {
         return requireBuiltin(modulename);
     }
 
+    function getMock(modulename: string, skipedMock?: string) {
+        return (
+            modulename !== skipedMock &&
+            typeof vm.options.require !== 'boolean' &&
+            vm.options.require.mock &&
+            vm.options.require.mock[modulename]);
+    }
     /**
      * Prepare require.
      */
-    function prepareRequire(currentDirname: string) {
-        return  function require(modulename: string) {
+    function prepareRequire(currentDirname: string, skipedMock?: string) {
+        return function require(modulename: string, mockedModuleName?: string): unknown {
             if (vm.options.nesting && modulename === 'baset-vm') return { NodeVM: host.NodeVM };
             if (!vm.options.require) throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
             if (modulename === undefined) throw new VMError("Module '' not found.", 'ENOTFOUND');
             if (typeof modulename !== 'string') throw new VMError(`Invalid module name '${modulename}'`, 'EINVALIDNAME');
 
             // Mock?
-            if (typeof vm.options.require !== 'boolean' && vm.options.require.mock && vm.options.require.mock[modulename]) {
-                return vm.options.require.mock[modulename];
+            const mock = getMock(modulename, skipedMock);
+            if (mock) {
+                return require(mock, modulename);
             }
 
             // Builtin?
@@ -312,7 +320,7 @@ interface IHost extends NodeJS.Global {
                 }
             }
 
-            const module = createModule(filename, prepareRequire(dirname));
+            const module = createModule(filename, prepareRequire(dirname, mockedModuleName));
             CACHE[filename] = module;
 
             // lookup extensions

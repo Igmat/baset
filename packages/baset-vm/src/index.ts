@@ -48,7 +48,7 @@ export interface IVMRequire {
     root?: string;
     /** Collection of mock modules (both external or builtin). */
     mock?: {
-        [index: string]: unknown;
+        [index: string]: string;
     };
 }
 export type CompilerFunction = (code: string, filename: string) => string;
