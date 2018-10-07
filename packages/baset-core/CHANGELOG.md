@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.4"></a>
+## [0.14.4](https://github.com/Igmat/baset/compare/v0.14.3...v0.14.4) (2018-10-07)
+
+
+### Bug Fixes
+
+* **core:** pass mock options to vm ([b114f69](https://github.com/Igmat/baset/commit/b114f69))
+
+
+
+
+
 <a name="0.14.3"></a>
 ## [0.14.3](https://github.com/Igmat/baset/compare/v0.14.2...v0.14.3) (2018-10-07)
 

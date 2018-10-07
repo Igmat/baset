@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.4"></a>
+## [0.14.4](https://github.com/Igmat/baset/compare/v0.14.3...v0.14.4) (2018-10-07)
+
+
+### Bug Fixes
+
+* **cli:** get mocks option from config ([4ecf64c](https://github.com/Igmat/baset/commit/4ecf64c))
+* **core:** pass mock options to vm ([b114f69](https://github.com/Igmat/baset/commit/b114f69))
+* **vm:** implement mocks as reference to filename ([d58576a](https://github.com/Igmat/baset/commit/d58576a))
+
+
+
+
+
 <a name="0.14.3"></a>
 ## [0.14.3](https://github.com/Igmat/baset/compare/v0.14.2...v0.14.3) (2018-10-07)
 
