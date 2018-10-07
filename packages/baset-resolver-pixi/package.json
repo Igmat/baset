@@ -1,6 +1,6 @@
 {
     "name": "baset-resolver-pixi",
-    "version": "0.14.2",
+    "version": "0.14.3",
     "description": "Pixi resolver plugin for BaseT project.",
     "keywords": [
         "baset-resolver-pixi",
@@ -34,8 +34,8 @@
         "@types/pixi.js": "^4.8.0"
     },
     "dependencies": {
-        "baset-core": "^0.14.2",
-        "baset-vm": "^0.14.2",
+        "baset-core": "^0.14.3",
+        "baset-vm": "^0.14.3",
         "pixi.js": "^4.8.2"
     }
 }

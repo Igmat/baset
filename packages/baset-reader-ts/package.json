@@ -1,6 +1,6 @@
 {
     "name": "baset-reader-ts",
-    "version": "0.14.2",
+    "version": "0.14.3",
     "description": "TypeScript reader plugin for BaseT project.",
     "keywords": [
         "baset-reader-ts",
@@ -34,7 +34,7 @@
         "@types/node": "^10.10.0"
     },
     "dependencies": {
-        "baset-core": "^0.14.2",
+        "baset-core": "^0.14.3",
         "find-up": "^3.0.0",
         "tsconfig-paths": "^3.6.0",
         "typescript": "^3.0.3"

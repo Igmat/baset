@@ -1,6 +1,6 @@
 {
     "name": "typescript-project",
-    "version": "0.14.2",
+    "version": "0.14.3",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -16,9 +16,9 @@
         "tslib": "^1.9.3"
     },
     "devDependencies": {
-        "baset": "^0.14.2",
-        "baset-baseliner-json": "^0.14.2",
-        "baset-reader-ts": "^0.14.2",
+        "baset": "^0.14.3",
+        "baset-baseliner-json": "^0.14.3",
+        "baset-reader-ts": "^0.14.3",
         "typescript": "^3.0.3"
     }
 }

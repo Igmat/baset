@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.3"></a>
+## [0.14.3](https://github.com/Igmat/baset/compare/v0.14.2...v0.14.3) (2018-10-07)
+
+
+### Bug Fixes
+
+* **baseliner-md:** add errors as type of baseline output ([6333c31](https://github.com/Igmat/baset/commit/6333c31))
+* **cli:** handle errors properly for tap output ([f83e47a](https://github.com/Igmat/baset/commit/f83e47a))
+* **core:** add better handling for errors in tests ([91f2825](https://github.com/Igmat/baset/commit/91f2825))
+* **vm:** change file path to be consistent with os ([27dfba4](https://github.com/Igmat/baset/commit/27dfba4))
+
+
+
+
+
 <a name="0.14.2"></a>
 ## [0.14.2](https://github.com/Igmat/baset/compare/v0.14.1...v0.14.2) (2018-09-17)
 
