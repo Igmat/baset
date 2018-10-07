@@ -10,7 +10,7 @@ export {
     VMScript,
 };
 
-const sb = fs.readFileSync(`${__dirname}/sandbox.js`, 'utf8');
+const sb = fs.readFileSync(`${__dirname}${pa.sep}sandbox.js`, 'utf8');
 
 function compileToJS(code: string, compiler: string | CompilerFunction, filename = '') {
     if (typeof compiler === 'function') return compiler(code, filename);
@@ -167,7 +167,7 @@ export class NodeVM extends EventEmitter {
         this.context = vm.createContext();
 
         const closure: Function = vm.runInContext(sb, this.context, {
-            filename: `${__dirname}/sandbox.js`,
+            filename: `${__dirname}${pa.sep}sandbox.js`,
             displayErrors: false,
         });
         Object.setPrototypeOf(host, global);
