@@ -45,21 +45,37 @@ function test(title: string, options: tap.Options): string {
     ];
 
     if (!options.passed && !options.todo) {
-        const obj = serializeError(options.error);
+        const errors = Array.isArray(options.error)
+            ? options.error
+            : [options.error];
+        errors.forEach(error => {
 
-        output.push([
-            '  ---',
-            `    name: ${obj.name}`,
-            `    message: ${obj.message}`,
-            `    at: ${obj.at}`,
-            '    actual:',
-            '      |',
-            `       ${obj.actual}`,
-            '    expected:',
-            '      |',
-            `       ${obj.expected}`,
-            '  ...',
-        ].join('\n'));
+            const obj = serializeError(error instanceof TestError
+                ? error
+                : {
+                    name: error.name,
+                    message: error.message,
+                    stack: error.stack,
+                    data: {
+                        actual: '',
+                        expected: '',
+                    },
+                });
+            !(error instanceof TestError) && output.push(error.stack);
+            output.push([
+                '  ---',
+                `    name: ${obj.name}`,
+                `    message: ${obj.message}`,
+                `    at: ${obj.at}`,
+                '    actual:',
+                '      |',
+                `       ${obj.actual}`,
+                '    expected:',
+                '      |',
+                `       ${obj.expected}`,
+                '  ...',
+            ].join('\n'));
+        });
     }
 
     return output.filter(Boolean).join('\n') + '\n';
