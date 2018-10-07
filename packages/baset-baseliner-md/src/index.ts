@@ -1,13 +1,14 @@
 import JSONBaseliner from 'baset-baseliner-json';
 import { AbstractBaseliner, circularReference, dataTypes, utils } from 'baset-core';
 import { clean } from 'clean-html';
+import path from 'path';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 import markdown from 'remark-parse';
 import unified from 'unified';
 import { isPrimitive } from 'util';
 const processor = unified()
-  .use(markdown, {commonmark: true});
+    .use(markdown, { commonmark: true });
 
 function markdownParse(src: string) {
     return processor.parse(src);
@@ -16,9 +17,11 @@ function markdownParse(src: string) {
 async function htmlBeautify(src: string) {
     return new Promise(resolve => clean(src, resolve));
 }
+type Values<T> = T[keyof T];
 interface IKnownType {
-    type: typeof dataTypes.image | typeof dataTypes.html;
+    type: Values<typeof dataTypes>;
     name: string;
+    originalValue?: any;
     src: string;
 }
 function uglifyJson(json: string) {
@@ -28,6 +31,19 @@ function isEmptyJsonSting(json: string) {
     return !json || json === '[]' || json === '{}' || uglifyJson(json) === '{"default": {}}';
 }
 
+function normalizeStackTrace(trace: string) {
+    const filePathRegex = path.sep === '\\'
+        ? /([a-z]|[A-Z]):\\[^:]*:/g
+        : /\/[^:]*:/g;
+
+    return trace.replace(
+        filePathRegex,
+        absPath =>
+            path.relative(process.cwd(), absPath)
+                .replace(/\\/g, '/'),
+    );
+}
+
 const knownTypeTemplates = {
     [dataTypes.image]: (image: IKnownType) => `
 ![${image.name}](${image.src})
@@ -35,6 +51,11 @@ const knownTypeTemplates = {
     [dataTypes.html]: (html: IKnownType) => `
 \`\`\`HTML
 ${html.src}
+\`\`\`
+`,
+    [dataTypes.error]: (error: IKnownType) => `
+\`\`\`
+${normalizeStackTrace(error.src)}
 \`\`\`
 `,
 };
@@ -87,6 +108,9 @@ export default class MDBaseliner extends AbstractBaseliner {
             isEqual,
             expected: baselineValue,
             actual: utils.normalizeEndings(mdTemplate(newJsonValues, known)),
+            errors: known
+                .filter(({ type }) => type === dataTypes.error)
+                .map(({ originalValue }) => originalValue[dataTypes.error]),
             diff: {
                 console: '',
                 full: '',
@@ -104,9 +128,11 @@ export default class MDBaseliner extends AbstractBaseliner {
         const knownEntities: IKnownType[] = [];
         for (let i = firstKnownTypeIndex; i < nodes.length; i += 2) {
             const name = nodes[i].children[0].value.replace(':', '');
-            const type = nodes[i + 1].type === 'paragraph'
-                ? dataTypes.image
-                : dataTypes.html;
+            const type = name === 'Throws'
+                ? dataTypes.error
+                : nodes[i + 1].type === 'paragraph'
+                    ? dataTypes.image
+                    : dataTypes.html;
             const src = (type === dataTypes.image)
                 ? nodes[i + 1].children[0].url
                 : nodes[i + 1].value;
@@ -133,20 +159,21 @@ export default class MDBaseliner extends AbstractBaseliner {
                 ...await Promise.all(obj.map((value, index) =>
                     this.cutKnownTypes(obj, `${path}[${index}]`, index))));
         }
-        const type = obj[dataTypes.image]
-            ? dataTypes.image
-            : obj[dataTypes.html]
-                ? dataTypes.html
-                : false;
+        const type = getType(obj);
         if (type) {
             const result: IKnownType = {
                 type,
-                name: path,
+                originalValue: obj,
+                name: type === dataTypes.error
+                    ? 'Throws'
+                    : path,
                 src: (type === dataTypes.html)
                     ? obj[dataTypes.html] === 'react'
                         ? obj.value
                         : await htmlBeautify(obj.value)
-                    : obj.value,
+                    : type === dataTypes.error
+                        ? obj[type].stack
+                        : obj.value,
             };
             if (key !== undefined) delete parent[key];
 
@@ -167,12 +194,18 @@ async function compareKnownTypes(oldBase: IKnownType[], newBase: IKnownType[]) {
         const newValue = sortedNewBase[i];
         if (newValue === undefined) return false;
         if (value.type !== newValue.type) return false;
-        if (value.type === dataTypes.image) {
-            if (!await compareImages(value.src, newValue.src)) return false;
-        } else {
-            if (utils.normalizeEndings(value.src) !== utils.normalizeEndings(newValue.src)) {
-                return false;
-            }
+        switch (value.type) {
+            case dataTypes.image:
+                if (!await compareImages(value.src, newValue.src)) return false;
+                break;
+            case dataTypes.html:
+                if (utils.normalizeEndings(value.src) !== utils.normalizeEndings(newValue.src)) return false;
+                break;
+            case dataTypes.error:
+                if (utils.normalizeEndings(value.src) !== utils.normalizeEndings(normalizeStackTrace(newValue.src))) return false;
+                break;
+            default:
+                break;
         }
     }
 
@@ -207,4 +240,9 @@ function sortKnownTypes(a: IKnownType, b: IKnownType) {
         : a.name < b.name
             ? -1
             : 0;
+}
+function getType(obj: any) {
+    return (Object.keys(dataTypes) as (keyof typeof dataTypes)[])
+        .map(key => dataTypes[key])
+        .find(type => !!obj[type]);
 }
