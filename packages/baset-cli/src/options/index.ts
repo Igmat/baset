@@ -1,4 +1,5 @@
 import { ITestGroupOptions, utils } from 'baset-core';
+import path from 'path';
 import { Options } from 'yargs';
 
 export interface IGlobalArgs {
@@ -13,6 +14,7 @@ export interface ITestGroupPlugins {
     resolvers?: string[] | string;
     imports?: string[] | string;
     isolateContext?: boolean;
+    mocks?: utils.IDictionary<string>;
 }
 
 function groupPlugins(plugins: string[]): ITestGroupOptions {
@@ -33,28 +35,42 @@ function groupPlugins(plugins: string[]): ITestGroupOptions {
         resolvers,
         imports,
         isolateContext: false,
+        mocks: {},
     };
 }
 function getDefaultPlugins(plugins: ITestGroupPlugins): ITestGroupOptions {
+    const {
+        baseliner,
+        environment,
+        readers = [],
+        resolvers = [],
+        imports = [],
+        mocks = {},
+        isolateContext = false,
+    } = plugins;
+
     return {
-        baseliner: resolveModule(plugins.baseliner),
-        environment: resolveModule(plugins.environment),
-        readers: (plugins.readers
-            ? Array.isArray(plugins.readers)
-                ? plugins.readers
-                : [plugins.readers]
-            : []).map(resolveModule),
-        resolvers: (plugins.resolvers
-            ? Array.isArray(plugins.resolvers)
-                ? plugins.resolvers
-                : [plugins.resolvers]
-            : []).map(resolveModule),
-        imports: (plugins.imports
-            ? Array.isArray(plugins.imports)
-                ? plugins.imports
-                : [plugins.imports]
-            : []).map(resolveModule),
-        isolateContext: !!plugins.isolateContext,
+        baseliner: resolveModule(baseliner),
+        environment: resolveModule(environment),
+        readers: (Array.isArray(readers)
+            ? readers
+            : [readers]
+        ).map(resolveModule),
+        resolvers: (Array.isArray(resolvers)
+            ? resolvers
+            : [resolvers]
+        ).map(resolveModule),
+        imports: (Array.isArray(imports)
+            ? imports
+            : [imports]
+        ).map(resolveModule),
+        mocks: Object.keys(mocks).reduce(
+            (result, mockName) => ({
+                ...result,
+                [mockName]: path.resolve(resolveModule(mocks[mockName])),
+            }),
+            {}),
+        isolateContext,
     };
 }
 function resolveModule<T extends string | undefined>(name: T) {
