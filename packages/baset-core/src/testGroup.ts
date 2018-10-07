@@ -22,6 +22,7 @@ export interface ITestGroupOptions {
     resolvers: string[];
     imports: string[];
     isolateContext: boolean;
+    mocks: IDictionary<string>;
 }
 
 export class TestGroup {
@@ -207,6 +208,7 @@ export class TestGroup {
                 context: 'sandbox',
                 external: true,
                 import: imports,
+                mock: this.options.mocks,
             },
             sandbox: { basetSandbox: sandbox },
             compiler: compiler.compile,
