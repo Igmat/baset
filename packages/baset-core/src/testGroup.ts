@@ -6,9 +6,14 @@ import { AbstractBaseliner, IBaselinerConstructor, ICompareResult } from './abst
 import { AbstractEnvironment, IEnvironmentConstructor } from './abstractEnvironment';
 import { AbstractReader, IHookOptions, IReaderConstructor } from './abstractReader';
 import { AbstractResolver, IResolverConstructor } from './abstractResolver';
+import { error } from './dataTypes';
 import { IDictionary, isExists, readFile } from './utils';
 
 export const circularReference = Symbol('circularReference');
+
+function isError(obj: unknown): obj is { [error]: Error } {
+    return !!((obj as any)[error]);
+}
 
 export interface ITestGroupOptions {
     baseliner: string;
@@ -84,10 +89,14 @@ export class TestGroup {
             try {
                 return context.run(test, `${resolvedPath}.${index}.js`);
             } catch (err) {
-                return err;
+                return {
+                    [error]: err,
+                };
             }
         });
-        const testsResults = testsExports.map((value, index) => this.calculateValues(value, context, sandbox, `exports[${index}]`));
+        const testsResults = testsExports.map((value, index) => isError(value)
+            ? Promise.resolve(value)
+            : this.calculateValues(value, context, sandbox, `exports[${index}]`));
 
         const ext = path.extname(filePath);
         const baselinePath = path.resolve(filePath.replace(new RegExp(`${ext}$`), this.baseliner.ext));
@@ -106,7 +115,7 @@ export class TestGroup {
         };
     }
     // tslint:disable-next-line:no-any
-    private calculateValues = async (obj: any, context: NodeVM, sandbox: IDictionary<any>, name = 'exports'): Promise<any> => {
+    private calculateValues = async (obj: any, context: NodeVM, sandbox: IDictionary<any>, name = 'exports'): Promise<unknown> => {
         const resolverIndex = await this.indexOfResolver(obj, context, sandbox);
         if (resolverIndex !== -1) return this.resolvers[resolverIndex].resolve(obj, context, sandbox);
         if (isPrimitive(obj)) return obj;

@@ -13,7 +13,7 @@ export interface IFailedTestOptions extends ITestOptions {
     passed: false;
 }
 export interface IErrorTestOptions extends IFailedTestOptions {
-    error: TestError;
+    error: TestError | Error[];
     todo?: false;
 }
 export interface ITodoTestOptions extends IFailedTestOptions {

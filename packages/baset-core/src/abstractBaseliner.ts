@@ -4,6 +4,7 @@ export interface ICompareResult {
     isEqual: boolean;
     expected: string;
     actual: string;
+    errors: any[];
     diff: {
         console: string;
         full: string;
@@ -21,6 +22,7 @@ export abstract class AbstractBaseliner {
             isEqual: normalizeEndings(newBase) === normalizeEndings(oldBase),
             expected: oldBase,
             actual: newBase,
+            errors: [],
             diff: {
                 console: '',
                 full: '',

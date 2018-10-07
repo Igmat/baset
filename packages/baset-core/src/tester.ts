@@ -59,7 +59,13 @@ export class Tester {
                 skip: false,
                 comment: 'Temp baseline is written.',
             }
-            : {
+            : result.errors.length
+                ? {
+                    index,
+                    passed: false,
+                    error: result.errors,
+                }
+                : {
                 index,
                 passed: false,
                 error: new TestError(result),
