@@ -9,7 +9,7 @@ function serializeError(err: TestError) {
             ? err.stack
                 .split('\n')
                 .slice(1, 2)
-                .map(line => line.replace(/at/, '').trim())
+                .map(line => line.replace('at', '').trim())
                 .shift()
             : '',
         actual: err.data.actual.split('\n').join('\n       '),
