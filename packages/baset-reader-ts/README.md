@@ -21,14 +21,14 @@ and adding next line to `baset.plugins` section in your `package.json` or `plugi
 ".spec.ts$": ["baset-reader-ts", "baset-baseliner-json"]
 ```
 You may also specify additional options for this plugin under `baset.options` section in your `package.json` or `options` section in your `.basetrc`/`.basetrc.json`:
-```JSON
-"baset-plugin-ts": {
+```JavaScript
+"baset-reader-ts": {
     "config": "./tsconfig.json"  // path to your config
 }
 ```
 or
-```JSON
-"baset-plugin-ts": {
+```JavaScript
+"baset-reader-ts": {
     "config": {
         "compilerOptions": {
             "target": "es2015",
