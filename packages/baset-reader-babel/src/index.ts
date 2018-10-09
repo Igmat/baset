@@ -6,6 +6,7 @@ import path from 'path';
 
 export interface IBabelReaderOptions {
     config: any;
+    includeNodeModules?: boolean;
 }
 export default class BabelReader extends AbstractReader {
     private exts = [...util.canCompile.EXTENSIONS];
@@ -25,7 +26,12 @@ export default class BabelReader extends AbstractReader {
             : this.compile(sources, filePath);
     }
     registerHook = (addHook: AddHook, addFileResolver: AddFileResolver) => {
-        addHook(this.compile, { exts: this.exts, matcher: filename => !filename.includes('node_modules') });
+        addHook(this.compile, {
+            exts: this.exts,
+            matcher: filename =>
+                this.options.includeNodeModules ||
+                !filename.includes('node_modules'),
+        });
     };
 
     private compile = (code: string, filename: string) => {
