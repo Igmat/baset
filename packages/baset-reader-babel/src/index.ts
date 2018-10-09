@@ -11,10 +11,10 @@ export interface IBabelReaderOptions {
 export default class BabelReader extends AbstractReader {
     private exts = [...util.canCompile.EXTENSIONS];
     private config: any;
-    constructor(public pluginsOptions: IBabelReaderOptions) {
-        super(pluginsOptions);
+    constructor(public options: IBabelReaderOptions = { config: {} }) {
+        super(options);
 
-        this.config = pluginsOptions && pluginsOptions.config || {};
+        this.config = options.config;
     }
 
     read = async (filePath: string, spec: Promise<string | string[]>) => {
@@ -29,7 +29,7 @@ export default class BabelReader extends AbstractReader {
         addHook(this.compile, {
             exts: this.exts,
             matcher: filename =>
-                this.options.includeNodeModules ||
+                (this.options && this.options.includeNodeModules) ||
                 !filename.includes('node_modules'),
         });
     };
