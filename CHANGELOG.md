@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.5"></a>
+## [0.14.5](https://github.com/Igmat/baset/compare/v0.14.4...v0.14.5) (2018-10-09)
+
+
+### Bug Fixes
+
+* **cli:** replace only first 'at' in stacktrace ([094f6e9](https://github.com/Igmat/baset/commit/094f6e9))
+* **reader-babel:** option to include node modules in transpilation ([6b8a186](https://github.com/Igmat/baset/commit/6b8a186))
+* **reader-babel:** proper work with possibly undefined options ([393f284](https://github.com/Igmat/baset/commit/393f284))
+
+
+
+
+
 <a name="0.14.4"></a>
 ## [0.14.4](https://github.com/Igmat/baset/compare/v0.14.3...v0.14.4) (2018-10-07)
 
