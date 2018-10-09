@@ -44,24 +44,24 @@ export class TestGroup {
         this.pattern = new RegExp(pattern);
 
         const baseliner: IBaselinerConstructor = require(path.resolve(options.baseliner)).default;
-        this.baseliner = new baseliner(pluginsOptions[options.baseliner]);
+        this.baseliner = new baseliner(this.getPluginOptions(options.baseliner));
 
         this.readerChain = options.readers.map(readerName => {
             const reader: IReaderConstructor = require(path.resolve(readerName)).default;
 
-            return new reader(pluginsOptions[readerName]);
+            return new reader(this.getPluginOptions(readerName));
         });
 
         this.resolvers = options.resolvers.map(resolverName => {
             const resolver: IResolverConstructor = require(path.resolve(resolverName)).default;
 
-            return new resolver(pluginsOptions[resolverName]);
+            return new resolver(this.getPluginOptions(resolverName));
         });
 
         if (options.environment) {
             const environment: IEnvironmentConstructor = require(path.resolve(options.environment)).default;
 
-            this.environment = new environment(pluginsOptions[options.environment] || pluginsOptions[path.basename(options.environment)]);
+            this.environment = new environment(this.getPluginOptions(options.environment));
         }
 
         const resolveMatchers = this.resolvers
@@ -115,6 +115,9 @@ export class TestGroup {
             output,
         };
     }
+    private getPluginOptions = (pluginPath: string) =>
+        this.pluginsOptions[pluginPath] || this.pluginsOptions[path.basename(pluginPath)];
+
     // tslint:disable-next-line:no-any
     private calculateValues = async (obj: any, context: NodeVM, sandbox: IDictionary<any>, name = 'exports'): Promise<unknown> => {
         const resolverIndex = await this.indexOfResolver(obj, context, sandbox);
