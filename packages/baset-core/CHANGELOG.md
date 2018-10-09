@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.6"></a>
+## [0.14.6](https://github.com/Igmat/baset/compare/v0.14.5...v0.14.6) (2018-10-09)
+
+
+### Bug Fixes
+
+* **core:** proper plugin options resolving ([20e92ff](https://github.com/Igmat/baset/commit/20e92ff))
+
+
+
+
+
 <a name="0.14.4"></a>
 ## [0.14.4](https://github.com/Igmat/baset/compare/v0.14.3...v0.14.4) (2018-10-07)
 

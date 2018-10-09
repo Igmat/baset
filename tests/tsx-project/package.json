@@ -1,6 +1,6 @@
 {
     "name": "tsx-project",
-    "version": "0.14.5",
+    "version": "0.14.6",
     "private": true,
     "description": "",
     "main": "index.js",
@@ -17,11 +17,11 @@
     "devDependencies": {
         "@types/react": "^16.0.38",
         "@types/react-dom": "^16.0.4",
-        "baset": "^0.14.5",
-        "baset-baseliner-md": "^0.14.4",
-        "baset-env-browser": "^0.14.4",
-        "baset-reader-ts": "^0.14.4",
-        "baset-resolver-react": "^0.14.4",
+        "baset": "^0.14.6",
+        "baset-baseliner-md": "^0.14.6",
+        "baset-env-browser": "^0.14.6",
+        "baset-reader-ts": "^0.14.6",
+        "baset-resolver-react": "^0.14.6",
         "typescript": "^3.0.3"
     }
 }
