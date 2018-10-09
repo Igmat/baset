@@ -20,4 +20,18 @@ and adding next line to `baset.plugins` section in your `package.json` or `plugi
 ```JSON
 ".spec.jsx?$": ["baset-reader-babel", "baset-baseliner-json"]
 ```
-No additional options available for this plugin for now.
+You may also specify additional options for this plugin under `baset.options` section in your `package.json` or `options` section in your `.basetrc`/`.basetrc.json`:
+```JavaScript
+"baset-reader-babel": {
+    // by default this reader uses the same strategy for resolving configuration
+    // as babel, but you may want to specify some additional settings only for tests
+    // this options gives you such an opportunity
+    "config": {
+        // your additional configuration  for babel
+    },
+    // by default any files inside node_modules are explicitly ignored
+    // but in some cases you may want to transpile them as well,
+    // in order to do so, just set this option to true
+    "includeNodeModules": true
+}
+```
