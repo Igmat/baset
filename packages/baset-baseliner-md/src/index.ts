@@ -128,7 +128,7 @@ export default class MDBaseliner extends AbstractBaseliner {
         const knownEntities: IKnownType[] = [];
         for (let i = firstKnownTypeIndex; i < nodes.length; i += 2) {
             const name = nodes[i].children[0].value.replace(':', '');
-            const type = name === 'Throws'
+            const type = name.endsWith('Throws')
                 ? dataTypes.error
                 : nodes[i + 1].type === 'paragraph'
                     ? dataTypes.image
@@ -165,7 +165,7 @@ export default class MDBaseliner extends AbstractBaseliner {
                 type,
                 originalValue: obj,
                 name: type === dataTypes.error
-                    ? 'Throws'
+                    ? `${path} Throws`
                     : path,
                 src: (type === dataTypes.html)
                     ? obj[dataTypes.html] === 'react'
