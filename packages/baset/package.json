@@ -1,6 +1,6 @@
 {
     "name": "baset",
-    "version": "0.14.7",
+    "version": "0.14.8",
     "description": "Tool for testing using baseline strategy.",
     "keywords": [
         "baset",
@@ -24,7 +24,7 @@
         "prepublish": "node ./scripts/prepublish.js"
     },
     "dependencies": {
-        "baset-baseliner-json": "^0.14.7",
+        "baset-baseliner-json": "^0.14.8",
         "baset-cli": "^0.14.7"
     },
     "devDependencies": {
