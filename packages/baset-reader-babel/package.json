@@ -1,6 +1,6 @@
 {
     "name": "baset-reader-babel",
-    "version": "0.14.6",
+    "version": "0.14.7",
     "description": "Babel reader plugin for BaseT project.",
     "keywords": [
         "baset-reader-babel",
@@ -41,7 +41,7 @@
     },
     "dependencies": {
         "babel-core": "^6.26.3",
-        "baset-core": "^0.14.6",
+        "baset-core": "^0.14.7",
         "find-up": "^3.0.0",
         "lodash": "^4.17.11"
     }

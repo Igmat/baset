@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.14.7"></a>
+## [0.14.7](https://github.com/Igmat/baset/compare/v0.14.6...v0.14.7) (2018-10-10)
+
+
+### Bug Fixes
+
+* **baseliner-json:** handle exceptions data type ([b181417](https://github.com/Igmat/baset/commit/b181417))
+* **baseliner-md:** handle function level exceptions ([2746f3b](https://github.com/Igmat/baset/commit/2746f3b))
+* **core:** execute functions if they are exported directly ([4d64a8d](https://github.com/Igmat/baset/commit/4d64a8d))
+
+
+
+
+
 <a name="0.14.6"></a>
 ## [0.14.6](https://github.com/Igmat/baset/compare/v0.14.5...v0.14.6) (2018-10-09)
 
