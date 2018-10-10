@@ -126,7 +126,19 @@ export class TestGroup {
         if (this.references.has(obj)) return this.createSelfReference(obj);
         this.references.set(obj, name);
         if (obj instanceof Promise) return this.calculateValues(await obj, context, sandbox, name);
-        if (typeof obj === 'function') return obj.toString().split('\n')[0];
+        if (typeof obj === 'function') {
+            return name.split('.').length === 2 // this means that function directly exported
+                ? (() => {
+                    try {
+                        return obj();
+                    } catch (err) {
+                        return {
+                            [error]: err,
+                        };
+                    }
+                })()
+                : obj.toString().split('\n')[0];
+        }
         if (Array.isArray(obj)) {
             return await Promise.all(
                 obj.map((value, key) =>
