@@ -5,7 +5,7 @@
         "abccbacbaabc",
         "1abcabc1",
         "abc11abc",
-        "() => index_1.sampleFn('function call', 1)",
+        "function call11function call",
         "async value11async value"
     ]
 }

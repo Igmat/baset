@@ -28,7 +28,7 @@ JSON values:
         ]
     },
     {
-        "value": "() => index_1.sampleFn('function call', 1)"
+        "value": "function call11function call"
     },
     {
         "value": "async value11async value"
@@ -60,7 +60,7 @@ JSON values:
         ]
     },
     {
-        "value": "() => sampleFn('function call', 1)"
+        "value": "function call11function call"
     },
     {
         "value": "async value11async value"
