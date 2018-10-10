@@ -1,7 +1,21 @@
 import { circularReference, dataTypes } from 'baset-core';
+import path from 'path';
 
 const rxEscapable =
     /[\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+
+function normalizeStackTrace(trace: string) {
+    const filePathRegex = path.sep === '\\'
+        ? /([a-z]|[A-Z]):\\[^:]*:/g
+        : /\/[^:]*:/g;
+
+    return trace.replace(
+        filePathRegex,
+        absPath =>
+            path.relative(process.cwd(), absPath)
+                .replace(/\\/g, '/'),
+    );
+}
 
 // table of character substitutions
 class Meta {
@@ -72,7 +86,9 @@ function str(key: string | number, holder: any, limit: number): string {
                     : value[circularReference];
             }
             if (value && value[dataTypes.error]) {
-                return `Throws: ${value[dataTypes.error].stack || value[dataTypes.error]}`;
+                return `Throws: ${value[dataTypes.error].stack
+                    ? normalizeStackTrace(value[dataTypes.error].stack)
+                    : value[dataTypes.error]}`;
             }
 
             // Make an array to hold the partial results of stringifying this object value.
