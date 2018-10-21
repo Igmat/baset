@@ -41,7 +41,7 @@
         "clean-html": "^1.5.0",
         "pixelmatch": "^4.0.2",
         "pngjs": "^3.3.3",
-        "remark-parse": "^5.0.0",
+        "remark-parse": "^6.0.0",
         "unified": "^7.0.0"
     }
 }
