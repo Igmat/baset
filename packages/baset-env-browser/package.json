@@ -37,7 +37,7 @@
         "baset-core": "^0.14.7",
         "canvas-prebuilt": "^1.6.11",
         "express": "^4.16.3",
-        "jsdom": "^12.0.0",
+        "jsdom": "^13.0.0",
         "node-pre-gyp": "^0.11.0"
     }
 }
