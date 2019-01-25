@@ -36,7 +36,7 @@
     },
     "dependencies": {
         "baset-core": "^0.14.7",
-        "pretty-format": "^23.6.0",
+        "pretty-format": "^24.0.0",
         "react": "^16.5.1",
         "react-test-renderer": "^16.5.1"
     }
