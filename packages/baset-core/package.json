@@ -29,7 +29,7 @@
     },
     "devDependencies": {
         "@types/chance": "^1.0.1",
-        "@types/node": "^10.10.0"
+        "@types/node": "^11.9.0"
     },
     "dependencies": {
         "baset-vm": "^0.14.4",
