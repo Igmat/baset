@@ -31,7 +31,7 @@
     },
     "devDependencies": {
         "@types/find-up": "^2.1.1",
-        "@types/node": "^10.10.0"
+        "@types/node": "^11.9.0"
     },
     "dependencies": {
         "baset-core": "^0.14.7",
