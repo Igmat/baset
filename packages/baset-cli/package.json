@@ -31,7 +31,7 @@
         "@types/find-up": "^2.1.1",
         "@types/glob": "^5.0.35",
         "@types/node": "^10.10.0",
-        "@types/yargs": "^12.0.0"
+        "@types/yargs": "^13.0.0"
     },
     "dependencies": {
         "baset-core": "^0.14.7",
