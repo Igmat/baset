@@ -35,7 +35,7 @@
     },
     "dependencies": {
         "baset-core": "^0.14.7",
-        "find-up": "^3.0.0",
+        "find-up": "^4.0.0",
         "tsconfig-paths": "^3.6.0",
         "typescript": "^3.0.3"
     }
