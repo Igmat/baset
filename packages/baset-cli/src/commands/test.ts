@@ -16,7 +16,7 @@ interface ITestArgs extends IGlobalArgs {
     isolateContext: boolean;
 }
 
-const testCommand: CommandModule = {
+const testCommand: CommandModule<{}, ITestArgs> = {
     command: 'test',
     aliases: ['$0', 't'],
     describe: 'Creating temp baseline and comparing it to existing one',
@@ -45,7 +45,7 @@ const testCommand: CommandModule = {
             default: false,
         },
     },
-    handler: async (argv: ITestArgs) => {
+    handler: async argv => {
         let isSucceeded = true;
         const [allSpecs, allBaselines] = await Promise.all([glob(argv.specs), glob(argv.bases)]);
         const specs = allSpecs.filter(filterNodeModules);

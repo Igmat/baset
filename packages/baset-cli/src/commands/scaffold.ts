@@ -1,9 +1,9 @@
-import { Scaffolder, utils } from 'baset-core';
+import { Scaffolder } from 'baset-core';
 import glob from 'glob-promise';
 import { CommandModule } from 'yargs';
 import { IGlobalArgs } from '../options';
 
-interface IAcceptArgs extends IGlobalArgs {
+interface IScaffoldArgs extends IGlobalArgs {
     files: string;
     specs: string;
 }
@@ -18,7 +18,7 @@ function complementArray<T>(arrayA: T[], arrayB: T[]) {
     });
 }
 
-const scaffoldCommand: CommandModule = {
+const scaffoldCommand: CommandModule<{}, IScaffoldArgs> = {
     command: ['scaffold'],
     aliases: ['s'],
     describe: 'Scaffolding new spec',
@@ -36,7 +36,7 @@ const scaffoldCommand: CommandModule = {
             default: '**/*.spec.js',
         },
     },
-    handler: async (argv: IAcceptArgs) => {
+    handler: async argv => {
         const files = await glob(argv.files);
         const specs = await glob(argv.specs);
         complementArray(specs, files);

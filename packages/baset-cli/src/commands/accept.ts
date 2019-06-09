@@ -7,7 +7,7 @@ interface IAcceptArgs extends IGlobalArgs {
     bases: string;
 }
 
-const acceptCommand: CommandModule = {
+const acceptCommand: CommandModule<{}, IAcceptArgs> = {
     command: ['accept'],
     aliases: ['a'],
     describe: 'Accepting new baseline',
@@ -19,7 +19,7 @@ const acceptCommand: CommandModule = {
             default: '**/*.base',
         },
     },
-    handler: async (argv: IAcceptArgs) => {
+    handler: async argv => {
         const baselines = await glob(utils.pathToTmp(argv.bases));
         const tester = new Tester(argv.plugins, argv.options);
         const results = await Promise.all(tester.accept(baselines));
