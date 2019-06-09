@@ -214,27 +214,28 @@ interface IHost extends NodeJS.Global {
         function requireBuiltin(builtInName: string) {
             if (BUILTINS[builtInName]) return BUILTINS[builtInName].exports; // Only compiled builtins are stored here
 
-            if (builtInName === 'events') {
-                try {
-                    const script = new Script(
-                        `(function (exports, require, module, process) { 'use strict'; ${BUILTIN_MODULES[builtInName]} \n});`,
-                        {
-                            filename: `${builtInName}.vm.js`,
-                        },
-                    );
+            // TODO: check whether we need special handling for 'events'
+            // if (builtInName === 'events') {
+            //     try {
+            //         const script = new Script(
+            //             `(function (exports, require, module, process) { 'use strict'; ${BUILTIN_MODULES[builtInName]} \n});`,
+            //             {
+            //                 filename: `${builtInName}.vm.js`,
+            //             },
+            //         );
 
-                    // setup module scope
-                    const module = createModule(builtInName, requireBuiltin, `${builtInName}.vm.js`);
-                    BUILTINS[builtInName] = module;
+            //         // setup module scope
+            //         const module = createModule(builtInName, requireBuiltin, `${builtInName}.vm.js`);
+            //         BUILTINS[builtInName] = module;
 
-                    // run script
-                    script.runInContext(global)(module.exports, module.require, module, host.process);
+            //         // run script
+            //         script.runInContext(global)(module.exports, module.require, module, host.process);
 
-                    return module.exports;
-                } catch (e) {
-                    throw e;
-                }
-            }
+            //         return module.exports;
+            //     } catch (e) {
+            //         throw e;
+            //     }
+            // }
 
             return host.require(builtInName);
         }
@@ -271,7 +272,7 @@ interface IHost extends NodeJS.Global {
      * Prepare require.
      */
     function prepareRequire(currentDirname: string, skipedMock?: string) {
-        return function require(modulename: string, mockedModuleName?: string): unknown {
+        function require(modulename: string, mockedModuleName?: string): unknown {
             if (vm.options.nesting && modulename === 'baset-vm') return { NodeVM: host.NodeVM };
             if (!vm.options.require) throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
             if (modulename === undefined) throw new VMError("Module '' not found.", 'ENOTFOUND');
@@ -292,20 +293,7 @@ interface IHost extends NodeJS.Global {
                 throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
             }
 
-            let filename: string | null = null;
-            if (/^(\.|\.\/|\.\.\/)/.exec(modulename)) {
-                // Module is relative file, e.g. ./script.js or ../script.js
-                if (!currentDirname) throw new VMError('You must specify script path to load relative modules.', 'ENOPATH');
-
-                filename = resolveFilename(`${currentDirname}/${modulename}`);
-            } else {
-                // Module is absolute file, e.g. /script.js or //server/script.js or C:\script.js
-                filename = (/^(\/|\\|[a-zA-Z]:\\)/.exec(modulename))
-                    ? resolveFilename(modulename)
-                    : resolveFilenameLikeNode(modulename, currentDirname);
-            }
-
-            if (!filename) throw new VMError(`Cannot find module '${modulename}'`, 'ENOTFOUND');
+            const filename = require.resolve(modulename);
 
             // return cache whenever possible
             if (CACHE[filename]) return CACHE[filename].exports;
@@ -331,7 +319,31 @@ interface IHost extends NodeJS.Global {
             }
 
             throw new VMError(`Failed to load '${modulename}': Unknown type.`, 'ELOADFAIL');
+        }
+        require.resolve = (modulename: string) => {
+            if (!vm.options.require) throw new VMError(`Access denied to require '${modulename}'`, 'EDENIED');
+            if (modulename === undefined) throw new VMError("Module '' not found.", 'ENOTFOUND');
+            if (typeof modulename !== 'string') throw new VMError(`Invalid module name '${modulename}'`, 'EINVALIDNAME');
+
+            let filename: string | null = null;
+            if (/^(\.|\.\/|\.\.\/)/.exec(modulename)) {
+                // Module is relative file, e.g. ./script.js or ../script.js
+                if (!currentDirname) throw new VMError('You must specify script path to load relative modules.', 'ENOPATH');
+
+                filename = resolveFilename(`${currentDirname}/${modulename}`);
+            } else {
+                // Module is absolute file, e.g. /script.js or //server/script.js or C:\script.js
+                filename = (/^(\/|\\|[a-zA-Z]:\\)/.exec(modulename))
+                    ? resolveFilename(modulename)
+                    : resolveFilenameLikeNode(modulename, currentDirname);
+            }
+
+            if (!filename) throw new VMError(`Cannot find module '${modulename}'`, 'ENOTFOUND');
+
+            return filename;
         };
+
+        return require;
     }
 
     /**
