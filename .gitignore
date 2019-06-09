@@ -66,3 +66,4 @@ lerna-debug.log
 **/*.spec.tmp.md
 **/*.spec.tmp.base
 **/*.spec.base.tmp.md
+tests/tap.xml

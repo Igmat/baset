@@ -1,0 +1,33 @@
+parameters:
+  name: ''
+  vmImage: ''
+
+jobs:
+- job: ${{ parameters.name }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  strategy:
+    matrix:
+      node_v8:
+        node_version: 8.x
+      node_v9:
+        node_version: 9.x
+      node_v10:
+        node_version: 10.x
+      node_v11:
+        node_version: 11.x
+    maxParallel: 4
+
+  steps:
+  - template: build-steps.yml
+    parameters:
+      node_version: $(node_version)
+
+  - script: npm run test:ci
+    displayName: 'Test'
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: 'tests/tap.xml'
