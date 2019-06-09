@@ -3,9 +3,6 @@
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Igmat/baset.svg)](https://greenkeeper.io/)
-[![Travis CI](https://travis-ci.org/Igmat/baset.svg?branch=master)](https://travis-ci.org/Igmat/baset)
-[![Build status](https://ci.appveyor.com/api/projects/status/xpalrob91ur08xtt/branch/master?svg=true)](https://ci.appveyor.com/project/Igmat/baset/branch/master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Igmat/baset?branch=master)](https://bettercodehub.com/)
 [![CodeFactor](https://www.codefactor.io/repository/github/igmat/baset/badge)](https://www.codefactor.io/repository/github/igmat/baset)
 [![Known Vulnerabilities](https://snyk.io/test/npm/baset/badge.svg)](https://snyk.io/test/npm/baset)
@@ -15,12 +12,12 @@
 [npm-badge-png]: https://nodei.co/npm/baset.png?downloads=true&downloadRank=true&stars=true
 [package-url]: https://npmjs.com/package/baset
 
-# ![BaseT](/docs/images/logo.svg)
+# ![BaseT](/docs/images/logo.svg) <!-- omit in toc -->
 > Tool for testing using baseline strategy.
 
 > **WARNING:** it's early beta, so documentation may have mistakes, if you face any problems feel free to create [issues](https://github.com/Igmat/baset/issues).
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -50,12 +47,12 @@ This tool much like [Jest](https://facebook.github.io/jest/) or [Mocha](https://
 But unlike other most known frameworks it uses another approach which could be named **Baseline Strategy**. Initially inspired by [TypeScript](https://github.com/Microsoft/TypeScript) tests (see them [here](https://github.com/Microsoft/TypeScript/tree/master/tests)) it looks like thing that's able to change way we're testing.
 
 ## Motivation
-Current situation with **TDD** and tooling around it is complicated.  
+Current situation with **TDD** and tooling around it is complicated.
 There are a lot of problems and corner cases. And while everybody agrees that unit-testing is generally correct approach, amount of efforts required by it frequently makes TDD unsuitable for particular project.
 
 We are trying to change it.
 
-Our goal is moving TDD from processes (like agile, scrum, waterfall, etc.) to developer's tooling (like linters, compilers, etc.).  
+Our goal is moving TDD from processes (like agile, scrum, waterfall, etc.) to developer's tooling (like linters, compilers, etc.).
 In order to achieve it we have to focus on real strengths of TDD and unit-testing:
 
 1. Preventing unintentional breaking changes, in other words freezing existing behavior as some sort of 'baseline';
@@ -64,7 +61,7 @@ In order to achieve it we have to focus on real strengths of TDD and unit-testin
 To understand core idea and approach better, you can read [**Is TDD wrong?**](./docs/Is_TDD_wrong.md) ([RU](./docs/Is_TDD_wrong.RU.md))
 
 ## How it works?
-Let's assume you have module `yourModule.js` that exports one function.  
+Let's assume you have module `yourModule.js` that exports one function.
 Baseline test (e.g. `yourModule.spec.js`) will look like this:
 ```JavaScript
 const yourModule = require('yourModule');
@@ -88,14 +85,14 @@ Run:
 ```
 baset test
 ```
-And this test will produce file `yourModule.spec.tmp.base`.  
+And this test will produce file `yourModule.spec.tmp.base`.
 It's temporary unverified baseline and contains all exported values (e.g. `oneUsage`, `severalUsages`, etc.).
 Just take a look at them and if you think they are correct run:
 ```
 baset accept
 ```
-And `yourModule.spec.base` will be generated.  
-From this point you have **test** and **baseline** for `yourModule` that describe its behavior.  
+And `yourModule.spec.base` will be generated.
+From this point you have **test** and **baseline** for `yourModule` that describe its behavior.
 All further test runs will compare generated `yourModule.spec.tmp.base` with `yourModule.spec.base` and _fail_ if they are different, or _pass_ otherwise.
 
 ## Why I have to use it?
@@ -211,7 +208,7 @@ The most important configuration option is `plugins`. You may configure it via c
     }
 }
 ```
-`${pattern}` - is regular expression for filename of your test files, so you may define different plugin options for different file types (e.g. using `baset-reader-ts` for `.ts` files and `baset-reader-babel` for `.js` files).  
+`${pattern}` - is regular expression for filename of your test files, so you may define different plugin options for different file types (e.g. using `baset-reader-ts` for `.ts` files and `baset-reader-babel` for `.js` files).
 `${options}` - is `string` or `string[]` or `object` with following fields:
 
 |     Field      |                                                                           Description                                                                            |        Type         |    Default value     |
@@ -223,7 +220,7 @@ The most important configuration option is `plugins`. You may configure it via c
 | imports        | name or path to module(s), that should be imported in test context (e.g. polyfills or [reflect-metadata](https://github.com/rbuckton/reflect-metadata))          | string[] \| string  | undefined            |
 | isolateContext | Run each test in isolated context. May be usefull, if your tests/code may affect other tests by mutating globals. **ATTENTION**: this will slow down your tests. | boolean             | false                |
 
-If `${options}` is `string`, then it used as `baseliner` name or path.  
+If `${options}` is `string`, then it used as `baseliner` name or path.
 If `${options}` is `string[]`, then it has to follow next agreement for its content:
 ```
 ["-env-pluginOrPath", ..."importPaths", ..."-reader-pluginsOrPaths",  ..."-resolver-pluginsOrPaths", "-baseliner-pluginOrPath"]
@@ -236,14 +233,14 @@ Just type following command in your favorite terminal:
 ```
 baset -p ${pattern}:${options}
 ```
-`${pattern}` - is regular expression for filename of your test files (same as in previous paragraph).  
+`${pattern}` - is regular expression for filename of your test files (same as in previous paragraph).
 `${options}` - is `string[]`, where values are separated by `:` sign. This array has exactly same semantic as using `string[]` in configuration file.
 
 ## Examples
 Our [tests folder](./tests) contains projects used for end-to-end tests of `baset` package (using `baset` itself, of course), so you can use them as references for integrating baset into your workflow.
 
 ## Plugins
-There are only few plugins right now:  
+There are only few plugins right now:
 1. [`baset-baseliner-json`](./packages/baset-baseliner-json) - default plugin that used for creating baseline from exported values of spec
 2. [`baset-baseliner-md`](./packages/baset-baseliner-md) - plugin that used for creating baselines in Markdown format
 3. [`baset-env-browser`](./packages/baset-env-browser) - simple plugin that enables browser API in specs and sources using [jsdom](https://github.com/jsdom/jsdom) package.
@@ -269,5 +266,5 @@ Read to contribute [PULL REQUEST TEMPLATE](.github/PULL_REQUEST_TEMPLATE.md)
 
 ## License
 
-Copyright (c) Ihor Chulinda.  
+Copyright (c) Ihor Chulinda.
 This source code is licensed under the [MIT license](LICENSE).

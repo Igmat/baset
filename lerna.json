@@ -5,9 +5,14 @@
     ],
     "version": "0.14.8",
     "command": {
+        "bootstrap": {
+            "hoist": "**"
+        },
         "publish": {
             "allowBranch": "master",
             "conventionalCommits": true,
+            "githubRelease": true,
+            "private": false,
             "ignoreChanges": [
                 "*.md",
                 "LICENSE",
