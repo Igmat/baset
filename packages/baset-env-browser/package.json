@@ -29,15 +29,14 @@
         "prepublish": "npm run doctoc"
     },
     "devDependencies": {
-        "@types/express": "^4.16.0",
-        "@types/jsdom": "^11.12.0",
-        "@types/node": "^10.10.0"
+        "@types/express": "^4.17.0",
+        "@types/jsdom": "^12.2.3",
+        "@types/node": "^12.0.7"
     },
     "dependencies": {
         "baset-core": "^0.14.7",
-        "canvas-prebuilt": "^1.6.11",
-        "express": "^4.16.3",
-        "jsdom": "^12.0.0",
-        "node-pre-gyp": "^0.11.0"
+        "canvas": "^2.5.0",
+        "express": "^4.17.1",
+        "jsdom": "^15.1.1"
     }
 }
