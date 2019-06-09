@@ -30,7 +30,7 @@
         "prepublish": "npm run doctoc"
     },
     "devDependencies": {
-        "@types/node": "^10.10.0",
+        "@types/node": "^12.0.7",
         "@types/pixi.js": "^4.8.0"
     },
     "dependencies": {

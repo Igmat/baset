@@ -1,0 +1,61 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+pr:
+  branches:
+    include:
+    - master
+
+jobs:
+# TODO: fix tests on mac
+# - template: configs/build-job.yml
+#   parameters:
+#     name: macOS
+#     vmImage: 'macOS-10.13'
+
+- template: configs/build-job.yml
+  parameters:
+    name: Linux
+    vmImage: 'ubuntu-16.04'
+
+- template: configs/build-job.yml
+  parameters:
+    name: Windows
+    vmImage: 'vs2017-win2016'
+
+- job: Release
+  dependsOn:
+#  - macOS
+  - Linux
+  - Windows
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 11.x
+    displayName: 'Install Node.js'
+  - script: npm install
+    displayName: 'Install dependencies'
+  - script: |
+      git config --global user.email "ichulinda@gmail.com"
+      git config --global user.name "Igmat (Azure DevOps)"
+      git remote set-url origin https://$(github.token)@github.com/Igmat/metaf.git > /dev/null 2>&1
+      git checkout master
+    displayName: 'Configure git'
+  - task: Npm@1
+    env:
+        GH_TOKEN: $(github.token)
+    inputs:
+      command: 'custom'
+      customCommand: 'run release'
+      customEndpoint: 'npm'
+    displayName: 'Publish'

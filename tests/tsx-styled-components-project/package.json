@@ -3,8 +3,8 @@
   "version": "0.14.8",
   "private": true,
   "dependencies": {
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-scripts-ts": "^2.17.0",
     "styled-components": "^3.4.6"
   },
@@ -17,9 +17,9 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
-    "@types/node": "^10.10.0",
-    "@types/react": "^16.4.14",
-    "@types/react-dom": "^16.0.7",
+    "@types/node": "^12.0.7",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
     "@types/styled-components": "^3.0.1",
     "baset": "^0.14.8",
     "baset-baseliner-md": "^0.14.8",
@@ -27,6 +27,6 @@
     "baset-env-browser": "^0.14.7",
     "baset-reader-ts": "^0.14.7",
     "baset-resolver-react": "^0.14.7",
-    "typescript": "^3.0.3"
+    "typescript": "^3.5.1"
   }
 }

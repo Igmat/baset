@@ -14,6 +14,7 @@
         "build": "lerna run build",
         "watch": "lerna run watch --parallel",
         "test": "lerna link && node ./packages/baset/bin/index.js",
+        "test:ci": "lerna link && node ./packages/baset/bin/index.js -r | tap-junit --output tests",
         "accept": "node ./packages/baset/bin/index.js a",
         "help": "node ./packages/baset/bin/index.js --help",
         "doctoc": "doctoc README.md docs/CONTRIBUTING.md docs/Is_TDD_wrong.md docs/Is_TDD_wrong.RU.md",
@@ -32,9 +33,10 @@
         "git-url-parse": "^10.0.1",
         "husky": "^2.4.0",
         "lerna": "^3.14.1",
+        "lint-staged": "7.3.0",
+        "tap-junit": "^3.1.0",
         "tslint": "^5.11.0",
-        "typescript": "^3.5.1",
-        "lint-staged": "7.3.0"
+        "typescript": "^3.5.1"
     },
     "config": {
         "commitizen": {

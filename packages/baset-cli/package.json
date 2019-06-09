@@ -30,7 +30,7 @@
     "devDependencies": {
         "@types/find-up": "^2.1.1",
         "@types/glob": "^5.0.35",
-        "@types/node": "^10.10.0",
+        "@types/node": "^12.0.7",
         "@types/yargs": "^12.0.0"
     },
     "dependencies": {
