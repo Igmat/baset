@@ -1,5 +1,11 @@
 {
-  "extends": [
-    "config:base"
-  ]
+    "extends": [
+        "config:js-lib",
+        ":automergeMinor",
+        ":automergeBranchPush",
+        ":automergeRequireAllStatusChecks",
+        ":maintainLockFilesWeekly",
+        ":unpublishSafe"
+    ],
+    "statusCheckVerify": true
 }
