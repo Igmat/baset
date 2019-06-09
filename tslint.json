@@ -209,7 +209,6 @@
             true,
             "allow-fast-null-checks"
         ],
-        "no-unused-variable": true,
         "no-use-before-declare": true,
         "no-var-requires": true,
         "no-void-expression": [
@@ -269,7 +268,7 @@
             0
         ],
         "strict-boolean-expressions": [
-            true,
+            false,
             "allow-null-union",
             "allow-undefined-union",
             "allow-string",
