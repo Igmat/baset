@@ -36,6 +36,6 @@
     "dependencies": {
         "baset-core": "^0.14.7",
         "baset-vm": "^0.14.4",
-        "pixi.js": "^4.8.2"
+        "pixi.js": "^4.8.4"
     }
 }
