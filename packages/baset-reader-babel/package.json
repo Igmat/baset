@@ -1,48 +1,51 @@
 {
-    "name": "baset-reader-babel",
-    "version": "0.14.7",
-    "description": "Babel reader plugin for BaseT project.",
-    "keywords": [
-        "baset-reader-babel",
-        "baset-plugin-babel",
-        "babel",
-        "ESnext",
-        "ES6",
-        "ES2015",
-        "ES2016",
-        "baseline",
-        "unit-test",
-        "test",
-        "testing",
-        "e2e-test"
-    ],
-    "author": "Ihor Chulinda <ichulinda@gmail.com>",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:Igmat/baset.git"
-    },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "npm run tslint && tsc",
-        "watch": "npm run tslint && tsc -w",
-        "tslint": "tslint -c tslint.json -p tsconfig.json",
-        "test": "baset",
-        "accept": "baset accept",
-        "doctoc": "doctoc README.md",
-        "prepublish": "npm run doctoc"
-    },
-    "devDependencies": {
-        "@types/babel-core": "^6.25.5",
-        "@types/find-up": "^2.1.1",
-        "@types/lodash": "^4.14.116",
-        "@types/node": "^10.10.0"
-    },
-    "dependencies": {
-        "babel-core": "^6.26.3",
-        "baset-core": "^0.14.7",
-        "find-up": "^3.0.0",
-        "lodash": "^4.17.11"
-    }
+  "name": "baset-reader-babel",
+  "version": "0.14.7",
+  "description": "Babel reader plugin for BaseT project.",
+  "keywords": [
+    "baset-reader-babel",
+    "baset-plugin-babel",
+    "babel",
+    "ESnext",
+    "ES6",
+    "ES2015",
+    "ES2016",
+    "baseline",
+    "unit-test",
+    "test",
+    "testing",
+    "e2e-test"
+  ],
+  "author": "Ihor Chulinda <ichulinda@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Igmat/baset.git"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run tslint && tsc",
+    "watch": "npm run tslint && tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "baset",
+    "accept": "baset accept",
+    "doctoc": "doctoc README.md",
+    "prepublish": "npm run snyk-protect && npm run doctoc",
+    "snyk-protect": "snyk-protect"
+  },
+  "devDependencies": {
+    "@types/babel-core": "^6.25.5",
+    "@types/find-up": "^2.1.1",
+    "@types/lodash": "^4.14.116",
+    "@types/node": "^10.10.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "baset-core": "^0.14.7",
+    "find-up": "^3.0.0",
+    "lodash": "^4.17.21",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
